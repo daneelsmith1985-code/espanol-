@@ -2,923 +2,596 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-status-bar-style" content="default">
 <meta name="apple-mobile-web-app-title" content="Español">
-<title>Español – Spanish Flashcards</title>
+<title>Español</title>
 <style>
-  :root {
-    --coral: #D85A30;
-    --coral-light: #FAECE7;
-    --coral-mid: #993C1D;
-    --coral-dark: #712B13;
-    --purple: #534AB7;
-    --purple-light: #EEEDFE;
-    --bg: #FFFFFF;
-    --bg2: #F5F4F0;
-    --bg3: #EEECE6;
-    --text: #1A1A18;
-    --text2: #6B6A63;
-    --text3: #9B9A93;
-    --border: rgba(0,0,0,0.12);
-    --border2: rgba(0,0,0,0.2);
-    --success-bg: #EAF3DE;
-    --success-text: #27500A;
-    --danger-bg: #FCEBEB;
-    --danger-text: #A32D2D;
-    --radius: 12px;
-    --radius-sm: 8px;
-  }
-  @media (prefers-color-scheme: dark) {
-    :root {
-      --bg: #1A1A18;
-      --bg2: #242421;
-      --bg3: #2E2E2A;
-      --text: #F0EEE8;
-      --text2: #9B9A93;
-      --text3: #6B6A63;
-      --border: rgba(255,255,255,0.12);
-      --border2: rgba(255,255,255,0.2);
-      --coral-light: #3A1A0E;
-      --coral-mid: #F0997B;
-      --purple-light: #1E1B3A;
-      --success-bg: #173404;
-      --success-text: #C0DD97;
-      --danger-bg: #501313;
-      --danger-text: #F7C1C1;
-    }
-  }
-  * { box-sizing: border-box; margin: 0; padding: 0; -webkit-tap-highlight-color: transparent; }
-  html, body { height: 100%; background: var(--bg); color: var(--text); font-family: -apple-system, 'SF Pro Text', system-ui, sans-serif; font-size: 16px; line-height: 1.5; overscroll-behavior: none; }
-  #app { max-width: 420px; margin: 0 auto; min-height: 100vh; padding-bottom: env(safe-area-inset-bottom, 16px); }
-  .page { padding: 1.25rem 1rem; }
-  button { font-family: inherit; cursor: pointer; }
-  input { font-family: inherit; }
-  .back-btn { background: none; border: none; display: flex; align-items: center; gap: 6px; color: var(--text2); font-size: 14px; padding: 0; margin-bottom: 1.5rem; }
-  .back-btn svg { width: 18px; height: 18px; }
-  .card { background: var(--bg); border: 0.5px solid var(--border2); border-radius: var(--radius); padding: 1.25rem; }
-  .metric-card { background: var(--bg2); border-radius: var(--radius-sm); padding: 0.875rem 1rem; }
-  .metric-card .label { font-size: 12px; color: var(--text2); margin-bottom: 4px; }
-  .metric-card .value { font-size: 24px; font-weight: 500; }
-  .pill { font-size: 11px; font-weight: 500; letter-spacing: 0.05em; padding: 3px 8px; border-radius: 5px; text-transform: uppercase; display: inline-block; }
-  .btn-primary { background: var(--coral); color: white; border: none; border-radius: var(--radius); padding: 0.875rem 1rem; font-size: 14px; font-weight: 500; width: 100%; }
-  .btn-primary:disabled { opacity: 0.4; cursor: not-allowed; }
-  .btn-secondary { background: var(--bg); color: var(--text); border: 0.5px solid var(--border2); border-radius: var(--radius); padding: 0.875rem 1rem; font-size: 14px; width: 100%; }
-  .btn-secondary:active, .btn-primary:active { opacity: 0.8; transform: scale(0.98); }
-  .input-field { width: 100%; padding: 0.75rem 1rem; border: 0.5px solid var(--border2); border-radius: var(--radius-sm); background: var(--bg); color: var(--text); font-size: 16px; outline: none; }
-  .input-field:focus { border-color: var(--coral); }
-  .progress-bar { height: 4px; border-radius: 2px; background: var(--bg3); overflow: hidden; }
-  .progress-fill { height: 100%; border-radius: 2px; background: var(--coral); transition: width 0.3s ease; }
-  .screen { display: none; }
-  .screen.active { display: block; }
-  .icon-box { width: 40px; height: 40px; border-radius: 10px; display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
-  .level-badge { width: 44px; height: 44px; border-radius: 10px; background: var(--coral-light); display: flex; align-items: center; justify-content: center; font-size: 13px; font-weight: 500; color: var(--coral-mid); flex-shrink: 0; }
-  .toast { position: fixed; bottom: calc(24px + env(safe-area-inset-bottom, 0px)); left: 50%; transform: translateX(-50%); background: var(--text); color: var(--bg); padding: 10px 20px; border-radius: 20px; font-size: 13px; font-weight: 500; opacity: 0; transition: opacity 0.3s; pointer-events: none; z-index: 999; white-space: nowrap; }
-  .toast.show { opacity: 1; }
-  .accent-row { display: flex; gap: 4px; flex-wrap: wrap; margin-bottom: 0.875rem; }
-  .accent-btn { padding: 5px 10px; background: var(--bg2); border: 0.5px solid var(--border); border-radius: 6px; font-size: 15px; color: var(--text); min-width: 36px; text-align: center; }
-  .score-row { display: flex; justify-content: center; gap: 24px; margin-top: 1.25rem; }
-  .score-item { display: flex; align-items: center; gap: 5px; font-size: 13px; }
-  .tab-bar { display: flex; background: var(--bg2); border-radius: var(--radius-sm); padding: 3px; gap: 3px; margin-bottom: 1.25rem; }
-  .tab-btn { flex: 1; padding: 7px; border: none; background: none; border-radius: 7px; font-size: 13px; font-weight: 500; color: var(--text2); transition: all 0.15s; }
-  .tab-btn.active { background: var(--bg); color: var(--text); box-shadow: 0 1px 3px rgba(0,0,0,0.1); }
-  .section-label { font-size: 11px; font-weight: 600; letter-spacing: 0.07em; text-transform: uppercase; color: var(--text3); margin-bottom: 10px; }
-  .level-check { width: 22px; height: 22px; border-radius: 50%; border: 0.5px solid var(--border2); display: flex; align-items: center; justify-content: center; flex-shrink: 0; transition: all 0.15s; }
-  .level-check.checked { background: var(--coral); border-color: var(--coral); }
-  .settings-link { background: none; border: none; display: flex; align-items: center; gap: 8px; color: var(--text2); font-size: 14px; padding: 8px 0; }
-  @keyframes pulse { 0%,100%{opacity:1} 50%{opacity:0.3} }
+body{--coral:#D85A30;--coral-l:#FAECE7;--coral-m:#993C1D;--purple:#534AB7;--purple-l:#EEEDFE;--green:#2E7D32;--green-l:#E8F5E9;--amber:#F57C00;--amber-l:#FFF3E0;--red:#C62828;--red-l:#FFEBEE;--bg:#fff;--bg2:#F5F4F0;--bg3:#EEECE6;--tx:#1A1A18;--tx2:#6B6A63;--tx3:#9B9A93;--bdr:rgba(0,0,0,0.15);--ok-bg:#EAF3DE;--ok-tx:#27500A;--err-bg:#FCEBEB;--err-tx:#A32D2D;--r:12px;--rs:8px}
+body[data-theme="dark"]{--bg:#1A1A18;--bg2:#242421;--bg3:#2E2E2A;--tx:#F0EEE8;--tx2:#9B9A93;--tx3:#6B6A63;--bdr:rgba(255,255,255,0.15);--coral-l:#3A1A0E;--coral-m:#F0997B;--purple-l:#1E1B3A;--green-l:#1B3A1E;--amber-l:#3A2A0E;--red-l:#3A0E0E;--ok-bg:#173404;--ok-tx:#C0DD97;--err-bg:#501313;--err-tx:#F7C1C1}
+@media(prefers-color-scheme:dark){body:not([data-theme="light"]){--bg:#1A1A18;--bg2:#242421;--bg3:#2E2E2A;--tx:#F0EEE8;--tx2:#9B9A93;--tx3:#6B6A63;--bdr:rgba(255,255,255,0.15);--coral-l:#3A1A0E;--coral-m:#F0997B;--purple-l:#1E1B3A;--green-l:#1B3A1E;--amber-l:#3A2A0E;--red-l:#3A0E0E;--ok-bg:#173404;--ok-tx:#C0DD97;--err-bg:#501313;--err-tx:#F7C1C1}}
+*{box-sizing:border-box;margin:0;padding:0;-webkit-tap-highlight-color:transparent}
+body{background:var(--bg);color:var(--tx);font-family:-apple-system,system-ui,sans-serif;font-size:16px;line-height:1.5;min-height:100vh;transition:background .2s,color .2s}
+#app{max-width:420px;margin:0 auto;padding:1.25rem 1rem 2rem}
+button{font-family:inherit;cursor:pointer}input{font-family:inherit}
+.btn-p{background:var(--coral);color:#fff;border:none;border-radius:var(--r);padding:.875rem 1rem;font-size:14px;font-weight:500;width:100%}
+.btn-p:disabled{opacity:.4;cursor:not-allowed}
+.btn-s{background:var(--bg);color:var(--tx);border:.5px solid var(--bdr);border-radius:var(--r);padding:.875rem 1rem;font-size:14px;width:100%}
+.mcard{background:var(--bg2);border-radius:var(--rs);padding:.875rem 1rem}
+.inp{width:100%;padding:.75rem 1rem;border:.5px solid var(--bdr);border-radius:var(--rs);background:var(--bg);color:var(--tx);font-size:16px;outline:none}
+.inp:focus{border-color:var(--coral)}
+.pbar{height:4px;border-radius:2px;background:var(--bg3);overflow:hidden}
+.pfill{height:100%;border-radius:2px;background:var(--coral);transition:width .3s}
+.pill{font-size:11px;font-weight:600;letter-spacing:.05em;padding:3px 8px;border-radius:5px;text-transform:uppercase;display:inline-block}
+.sec{font-size:11px;font-weight:600;letter-spacing:.07em;text-transform:uppercase;color:var(--tx3);margin-bottom:10px}
+.lbadge{width:44px;height:44px;border-radius:10px;background:var(--coral-l);display:flex;align-items:center;justify-content:center;font-size:13px;font-weight:500;color:var(--coral-m);flex-shrink:0}
+.ichk{width:22px;height:22px;border-radius:50%;border:.5px solid var(--bdr);display:flex;align-items:center;justify-content:center;flex-shrink:0}
+.ichk.on{background:var(--coral);border-color:var(--coral)}
+.acc{padding:5px 10px;background:var(--bg2);border:.5px solid var(--bdr);border-radius:6px;font-size:15px;color:var(--tx);min-width:36px;text-align:center}
+.sr{display:flex;justify-content:center;gap:24px;margin-top:1.25rem}
+.si{display:flex;align-items:center;gap:5px;font-size:13px}
+.toast{position:fixed;bottom:calc(24px + env(safe-area-inset-bottom,0px));left:50%;transform:translateX(-50%);background:var(--tx);color:var(--bg);padding:10px 20px;border-radius:20px;font-size:13px;font-weight:500;opacity:0;transition:opacity .3s;pointer-events:none;z-index:999;white-space:nowrap}
+.toast.show{opacity:1}
+@keyframes pulse{0%,100%{opacity:1}50%{opacity:.3}}
+.dot{width:7px;height:7px;border-radius:50%;background:var(--coral);display:inline-block;animation:pulse 1s infinite}
+.seg-bar{height:6px;border-radius:3px;overflow:hidden;display:flex;margin-top:6px}
+.seg-green{background:var(--green);height:100%}
+.seg-amber{background:var(--amber);height:100%}
+.seg-gray{background:var(--bg3);height:100%;flex:1}
+.stat-dot{width:8px;height:8px;border-radius:50%;display:inline-block;margin-right:3px;flex-shrink:0}
 </style>
 </head>
 <body>
-<div id="app">
-  <!-- HOME -->
-  <div id="screen-home" class="screen active page">
-    <div style="display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:2rem">
-      <div>
-        <div style="display:flex;align-items:center;gap:10px;margin-bottom:4px">
-          <div style="width:34px;height:34px;border-radius:9px;background:var(--coral);display:flex;align-items:center;justify-content:center">
-            <span style="color:white;font-size:14px;font-weight:600">Es</span>
-          </div>
-          <h1 style="font-size:24px;font-weight:600">Español</h1>
-        </div>
-        <p style="font-size:13px;color:var(--text2)">Spanish vocabulary &amp; verb practice</p>
-      </div>
-      <button class="settings-link" onclick="showScreen('settings')">
-        <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="12" cy="12" r="3"/><path d="M12 2v2M12 20v2M4.22 4.22l1.42 1.42M18.36 18.36l1.42 1.42M2 12h2M20 12h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42"/></svg>
-      </button>
-    </div>
-    <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:1.5rem">
-      <div class="metric-card"><div class="label">Words learned</div><div class="value" id="stat-learned">0</div></div>
-      <div class="metric-card"><div class="label">Sessions done</div><div class="value" id="stat-sessions">0</div></div>
-    </div>
-    <p class="section-label">Practice mode</p>
-    <button class="btn-secondary" onclick="showScreen('level-select')" style="display:flex;align-items:center;gap:12px;padding:1rem 1.25rem;text-align:left;margin-bottom:10px;width:100%">
-      <div class="icon-box" style="background:var(--coral-light)">
-        <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="var(--coral)" stroke-width="1.8"><path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/></svg>
-      </div>
-      <div style="flex:1">
-        <div style="font-weight:500;font-size:15px">Vocabulary</div>
-        <div style="font-size:12px;color:var(--text2);margin-top:2px">A1 → B2 · CEFR · spaced repetition</div>
-      </div>
-      <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="var(--text3)" stroke-width="2"><path d="M9 18l6-6-6-6"/></svg>
-    </button>
-    <button class="btn-secondary" onclick="showScreen('tense-select')" style="display:flex;align-items:center;gap:12px;padding:1rem 1.25rem;text-align:left;width:100%">
-      <div class="icon-box" style="background:var(--purple-light)">
-        <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="var(--purple)" stroke-width="1.8"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
-      </div>
-      <div style="flex:1">
-        <div style="font-weight:500;font-size:15px">Verb tenses</div>
-        <div style="font-size:12px;color:var(--text2);margin-top:2px">Conjugate across present, past &amp; future</div>
-      </div>
-      <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="var(--text3)" stroke-width="2"><path d="M9 18l6-6-6-6"/></svg>
-    </button>
-  </div>
-
-  <!-- LEVEL SELECT -->
-  <div id="screen-level-select" class="screen page">
-    <button class="back-btn" onclick="showScreen('home')">
-      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M19 12H5M12 5l-7 7 7 7"/></svg>
-      Back
-    </button>
-    <h2 style="font-size:20px;font-weight:600;margin-bottom:4px">Choose levels</h2>
-    <p style="font-size:13px;color:var(--text2);margin-bottom:1.5rem">Select one or more — mix beginner to advanced!</p>
-    <div id="level-cards"></div>
-    <button class="btn-primary" id="start-words-btn" onclick="startWordSession()" style="margin-top:8px" disabled>Start practice</button>
-  </div>
-
-  <!-- TENSE SELECT -->
-  <div id="screen-tense-select" class="screen page">
-    <button class="back-btn" onclick="showScreen('home')">
-      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M19 12H5M12 5l-7 7 7 7"/></svg>
-      Back
-    </button>
-    <h2 style="font-size:20px;font-weight:600;margin-bottom:4px">Choose tenses</h2>
-    <p style="font-size:13px;color:var(--text2);margin-bottom:1.5rem">Select which to practise (pick multiple)</p>
-    <div id="tense-cards"></div>
-    <button class="btn-primary" id="start-tense-btn" onclick="startTenseSession()" style="margin-top:8px">Start practice</button>
-  </div>
-
-  <!-- PRACTICE -->
-  <div id="screen-practice" class="screen page">
-    <div style="display:flex;align-items:center;gap:12px;margin-bottom:1.25rem">
-      <button onclick="confirmExit()" style="background:none;border:none;padding:4px;color:var(--text2)">
-        <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 6L6 18M6 6l12 12"/></svg>
-      </button>
-      <div class="progress-bar" style="flex:1"><div class="progress-fill" id="progress-fill" style="width:10%"></div></div>
-      <span style="font-size:12px;color:var(--text2);min-width:36px;text-align:right" id="progress-label">1/10</span>
-    </div>
-    <div style="display:flex;align-items:center;gap:8px;flex-wrap:wrap;margin-bottom:0.875rem">
-      <span class="pill" id="card-pill" style="background:var(--coral-light);color:var(--coral-mid)">A1</span>
-      <span id="skip-note" style="font-size:11px;color:var(--text3);display:none"></span>
-    </div>
-    <div class="card" style="min-height:148px;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;margin-bottom:1rem" id="card-face">
-      <p style="font-size:12px;color:var(--text2);margin-bottom:8px" id="card-instruction">Translate to Spanish</p>
-      <p style="font-size:36px;font-weight:500;line-height:1.2" id="card-word">—</p>
-      <p style="font-size:14px;color:var(--text2);margin-top:10px;letter-spacing:3px;display:none" id="hint-text"></p>
-    </div>
-    <div id="feedback-box" style="display:none;padding:0.875rem 1rem;margin-bottom:1rem;border-radius:var(--radius-sm)">
-      <p style="font-size:12px;font-weight:500;margin-bottom:6px" id="feedback-label"></p>
-      <div style="display:flex;align-items:center;gap:8px">
-        <span style="font-size:20px;font-weight:500" id="feedback-answer"></span>
-        <button onclick="speakAnswer()" style="background:none;border:none;padding:4px;color:var(--text2)">
-          <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="1.8"><polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"/><path d="M19.07 4.93a10 10 0 0 1 0 14.14M15.54 8.46a5 5 0 0 1 0 7.07"/></svg>
-        </button>
-      </div>
-      <p style="font-size:12px;color:var(--text2);margin-top:6px;display:none" id="feedback-typed"></p>
-    </div>
-    <div id="input-area">
-      <div style="display:flex;gap:8px;margin-bottom:6px">
-        <input class="input-field" type="text" id="answer-input" placeholder="Type or speak in Spanish…" autocomplete="off" autocorrect="off" spellcheck="false" autocapitalize="none" style="flex:1">
-        <button id="mic-btn" onclick="toggleMicSession()" style="padding:0 14px;border:0.5px solid var(--border2);border-radius:var(--radius-sm);background:var(--bg2);color:var(--text2);flex-shrink:0;transition:background 0.2s,color 0.2s">
-          <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M12 1a3 3 0 0 0-3 3v8a3 3 0 0 0 6 0V4a3 3 0 0 0-3-3z"/><path d="M19 10v2a7 7 0 0 1-14 0v-2M12 19v4M8 23h8"/></svg>
-        </button>
-      </div>
-      <div id="mic-status" style="display:none;font-size:12px;color:var(--coral);margin-bottom:6px;display:flex;align-items:center;gap:6px">
-        <span id="mic-dot" style="width:7px;height:7px;border-radius:50%;background:var(--coral);display:inline-block;animation:pulse 1s infinite"></span>
-        <span id="mic-status-text">Listening…</span>
-        <button id="try-again-btn" onclick="tryAgain()" style="display:none;margin-left:4px;background:none;border:none;color:var(--coral);font-size:12px;font-weight:500;text-decoration:underline;cursor:pointer;font-family:inherit">Try again</button>
-      </div>
-      <div class="accent-row" id="accent-row"></div>
-    </div>
-    <div id="action-row" style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:8px">
-      <button class="btn-secondary" id="hint-btn" onclick="showHint()" style="font-size:13px">Hint</button>
-      <button class="btn-secondary" onclick="skipCard()" style="font-size:13px">Skip</button>
-      <button class="btn-primary" id="check-btn" onclick="checkAnswer()" style="font-size:13px">Check</button>
-    </div>
-    <button class="btn-primary" id="next-btn" onclick="nextCard()" style="display:none">Next →</button>
-    <div class="score-row">
-      <div class="score-item" style="color:var(--success-text)">
-        <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>
-        <span id="score-c">0</span>
-      </div>
-      <div class="score-item" style="color:var(--danger-text)">
-        <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M18 6L6 18M6 6l12 12"/></svg>
-        <span id="score-w">0</span>
-      </div>
-      <div class="score-item" style="color:var(--text3)">
-        <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="9 18 15 12 9 6"/></svg>
-        <span id="score-p">0</span>
-      </div>
-    </div>
-  </div>
-
-  <!-- END -->
-  <div id="screen-end" class="screen page" style="text-align:center;padding-top:2rem">
-    <div id="end-icon" style="width:64px;height:64px;border-radius:32px;display:flex;align-items:center;justify-content:center;margin:0 auto 1rem"></div>
-    <h2 style="font-size:22px;font-weight:600;margin-bottom:4px" id="end-title"></h2>
-    <p style="font-size:14px;color:var(--text2);margin-bottom:2rem" id="end-sub"></p>
-    <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-bottom:2rem">
-      <div class="metric-card"><div class="value" id="end-c" style="color:var(--success-text)">0</div><div class="label">Correct</div></div>
-      <div class="metric-card"><div class="value" id="end-w" style="color:var(--danger-text)">0</div><div class="label">Incorrect</div></div>
-      <div class="metric-card"><div class="value" id="end-p">0</div><div class="label">Skipped</div></div>
-    </div>
-    <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px">
-      <button class="btn-secondary" onclick="showScreen('home')">Home</button>
-      <button class="btn-primary" onclick="repeatSession()">Practice again</button>
-    </div>
-  </div>
-
-  <!-- SETTINGS -->
-  <div id="screen-settings" class="screen page">
-    <button class="back-btn" onclick="showScreen('home')">
-      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M19 12H5M12 5l-7 7 7 7"/></svg>
-      Back
-    </button>
-    <h2 style="font-size:20px;font-weight:600;margin-bottom:1.5rem">Settings</h2>
-    <p class="section-label">Anthropic API key</p>
-    <p style="font-size:13px;color:var(--text2);margin-bottom:12px">Required for automatic vocabulary expansion. Get yours at <a href="https://console.anthropic.com" style="color:var(--coral)">console.anthropic.com</a></p>
-    <input class="input-field" type="password" id="api-key-input" placeholder="sk-ant-…" style="margin-bottom:10px">
-    <button class="btn-primary" onclick="saveApiKey()" style="margin-bottom:1.5rem">Save API key</button>
-    <p class="section-label">Session length</p>
-    <div style="display:flex;align-items:center;gap:12px;margin-bottom:1.5rem">
-      <input type="range" id="session-size" min="5" max="30" step="5" value="10" style="flex:1">
-      <span id="session-label" style="font-size:15px;font-weight:500;min-width:50px">10 cards</span>
-    </div>
-    <p class="section-label">Danger zone</p>
-    <button class="btn-secondary" onclick="resetProgress()" style="color:var(--danger-text);border-color:var(--danger-text)">Reset all progress</button>
-  </div>
-</div>
-
+<div id="app"></div>
 <div class="toast" id="toast"></div>
-
 <script>
-// ─── DATA ─────────────────────────────────────────────────────────────────────
-const LEVELS = ["A1","A2","B1","B2"];
-const LEVEL_NAMES = {A1:"Basic",A2:"Elementary",B1:"Intermediate",B2:"Upper-Intermediate"};
-const TENSES = ["present","preterite","imperfect","future"];
-const TENSE_NAMES = {present:"Present",preterite:"Past (Preterite)",imperfect:"Past (Imperfect)",future:"Future"};
-const PRONOUNS = ["yo","tú","él/ella","nosotros","vosotros","ellos/ellas"];
-const BOX_WEIGHT = [0,8,5,3,2,1];
-const ACCENT_CHARS = ["á","é","í","ó","ú","ü","ñ","¿","¡"];
-const MODEL = "claude-sonnet-4-20250514";
-
-const VOCAB = {
-  A1:[
-    {id:"a1_01",en:"hello",es:"hola"},{id:"a1_02",en:"goodbye",es:"adiós"},{id:"a1_03",en:"thank you",es:"gracias"},
-    {id:"a1_04",en:"please",es:"por favor"},{id:"a1_05",en:"yes",es:"sí"},{id:"a1_06",en:"no",es:"no"},
-    {id:"a1_07",en:"good morning",es:"buenos días"},{id:"a1_08",en:"good night",es:"buenas noches"},
-    {id:"a1_09",en:"name",es:"nombre"},{id:"a1_10",en:"house",es:"casa"},{id:"a1_11",en:"water",es:"agua"},
-    {id:"a1_12",en:"food",es:"comida"},{id:"a1_13",en:"bread",es:"pan"},{id:"a1_14",en:"milk",es:"leche"},
-    {id:"a1_15",en:"coffee",es:"café"},{id:"a1_16",en:"one",es:"uno"},{id:"a1_17",en:"two",es:"dos"},
-    {id:"a1_18",en:"three",es:"tres"},{id:"a1_19",en:"red",es:"rojo"},{id:"a1_20",en:"blue",es:"azul"},
-    {id:"a1_21",en:"green",es:"verde"},{id:"a1_22",en:"mother",es:"madre"},{id:"a1_23",en:"father",es:"padre"},
-    {id:"a1_24",en:"brother",es:"hermano"},{id:"a1_25",en:"sister",es:"hermana"},{id:"a1_26",en:"book",es:"libro"},
-    {id:"a1_27",en:"table",es:"mesa"},{id:"a1_28",en:"chair",es:"silla"},{id:"a1_29",en:"door",es:"puerta"},
-    {id:"a1_30",en:"window",es:"ventana"},{id:"a1_31",en:"dog",es:"perro"},{id:"a1_32",en:"cat",es:"gato"},
-    {id:"a1_33",en:"city",es:"ciudad"},{id:"a1_34",en:"street",es:"calle"},{id:"a1_35",en:"number",es:"número"},
-    {id:"a1_36",en:"year",es:"año"},{id:"a1_37",en:"day",es:"día"},{id:"a1_38",en:"night",es:"noche"},
-    {id:"a1_39",en:"man",es:"hombre"},{id:"a1_40",en:"woman",es:"mujer"},{id:"a1_41",en:"child",es:"niño"},
-    {id:"a1_42",en:"big",es:"grande"},{id:"a1_43",en:"small",es:"pequeño"},{id:"a1_44",en:"good",es:"bueno"},
-    {id:"a1_45",en:"bad",es:"malo"},{id:"a1_46",en:"to speak",es:"hablar"},{id:"a1_47",en:"to eat",es:"comer"},
-    {id:"a1_48",en:"to drink",es:"beber"},{id:"a1_49",en:"to live",es:"vivir"},{id:"a1_50",en:"to go",es:"ir"},
-    {id:"a1_51",en:"friend",es:"amigo"},{id:"a1_52",en:"school",es:"escuela"},{id:"a1_53",en:"colour",es:"color"},
-    {id:"a1_54",en:"sun",es:"sol"},{id:"a1_55",en:"moon",es:"luna"},{id:"a1_56",en:"sky",es:"cielo"},
-    {id:"a1_57",en:"tree",es:"árbol"},{id:"a1_58",en:"flower",es:"flor"},{id:"a1_59",en:"fish",es:"pez"},
-    {id:"a1_60",en:"bird",es:"pájaro"},
-  ],
-  A2:[
-    {id:"a2_01",en:"work",es:"trabajo"},{id:"a2_02",en:"shop",es:"tienda"},{id:"a2_03",en:"money",es:"dinero"},
-    {id:"a2_04",en:"weather",es:"tiempo"},{id:"a2_05",en:"week",es:"semana"},{id:"a2_06",en:"month",es:"mes"},
-    {id:"a2_07",en:"tomorrow",es:"mañana"},{id:"a2_08",en:"afternoon",es:"tarde"},{id:"a2_09",en:"family",es:"familia"},
-    {id:"a2_10",en:"car",es:"coche"},{id:"a2_11",en:"bus",es:"autobús"},{id:"a2_12",en:"train",es:"tren"},
-    {id:"a2_13",en:"airport",es:"aeropuerto"},{id:"a2_14",en:"hotel",es:"hotel"},{id:"a2_15",en:"restaurant",es:"restaurante"},
-    {id:"a2_16",en:"market",es:"mercado"},{id:"a2_17",en:"bank",es:"banco"},{id:"a2_18",en:"hospital",es:"hospital"},
-    {id:"a2_19",en:"doctor",es:"médico"},{id:"a2_20",en:"teacher",es:"profesor"},{id:"a2_21",en:"student",es:"estudiante"},
-    {id:"a2_22",en:"kitchen",es:"cocina"},{id:"a2_23",en:"bathroom",es:"baño"},{id:"a2_24",en:"bedroom",es:"dormitorio"},
-    {id:"a2_25",en:"garden",es:"jardín"},{id:"a2_26",en:"beach",es:"playa"},{id:"a2_27",en:"mountain",es:"montaña"},
-    {id:"a2_28",en:"hot",es:"calor"},{id:"a2_29",en:"cold",es:"frío"},{id:"a2_30",en:"rain",es:"lluvia"},
-    {id:"a2_31",en:"wind",es:"viento"},{id:"a2_32",en:"tall",es:"alto"},{id:"a2_33",en:"short",es:"bajo"},
-    {id:"a2_34",en:"young",es:"joven"},{id:"a2_35",en:"old",es:"viejo"},{id:"a2_36",en:"beautiful",es:"bonito"},
-    {id:"a2_37",en:"to buy",es:"comprar"},{id:"a2_38",en:"to sell",es:"vender"},{id:"a2_39",en:"to work",es:"trabajar"},
-    {id:"a2_40",en:"to study",es:"estudiar"},{id:"a2_41",en:"to return",es:"volver"},{id:"a2_42",en:"to leave",es:"salir"},
-    {id:"a2_43",en:"to arrive",es:"llegar"},{id:"a2_44",en:"to wait",es:"esperar"},{id:"a2_45",en:"to think",es:"pensar"},
-    {id:"a2_46",en:"to need",es:"necesitar"},{id:"a2_47",en:"ticket",es:"billete"},{id:"a2_48",en:"passport",es:"pasaporte"},
-    {id:"a2_49",en:"phone",es:"teléfono"},{id:"a2_50",en:"computer",es:"ordenador"},
-    {id:"a2_51",en:"letter",es:"carta"},{id:"a2_52",en:"map",es:"mapa"},{id:"a2_53",en:"key",es:"llave"},
-    {id:"a2_54",en:"bag",es:"bolsa"},{id:"a2_55",en:"shirt",es:"camisa"},{id:"a2_56",en:"shoes",es:"zapatos"},
-    {id:"a2_57",en:"breakfast",es:"desayuno"},{id:"a2_58",en:"lunch",es:"almuerzo"},{id:"a2_59",en:"dinner",es:"cena"},
-    {id:"a2_60",en:"fruit",es:"fruta"},
-  ],
-  B1:[
-    {id:"b1_01",en:"society",es:"sociedad"},{id:"b1_02",en:"government",es:"gobierno"},{id:"b1_03",en:"economy",es:"economía"},
-    {id:"b1_04",en:"culture",es:"cultura"},{id:"b1_05",en:"history",es:"historia"},{id:"b1_06",en:"science",es:"ciencia"},
-    {id:"b1_07",en:"technology",es:"tecnología"},{id:"b1_08",en:"environment",es:"medio ambiente"},
-    {id:"b1_09",en:"problem",es:"problema"},{id:"b1_10",en:"solution",es:"solución"},{id:"b1_11",en:"opportunity",es:"oportunidad"},
-    {id:"b1_12",en:"experience",es:"experiencia"},{id:"b1_13",en:"opinion",es:"opinión"},{id:"b1_14",en:"decision",es:"decisión"},
-    {id:"b1_15",en:"result",es:"resultado"},{id:"b1_16",en:"change",es:"cambio"},{id:"b1_17",en:"development",es:"desarrollo"},
-    {id:"b1_18",en:"company",es:"empresa"},{id:"b1_19",en:"project",es:"proyecto"},{id:"b1_20",en:"meeting",es:"reunión"},
-    {id:"b1_21",en:"contract",es:"contrato"},{id:"b1_22",en:"agreement",es:"acuerdo"},{id:"b1_23",en:"important",es:"importante"},
-    {id:"b1_24",en:"necessary",es:"necesario"},{id:"b1_25",en:"possible",es:"posible"},{id:"b1_26",en:"different",es:"diferente"},
-    {id:"b1_27",en:"special",es:"especial"},{id:"b1_28",en:"general",es:"general"},{id:"b1_29",en:"national",es:"nacional"},
-    {id:"b1_30",en:"international",es:"internacional"},{id:"b1_31",en:"to achieve",es:"conseguir"},
-    {id:"b1_32",en:"to develop",es:"desarrollar"},{id:"b1_33",en:"to improve",es:"mejorar"},
-    {id:"b1_34",en:"to increase",es:"aumentar"},{id:"b1_35",en:"to reduce",es:"reducir"},
-    {id:"b1_36",en:"to explain",es:"explicar"},{id:"b1_37",en:"to describe",es:"describir"},
-    {id:"b1_38",en:"to compare",es:"comparar"},{id:"b1_39",en:"to choose",es:"elegir"},
-    {id:"b1_40",en:"to include",es:"incluir"},{id:"b1_41",en:"freedom",es:"libertad"},
-    {id:"b1_42",en:"justice",es:"justicia"},{id:"b1_43",en:"education",es:"educación"},
-    {id:"b1_44",en:"health",es:"salud"},{id:"b1_45",en:"safety",es:"seguridad"},
-    {id:"b1_46",en:"peace",es:"paz"},{id:"b1_47",en:"rights",es:"derechos"},
-    {id:"b1_48",en:"relationship",es:"relación"},{id:"b1_49",en:"communication",es:"comunicación"},
-    {id:"b1_50",en:"information",es:"información"},{id:"b1_51",en:"newspaper",es:"periódico"},
-    {id:"b1_52",en:"advertisement",es:"anuncio"},{id:"b1_53",en:"journey",es:"viaje"},
-    {id:"b1_54",en:"population",es:"población"},{id:"b1_55",en:"century",es:"siglo"},
-    {id:"b1_56",en:"tradition",es:"tradición"},{id:"b1_57",en:"religion",es:"religión"},
-    {id:"b1_58",en:"language",es:"idioma"},{id:"b1_59",en:"literature",es:"literatura"},
-    {id:"b1_60",en:"art",es:"arte"},
-  ],
-  B2:[
-    {id:"b2_01",en:"democracy",es:"democracia"},{id:"b2_02",en:"legislation",es:"legislación"},
-    {id:"b2_03",en:"constitution",es:"constitución"},{id:"b2_04",en:"infrastructure",es:"infraestructura"},
-    {id:"b2_05",en:"sustainability",es:"sostenibilidad"},{id:"b2_06",en:"innovation",es:"innovación"},
-    {id:"b2_07",en:"globalisation",es:"globalización"},{id:"b2_08",en:"diversity",es:"diversidad"},
-    {id:"b2_09",en:"perspective",es:"perspectiva"},{id:"b2_10",en:"implication",es:"implicación"},
-    {id:"b2_11",en:"consequence",es:"consecuencia"},{id:"b2_12",en:"trend",es:"tendencia"},
-    {id:"b2_13",en:"strategy",es:"estrategia"},{id:"b2_14",en:"investment",es:"inversión"},
-    {id:"b2_15",en:"competition",es:"competencia"},{id:"b2_16",en:"performance",es:"rendimiento"},
-    {id:"b2_17",en:"leadership",es:"liderazgo"},{id:"b2_18",en:"collaboration",es:"colaboración"},
-    {id:"b2_19",en:"commitment",es:"compromiso"},{id:"b2_20",en:"challenge",es:"desafío"},
-    {id:"b2_21",en:"to overcome",es:"superar"},{id:"b2_22",en:"to implement",es:"implementar"},
-    {id:"b2_23",en:"to analyse",es:"analizar"},{id:"b2_24",en:"to evaluate",es:"evaluar"},
-    {id:"b2_25",en:"to interpret",es:"interpretar"},{id:"b2_26",en:"to coordinate",es:"coordinar"},
-    {id:"b2_27",en:"to establish",es:"establecer"},{id:"b2_28",en:"to promote",es:"promover"},
-    {id:"b2_29",en:"to guarantee",es:"garantizar"},{id:"b2_30",en:"to contribute",es:"contribuir"},
-    {id:"b2_31",en:"abstract",es:"abstracto"},{id:"b2_32",en:"complex",es:"complejo"},
-    {id:"b2_33",en:"efficient",es:"eficiente"},{id:"b2_34",en:"sustainable",es:"sostenible"},
-    {id:"b2_35",en:"critical",es:"crítico"},{id:"b2_36",en:"comprehensive",es:"exhaustivo"},
-    {id:"b2_37",en:"integral",es:"integral"},{id:"b2_38",en:"significant",es:"significativo"},
-    {id:"b2_39",en:"controversial",es:"controvertido"},{id:"b2_40",en:"transparent",es:"transparente"},
-    {id:"b2_41",en:"ethics",es:"ética"},{id:"b2_42",en:"philosophy",es:"filosofía"},
-    {id:"b2_43",en:"identity",es:"identidad"},{id:"b2_44",en:"awareness",es:"conciencia"},
-    {id:"b2_45",en:"responsibility",es:"responsabilidad"},{id:"b2_46",en:"ambiguity",es:"ambigüedad"},
-    {id:"b2_47",en:"paradox",es:"paradoja"},{id:"b2_48",en:"paradigm",es:"paradigma"},
-    {id:"b2_49",en:"hypothesis",es:"hipótesis"},{id:"b2_50",en:"evidence",es:"evidencia"},
-    {id:"b2_51",en:"bureaucracy",es:"burocracia"},{id:"b2_52",en:"prejudice",es:"prejuicio"},
-    {id:"b2_53",en:"empathy",es:"empatía"},{id:"b2_54",en:"solidarity",es:"solidaridad"},
-    {id:"b2_55",en:"resilience",es:"resiliencia"},{id:"b2_56",en:"ambition",es:"ambición"},
-    {id:"b2_57",en:"integrity",es:"integridad"},{id:"b2_58",en:"heritage",es:"patrimonio"},
-    {id:"b2_59",en:"sovereignty",es:"soberanía"},{id:"b2_60",en:"legitimacy",es:"legitimidad"},
-  ],
-};
-
-const VERBS = [
-  {infinitive:"hablar",meaning:"to speak",present:{yo:"hablo",tú:"hablas","él/ella":"habla",nosotros:"hablamos",vosotros:"habláis","ellos/ellas":"hablan"},preterite:{yo:"hablé",tú:"hablaste","él/ella":"habló",nosotros:"hablamos",vosotros:"hablasteis","ellos/ellas":"hablaron"},imperfect:{yo:"hablaba",tú:"hablabas","él/ella":"hablaba",nosotros:"hablábamos",vosotros:"hablabais","ellos/ellas":"hablaban"},future:{yo:"hablaré",tú:"hablarás","él/ella":"hablará",nosotros:"hablaremos",vosotros:"hablaréis","ellos/ellas":"hablarán"}},
-  {infinitive:"comer",meaning:"to eat",present:{yo:"como",tú:"comes","él/ella":"come",nosotros:"comemos",vosotros:"coméis","ellos/ellas":"comen"},preterite:{yo:"comí",tú:"comiste","él/ella":"comió",nosotros:"comimos",vosotros:"comisteis","ellos/ellas":"comieron"},imperfect:{yo:"comía",tú:"comías","él/ella":"comía",nosotros:"comíamos",vosotros:"comíais","ellos/ellas":"comían"},future:{yo:"comeré",tú:"comerás","él/ella":"comerá",nosotros:"comeremos",vosotros:"comeréis","ellos/ellas":"comerán"}},
-  {infinitive:"vivir",meaning:"to live",present:{yo:"vivo",tú:"vives","él/ella":"vive",nosotros:"vivimos",vosotros:"vivís","ellos/ellas":"viven"},preterite:{yo:"viví",tú:"viviste","él/ella":"vivió",nosotros:"vivimos",vosotros:"vivisteis","ellos/ellas":"vivieron"},imperfect:{yo:"vivía",tú:"vivías","él/ella":"vivía",nosotros:"vivíamos",vosotros:"vivíais","ellos/ellas":"vivían"},future:{yo:"viviré",tú:"vivirás","él/ella":"vivirá",nosotros:"viviremos",vosotros:"viviréis","ellos/ellas":"vivirán"}},
-  {infinitive:"ser",meaning:"to be (permanent)",present:{yo:"soy",tú:"eres","él/ella":"es",nosotros:"somos",vosotros:"sois","ellos/ellas":"son"},preterite:{yo:"fui",tú:"fuiste","él/ella":"fue",nosotros:"fuimos",vosotros:"fuisteis","ellos/ellas":"fueron"},imperfect:{yo:"era",tú:"eras","él/ella":"era",nosotros:"éramos",vosotros:"erais","ellos/ellas":"eran"},future:{yo:"seré",tú:"serás","él/ella":"será",nosotros:"seremos",vosotros:"seréis","ellos/ellas":"serán"}},
-  {infinitive:"estar",meaning:"to be (state/location)",present:{yo:"estoy",tú:"estás","él/ella":"está",nosotros:"estamos",vosotros:"estáis","ellos/ellas":"están"},preterite:{yo:"estuve",tú:"estuviste","él/ella":"estuvo",nosotros:"estuvimos",vosotros:"estuvisteis","ellos/ellas":"estuvieron"},imperfect:{yo:"estaba",tú:"estabas","él/ella":"estaba",nosotros:"estábamos",vosotros:"estabais","ellos/ellas":"estaban"},future:{yo:"estaré",tú:"estarás","él/ella":"estará",nosotros:"estaremos",vosotros:"estaréis","ellos/ellas":"estarán"}},
-  {infinitive:"tener",meaning:"to have",present:{yo:"tengo",tú:"tienes","él/ella":"tiene",nosotros:"tenemos",vosotros:"tenéis","ellos/ellas":"tienen"},preterite:{yo:"tuve",tú:"tuviste","él/ella":"tuvo",nosotros:"tuvimos",vosotros:"tuvisteis","ellos/ellas":"tuvieron"},imperfect:{yo:"tenía",tú:"tenías","él/ella":"tenía",nosotros:"teníamos",vosotros:"teníais","ellos/ellas":"tenían"},future:{yo:"tendré",tú:"tendrás","él/ella":"tendrá",nosotros:"tendremos",vosotros:"tendréis","ellos/ellas":"tendrán"}},
-  {infinitive:"hacer",meaning:"to do / make",present:{yo:"hago",tú:"haces","él/ella":"hace",nosotros:"hacemos",vosotros:"hacéis","ellos/ellas":"hacen"},preterite:{yo:"hice",tú:"hiciste","él/ella":"hizo",nosotros:"hicimos",vosotros:"hicisteis","ellos/ellas":"hicieron"},imperfect:{yo:"hacía",tú:"hacías","él/ella":"hacía",nosotros:"hacíamos",vosotros:"hacíais","ellos/ellas":"hacían"},future:{yo:"haré",tú:"harás","él/ella":"hará",nosotros:"haremos",vosotros:"haréis","ellos/ellas":"harán"}},
-  {infinitive:"ir",meaning:"to go",present:{yo:"voy",tú:"vas","él/ella":"va",nosotros:"vamos",vosotros:"vais","ellos/ellas":"van"},preterite:{yo:"fui",tú:"fuiste","él/ella":"fue",nosotros:"fuimos",vosotros:"fuisteis","ellos/ellas":"fueron"},imperfect:{yo:"iba",tú:"ibas","él/ella":"iba",nosotros:"íbamos",vosotros:"ibais","ellos/ellas":"iban"},future:{yo:"iré",tú:"irás","él/ella":"irá",nosotros:"iremos",vosotros:"iréis","ellos/ellas":"irán"}},
-  {infinitive:"poder",meaning:"can / to be able",present:{yo:"puedo",tú:"puedes","él/ella":"puede",nosotros:"podemos",vosotros:"podéis","ellos/ellas":"pueden"},preterite:{yo:"pude",tú:"pudiste","él/ella":"pudo",nosotros:"pudimos",vosotros:"pudisteis","ellos/ellas":"pudieron"},imperfect:{yo:"podía",tú:"podías","él/ella":"podía",nosotros:"podíamos",vosotros:"podíais","ellos/ellas":"podían"},future:{yo:"podré",tú:"podrás","él/ella":"podrá",nosotros:"podremos",vosotros:"podréis","ellos/ellas":"podrán"}},
-  {infinitive:"querer",meaning:"to want / love",present:{yo:"quiero",tú:"quieres","él/ella":"quiere",nosotros:"queremos",vosotros:"queréis","ellos/ellas":"quieren"},preterite:{yo:"quise",tú:"quisiste","él/ella":"quiso",nosotros:"quisimos",vosotros:"quisisteis","ellos/ellas":"quisieron"},imperfect:{yo:"quería",tú:"querías","él/ella":"quería",nosotros:"queríamos",vosotros:"queríais","ellos/ellas":"querían"},future:{yo:"querré",tú:"querrás","él/ella":"querrá",nosotros:"querremos",vosotros:"querréis","ellos/ellas":"querrán"}},
-  {infinitive:"saber",meaning:"to know (facts)",present:{yo:"sé",tú:"sabes","él/ella":"sabe",nosotros:"sabemos",vosotros:"sabéis","ellos/ellas":"saben"},preterite:{yo:"supe",tú:"supiste","él/ella":"supo",nosotros:"supimos",vosotros:"supisteis","ellos/ellas":"supieron"},imperfect:{yo:"sabía",tú:"sabías","él/ella":"sabía",nosotros:"sabíamos",vosotros:"sabíais","ellos/ellas":"sabían"},future:{yo:"sabré",tú:"sabrás","él/ella":"sabrá",nosotros:"sabremos",vosotros:"sabréis","ellos/ellas":"sabrán"}},
-  {infinitive:"venir",meaning:"to come",present:{yo:"vengo",tú:"vienes","él/ella":"viene",nosotros:"venimos",vosotros:"venís","ellos/ellas":"vienen"},preterite:{yo:"vine",tú:"viniste","él/ella":"vino",nosotros:"vinimos",vosotros:"vinisteis","ellos/ellas":"vinieron"},imperfect:{yo:"venía",tú:"venías","él/ella":"venía",nosotros:"veníamos",vosotros:"veníais","ellos/ellas":"venían"},future:{yo:"vendré",tú:"vendrás","él/ella":"vendrá",nosotros:"vendremos",vosotros:"vendréis","ellos/ellas":"vendrán"}},
-  {infinitive:"ver",meaning:"to see",present:{yo:"veo",tú:"ves","él/ella":"ve",nosotros:"vemos",vosotros:"veis","ellos/ellas":"ven"},preterite:{yo:"vi",tú:"viste","él/ella":"vio",nosotros:"vimos",vosotros:"visteis","ellos/ellas":"vieron"},imperfect:{yo:"veía",tú:"veías","él/ella":"veía",nosotros:"veíamos",vosotros:"veíais","ellos/ellas":"veían"},future:{yo:"veré",tú:"verás","él/ella":"verá",nosotros:"veremos",vosotros:"veréis","ellos/ellas":"verán"}},
-  {infinitive:"dar",meaning:"to give",present:{yo:"doy",tú:"das","él/ella":"da",nosotros:"damos",vosotros:"dais","ellos/ellas":"dan"},preterite:{yo:"di",tú:"diste","él/ella":"dio",nosotros:"dimos",vosotros:"disteis","ellos/ellas":"dieron"},imperfect:{yo:"daba",tú:"dabas","él/ella":"daba",nosotros:"dábamos",vosotros:"dabais","ellos/ellas":"daban"},future:{yo:"daré",tú:"darás","él/ella":"dará",nosotros:"daremos",vosotros:"daréis","ellos/ellas":"darán"}},
-  {infinitive:"poner",meaning:"to put",present:{yo:"pongo",tú:"pones","él/ella":"pone",nosotros:"ponemos",vosotros:"ponéis","ellos/ellas":"ponen"},preterite:{yo:"puse",tú:"pusiste","él/ella":"puso",nosotros:"pusimos",vosotros:"pusisteis","ellos/ellas":"pusieron"},imperfect:{yo:"ponía",tú:"ponías","él/ella":"ponía",nosotros:"poníamos",vosotros:"poníais","ellos/ellas":"ponían"},future:{yo:"pondré",tú:"pondrás","él/ella":"pondrá",nosotros:"pondremos",vosotros:"pondréis","ellos/ellas":"pondrán"}},
+const LEVELS=["A1","A2","B1","B2"];
+const LN={A1:"Basic",A2:"Elementary",B1:"Intermediate",B2:"Upper-Int"};
+const TENSES=["present","preterite","imperfect","future"];
+const TN={present:"Present",preterite:"Past (Preterite)",imperfect:"Past (Imperfect)",future:"Future"};
+const PRONS=["yo","tú","él/ella","nosotros","vosotros","ellos/ellas"];
+const BW=[0,8,5,3,2,1];
+const ACCS=["á","é","í","ó","ú","ü","ñ","¿","¡"];
+const VOCAB={
+A1:[
+{id:"a1_01",en:"hello",es:"hola"},{id:"a1_02",en:"goodbye",es:"adiós"},{id:"a1_03",en:"thank you",es:"gracias"},
+{id:"a1_04",en:"please",es:"por favor"},{id:"a1_05",en:"yes",es:"sí"},{id:"a1_06",en:"no",es:"no"},
+{id:"a1_07",en:"good morning",es:"buenos días"},{id:"a1_08",en:"good night",es:"buenas noches"},
+{id:"a1_09",en:"name",es:"nombre"},{id:"a1_10",en:"house",es:"casa"},{id:"a1_11",en:"water",es:"agua"},
+{id:"a1_12",en:"food",es:"comida"},{id:"a1_13",en:"bread",es:"pan"},{id:"a1_14",en:"milk",es:"leche"},
+{id:"a1_15",en:"coffee",es:"café"},{id:"a1_16",en:"one",es:"uno"},{id:"a1_17",en:"two",es:"dos"},
+{id:"a1_18",en:"three",es:"tres"},{id:"a1_19",en:"red",es:"rojo"},{id:"a1_20",en:"blue",es:"azul"},
+{id:"a1_21",en:"green",es:"verde"},{id:"a1_22",en:"mother",es:"madre"},{id:"a1_23",en:"father",es:"padre"},
+{id:"a1_24",en:"brother",es:"hermano"},{id:"a1_25",en:"sister",es:"hermana"},{id:"a1_26",en:"book",es:"libro"},
+{id:"a1_27",en:"table",es:"mesa"},{id:"a1_28",en:"chair",es:"silla"},{id:"a1_29",en:"door",es:"puerta"},
+{id:"a1_30",en:"window",es:"ventana"},{id:"a1_31",en:"dog",es:"perro"},{id:"a1_32",en:"cat",es:"gato"},
+{id:"a1_33",en:"city",es:"ciudad"},{id:"a1_34",en:"street",es:"calle"},{id:"a1_35",en:"year",es:"año"},
+{id:"a1_36",en:"day",es:"día"},{id:"a1_37",en:"night",es:"noche"},{id:"a1_38",en:"man",es:"hombre"},
+{id:"a1_39",en:"woman",es:"mujer"},{id:"a1_40",en:"child",es:"niño"},{id:"a1_41",en:"big",es:"grande"},
+{id:"a1_42",en:"small",es:"pequeño"},{id:"a1_43",en:"good",es:"bueno"},{id:"a1_44",en:"bad",es:"malo"},
+{id:"a1_45",en:"friend",es:"amigo"},{id:"a1_46",en:"sun",es:"sol"},{id:"a1_47",en:"moon",es:"luna"},
+{id:"a1_48",en:"tree",es:"árbol"},{id:"a1_49",en:"bird",es:"pájaro"},{id:"a1_50",en:"fish",es:"pez"},
+{id:"a1_51",en:"white",es:"blanco"},{id:"a1_52",en:"black",es:"negro"},{id:"a1_53",en:"yellow",es:"amarillo"},
+{id:"a1_54",en:"four",es:"cuatro"},{id:"a1_55",en:"five",es:"cinco"},{id:"a1_56",en:"ten",es:"diez"},
+{id:"a1_57",en:"today",es:"hoy"},{id:"a1_58",en:"here",es:"aquí"},{id:"a1_59",en:"there",es:"allí"},
+{id:"a1_60",en:"and",es:"y"},{id:"a1_61",en:"or",es:"o"},{id:"a1_62",en:"but",es:"pero"},
+{id:"a1_63",en:"with",es:"con"},{id:"a1_64",en:"without",es:"sin"},{id:"a1_65",en:"very",es:"muy"},
+{id:"a1_66",en:"much",es:"mucho"},{id:"a1_67",en:"little",es:"poco"},{id:"a1_68",en:"more",es:"más"},
+{id:"a1_69",en:"less",es:"menos"},{id:"a1_70",en:"how",es:"cómo"}
+],
+A2:[
+{id:"a2_01",en:"work",es:"trabajo"},{id:"a2_02",en:"shop",es:"tienda"},{id:"a2_03",en:"money",es:"dinero"},
+{id:"a2_04",en:"weather",es:"tiempo"},{id:"a2_05",en:"week",es:"semana"},{id:"a2_06",en:"month",es:"mes"},
+{id:"a2_07",en:"tomorrow",es:"mañana"},{id:"a2_08",en:"afternoon",es:"tarde"},{id:"a2_09",en:"family",es:"familia"},
+{id:"a2_10",en:"car",es:"coche",alts:["auto","carro"]},{id:"a2_11",en:"bus",es:"autobús",alts:["bus"]},
+{id:"a2_12",en:"train",es:"tren"},{id:"a2_13",en:"airport",es:"aeropuerto"},{id:"a2_14",en:"hotel",es:"hotel"},
+{id:"a2_15",en:"restaurant",es:"restaurante"},{id:"a2_16",en:"market",es:"mercado"},{id:"a2_17",en:"bank",es:"banco"},
+{id:"a2_18",en:"hospital",es:"hospital"},{id:"a2_19",en:"doctor",es:"médico"},{id:"a2_20",en:"teacher",es:"profesor"},
+{id:"a2_21",en:"kitchen",es:"cocina"},{id:"a2_22",en:"bathroom",es:"baño"},{id:"a2_23",en:"bedroom",es:"dormitorio",alts:["habitación","cuarto"]},
+{id:"a2_24",en:"garden",es:"jardín"},{id:"a2_25",en:"beach",es:"playa"},{id:"a2_26",en:"mountain",es:"montaña"},
+{id:"a2_27",en:"rain",es:"lluvia"},{id:"a2_28",en:"wind",es:"viento"},{id:"a2_29",en:"hot",es:"calor"},
+{id:"a2_30",en:"cold",es:"frío"},{id:"a2_31",en:"tall",es:"alto"},{id:"a2_32",en:"young",es:"joven"},
+{id:"a2_33",en:"old",es:"viejo"},{id:"a2_34",en:"beautiful",es:"bonito",alts:["hermoso","bello"]},
+{id:"a2_35",en:"ticket",es:"billete",alts:["boleto","entrada"]},{id:"a2_36",en:"passport",es:"pasaporte"},
+{id:"a2_37",en:"phone",es:"teléfono",alts:["móvil","celular"]},{id:"a2_38",en:"letter",es:"carta"},
+{id:"a2_39",en:"key",es:"llave"},{id:"a2_40",en:"bag",es:"bolsa",alts:["bolso","mochila"]},
+{id:"a2_41",en:"shirt",es:"camisa"},{id:"a2_42",en:"shoes",es:"zapatos"},{id:"a2_43",en:"breakfast",es:"desayuno"},
+{id:"a2_44",en:"lunch",es:"almuerzo",alts:["comida"]},{id:"a2_45",en:"dinner",es:"cena"},
+{id:"a2_46",en:"fruit",es:"fruta"},{id:"a2_47",en:"to buy",es:"comprar"},{id:"a2_48",en:"to study",es:"estudiar"},
+{id:"a2_49",en:"to wait",es:"esperar"},{id:"a2_50",en:"to need",es:"necesitar"},
+{id:"a2_51",en:"computer",es:"ordenador",alts:["computadora","computador"]},{id:"a2_52",en:"internet",es:"internet"},
+{id:"a2_53",en:"map",es:"mapa"},{id:"a2_54",en:"road",es:"carretera",alts:["camino"]},{id:"a2_55",en:"square",es:"plaza"},
+{id:"a2_56",en:"park",es:"parque"},{id:"a2_57",en:"glass",es:"vaso"},{id:"a2_58",en:"bottle",es:"botella"},
+{id:"a2_59",en:"morning",es:"mañana"},{id:"a2_60",en:"evening",es:"tarde"},{id:"a2_61",en:"early",es:"temprano"},
+{id:"a2_62",en:"late",es:"tarde"},{id:"a2_63",en:"fast",es:"rápido"},{id:"a2_64",en:"slow",es:"lento"},
+{id:"a2_65",en:"easy",es:"fácil"},{id:"a2_66",en:"difficult",es:"difícil"},{id:"a2_67",en:"clean",es:"limpio"},
+{id:"a2_68",en:"dirty",es:"sucio"},{id:"a2_69",en:"open",es:"abierto"},{id:"a2_70",en:"closed",es:"cerrado"}
+],
+B1:[
+{id:"b1_01",en:"society",es:"sociedad"},{id:"b1_02",en:"government",es:"gobierno"},{id:"b1_03",en:"economy",es:"economía"},
+{id:"b1_04",en:"culture",es:"cultura"},{id:"b1_05",en:"history",es:"historia"},{id:"b1_06",en:"science",es:"ciencia"},
+{id:"b1_07",en:"technology",es:"tecnología"},{id:"b1_08",en:"environment",es:"medio ambiente"},
+{id:"b1_09",en:"problem",es:"problema"},{id:"b1_10",en:"solution",es:"solución"},{id:"b1_11",en:"opportunity",es:"oportunidad"},
+{id:"b1_12",en:"experience",es:"experiencia"},{id:"b1_13",en:"opinion",es:"opinión"},{id:"b1_14",en:"decision",es:"decisión"},
+{id:"b1_15",en:"result",es:"resultado"},{id:"b1_16",en:"change",es:"cambio"},{id:"b1_17",en:"development",es:"desarrollo"},
+{id:"b1_18",en:"company",es:"empresa"},{id:"b1_19",en:"project",es:"proyecto"},{id:"b1_20",en:"meeting",es:"reunión"},
+{id:"b1_21",en:"freedom",es:"libertad"},{id:"b1_22",en:"justice",es:"justicia"},{id:"b1_23",en:"education",es:"educación"},
+{id:"b1_24",en:"health",es:"salud"},{id:"b1_25",en:"safety",es:"seguridad"},{id:"b1_26",en:"peace",es:"paz"},
+{id:"b1_27",en:"rights",es:"derechos"},{id:"b1_28",en:"relationship",es:"relación"},{id:"b1_29",en:"communication",es:"comunicación"},
+{id:"b1_30",en:"information",es:"información"},{id:"b1_31",en:"important",es:"importante"},{id:"b1_32",en:"necessary",es:"necesario"},
+{id:"b1_33",en:"possible",es:"posible"},{id:"b1_34",en:"different",es:"diferente"},{id:"b1_35",en:"national",es:"nacional"},
+{id:"b1_36",en:"international",es:"internacional"},{id:"b1_37",en:"tradition",es:"tradición"},{id:"b1_38",en:"language",es:"idioma",alts:["lengua"]},
+{id:"b1_39",en:"literature",es:"literatura"},{id:"b1_40",en:"art",es:"arte"},{id:"b1_41",en:"newspaper",es:"periódico",alts:["diario"]},
+{id:"b1_42",en:"journey",es:"viaje"},{id:"b1_43",en:"population",es:"población"},{id:"b1_44",en:"century",es:"siglo"},
+{id:"b1_45",en:"religion",es:"religión"},{id:"b1_46",en:"to improve",es:"mejorar"},{id:"b1_47",en:"to explain",es:"explicar"},
+{id:"b1_48",en:"to describe",es:"describir"},{id:"b1_49",en:"to choose",es:"elegir"},{id:"b1_50",en:"to achieve",es:"conseguir",alts:["lograr"]},
+{id:"b1_51",en:"attitude",es:"actitud"},{id:"b1_52",en:"behaviour",es:"comportamiento"},{id:"b1_53",en:"benefit",es:"beneficio"},
+{id:"b1_54",en:"cause",es:"causa"},{id:"b1_55",en:"effect",es:"efecto"},{id:"b1_56",en:"growth",es:"crecimiento"},
+{id:"b1_57",en:"impact",es:"impacto"},{id:"b1_58",en:"issue",es:"asunto",alts:["problema","cuestión"]},{id:"b1_59",en:"purpose",es:"propósito",alts:["objetivo"]},
+{id:"b1_60",en:"quality",es:"calidad"},{id:"b1_61",en:"recently",es:"recientemente"},{id:"b1_62",en:"however",es:"sin embargo"},
+{id:"b1_63",en:"although",es:"aunque"},{id:"b1_64",en:"therefore",es:"por lo tanto"},{id:"b1_65",en:"moreover",es:"además"},
+{id:"b1_66",en:"despite",es:"a pesar de"},{id:"b1_67",en:"according to",es:"según"},{id:"b1_68",en:"in order to",es:"para"},
+{id:"b1_69",en:"due to",es:"debido a"},{id:"b1_70",en:"as a result",es:"como resultado"}
+],
+B2:[
+{id:"b2_01",en:"democracy",es:"democracia"},{id:"b2_02",en:"legislation",es:"legislación"},{id:"b2_03",en:"constitution",es:"constitución"},
+{id:"b2_04",en:"infrastructure",es:"infraestructura"},{id:"b2_05",en:"sustainability",es:"sostenibilidad"},{id:"b2_06",en:"innovation",es:"innovación"},
+{id:"b2_07",en:"globalisation",es:"globalización"},{id:"b2_08",en:"diversity",es:"diversidad"},{id:"b2_09",en:"perspective",es:"perspectiva"},
+{id:"b2_10",en:"consequence",es:"consecuencia"},{id:"b2_11",en:"trend",es:"tendencia"},{id:"b2_12",en:"strategy",es:"estrategia"},
+{id:"b2_13",en:"investment",es:"inversión"},{id:"b2_14",en:"leadership",es:"liderazgo"},{id:"b2_15",en:"collaboration",es:"colaboración"},
+{id:"b2_16",en:"commitment",es:"compromiso"},{id:"b2_17",en:"challenge",es:"desafío"},{id:"b2_18",en:"ethics",es:"ética"},
+{id:"b2_19",en:"identity",es:"identidad"},{id:"b2_20",en:"awareness",es:"conciencia"},{id:"b2_21",en:"responsibility",es:"responsabilidad"},
+{id:"b2_22",en:"ambiguity",es:"ambigüedad"},{id:"b2_23",en:"paradox",es:"paradoja"},{id:"b2_24",en:"hypothesis",es:"hipótesis"},
+{id:"b2_25",en:"evidence",es:"evidencia",alts:["prueba"]},{id:"b2_26",en:"bureaucracy",es:"burocracia"},{id:"b2_27",en:"prejudice",es:"prejuicio"},
+{id:"b2_28",en:"empathy",es:"empatía"},{id:"b2_29",en:"solidarity",es:"solidaridad"},{id:"b2_30",en:"resilience",es:"resiliencia"},
+{id:"b2_31",en:"ambition",es:"ambición"},{id:"b2_32",en:"integrity",es:"integridad"},{id:"b2_33",en:"abstract",es:"abstracto"},
+{id:"b2_34",en:"complex",es:"complejo"},{id:"b2_35",en:"efficient",es:"eficiente"},{id:"b2_36",en:"sustainable",es:"sostenible"},
+{id:"b2_37",en:"critical",es:"crítico"},{id:"b2_38",en:"significant",es:"significativo"},{id:"b2_39",en:"transparent",es:"transparente"},
+{id:"b2_40",en:"sovereignty",es:"soberanía"},{id:"b2_41",en:"to overcome",es:"superar"},{id:"b2_42",en:"to implement",es:"implementar"},
+{id:"b2_43",en:"to analyse",es:"analizar"},{id:"b2_44",en:"to evaluate",es:"evaluar"},{id:"b2_45",en:"to establish",es:"establecer"},
+{id:"b2_46",en:"to promote",es:"promover"},{id:"b2_47",en:"to guarantee",es:"garantizar"},{id:"b2_48",en:"to contribute",es:"contribuir"},
+{id:"b2_49",en:"to coordinate",es:"coordinar"},{id:"b2_50",en:"to interpret",es:"interpretar"},
+{id:"b2_51",en:"assertion",es:"afirmación"},{id:"b2_52",en:"implication",es:"implicación"},{id:"b2_53",en:"nuance",es:"matiz"},
+{id:"b2_54",en:"rhetoric",es:"retórica"},{id:"b2_55",en:"autonomy",es:"autonomía"},{id:"b2_56",en:"ideology",es:"ideología"},
+{id:"b2_57",en:"legitimacy",es:"legitimidad"},{id:"b2_58",en:"precedent",es:"precedente"},{id:"b2_59",en:"consensus",es:"consenso"},
+{id:"b2_60",en:"contradiction",es:"contradicción"},{id:"b2_61",en:"nevertheless",es:"no obstante",alts:["sin embargo"]},
+{id:"b2_62",en:"furthermore",es:"además"},{id:"b2_63",en:"consequently",es:"por consiguiente"},{id:"b2_64",en:"whereas",es:"mientras que"},
+{id:"b2_65",en:"allegedly",es:"supuestamente"},{id:"b2_66",en:"presumably",es:"presumiblemente"},
+{id:"b2_67",en:"to alleviate",es:"aliviar"},{id:"b2_68",en:"to undermine",es:"socavar"},{id:"b2_69",en:"to advocate",es:"abogar"},
+{id:"b2_70",en:"to acknowledge",es:"reconocer"}
+]};
+const SENTENCES=[
+{id:"s_a1_01",level:"A1",en:"Good morning, how are you?",es:"Buenos días, ¿cómo estás?"},
+{id:"s_a1_02",level:"A1",en:"Thank you very much",es:"Muchas gracias"},
+{id:"s_a1_03",level:"A1",en:"Where is the bathroom?",es:"¿Dónde está el baño?"},
+{id:"s_a1_04",level:"A1",en:"How much does this cost?",es:"¿Cuánto cuesta esto?"},
+{id:"s_a1_05",level:"A1",en:"I don't understand",es:"No entiendo"},
+{id:"s_a1_06",level:"A1",en:"I speak a little Spanish",es:"Hablo un poco de español"},
+{id:"s_a1_07",level:"A1",en:"See you later",es:"Hasta luego"},
+{id:"s_a1_08",level:"A1",en:"What time is it?",es:"¿Qué hora es?"},
+{id:"s_a1_09",level:"A1",en:"I am very tired",es:"Estoy muy cansado"},
+{id:"s_a1_10",level:"A1",en:"Can you help me?",es:"¿Puedes ayudarme?",alts:["¿Me puedes ayudar?"]},
+{id:"s_a2_01",level:"A2",en:"I would like a table for two, please",es:"Quisiera una mesa para dos, por favor"},
+{id:"s_a2_02",level:"A2",en:"Where is the nearest train station?",es:"¿Dónde está la estación de tren más cercana?"},
+{id:"s_a2_03",level:"A2",en:"What time does the museum open?",es:"¿A qué hora abre el museo?"},
+{id:"s_a2_04",level:"A2",en:"Do you have a room available?",es:"¿Tiene una habitación disponible?"},
+{id:"s_a2_05",level:"A2",en:"The weather is very hot today",es:"Hace mucho calor hoy"},
+{id:"s_a2_06",level:"A2",en:"I would like the bill, please",es:"La cuenta, por favor"},
+{id:"s_a2_07",level:"A2",en:"This is my first time in Spain",es:"Es mi primera vez en España"},
+{id:"s_a2_08",level:"A2",en:"I need to go to the doctor",es:"Necesito ir al médico"},
+{id:"s_a2_09",level:"A2",en:"Can you speak more slowly please?",es:"¿Puede hablar más despacio, por favor?"},
+{id:"s_a2_10",level:"A2",en:"I am looking for a hotel",es:"Estoy buscando un hotel"},
+{id:"s_b1_01",level:"B1",en:"In my opinion, technology has improved our lives",es:"En mi opinión, la tecnología ha mejorado nuestras vidas"},
+{id:"s_b1_02",level:"B1",en:"I have been studying Spanish for two years",es:"Llevo dos años estudiando español"},
+{id:"s_b1_03",level:"B1",en:"Could you recommend a good restaurant?",es:"¿Podría recomendar un buen restaurante?"},
+{id:"s_b1_04",level:"B1",en:"It is important to protect the environment",es:"Es importante proteger el medio ambiente"},
+{id:"s_b1_05",level:"B1",en:"She has just arrived from the airport",es:"Ella acaba de llegar del aeropuerto"},
+{id:"s_b1_06",level:"B1",en:"Despite the rain, we enjoyed the trip",es:"A pesar de la lluvia, disfrutamos el viaje"},
+{id:"s_b1_07",level:"B1",en:"I would rather stay at home tonight",es:"Prefiero quedarme en casa esta noche"},
+{id:"s_b1_08",level:"B1",en:"As far as I know, the meeting was cancelled",es:"Que yo sepa, la reunión fue cancelada"},
+{id:"s_b2_01",level:"B2",en:"The government should invest more in education",es:"El gobierno debería invertir más en educación"},
+{id:"s_b2_02",level:"B2",en:"It is essential that citizens participate in democracy",es:"Es esencial que los ciudadanos participen en la democracia"},
+{id:"s_b2_03",level:"B2",en:"Despite the challenges, we reached an agreement",es:"A pesar de los desafíos, llegamos a un acuerdo"},
+{id:"s_b2_04",level:"B2",en:"The evidence suggests that climate change is accelerating",es:"La evidencia sugiere que el cambio climático se está acelerando"},
+{id:"s_b2_05",level:"B2",en:"It remains to be seen whether the policy will succeed",es:"Queda por ver si la política tendrá éxito"}
 ];
-
-// ─── STATE ────────────────────────────────────────────────────────────────────
-let progress = {};
-let extras = {};
-let stats = { correct: 0, incorrect: 0, sessions: 0 };
-let selectedLevels = ["A1"];
-let selectedTenses = ["present","preterite","imperfect","future"];
-let sessionSize = 10;
-let cards = [];
-let cardIdx = 0;
-let currentCard = null;
-let sessionMode = "words";
-let score = { c: 0, w: 0, p: 0 };
-let submitted = false;
-let hintShown = false;
-let listening = false;
-let recognition = null;
-let currentAnswer = "";
-let autoExpandInProgress = {};
-let lastSessionConfig = null;
-
-// ─── STORAGE ──────────────────────────────────────────────────────────────────
-function load() {
-  try { progress = JSON.parse(localStorage.getItem("esp_prog") || "{}"); } catch(e) {}
-  try { extras = JSON.parse(localStorage.getItem("esp_extras") || "{}"); } catch(e) {}
-  try { stats = JSON.parse(localStorage.getItem("esp_stats") || '{"correct":0,"incorrect":0,"sessions":0}'); } catch(e) {}
-  try { sessionSize = parseInt(localStorage.getItem("esp_session_size") || "10"); } catch(e) {}
+const VERBS=[
+{i:"hablar",m:"to speak",present:{yo:"hablo",tú:"hablas","él/ella":"habla",nosotros:"hablamos",vosotros:"habláis","ellos/ellas":"hablan"},preterite:{yo:"hablé",tú:"hablaste","él/ella":"habló",nosotros:"hablamos",vosotros:"hablasteis","ellos/ellas":"hablaron"},imperfect:{yo:"hablaba",tú:"hablabas","él/ella":"hablaba",nosotros:"hablábamos",vosotros:"hablabais","ellos/ellas":"hablaban"},future:{yo:"hablaré",tú:"hablarás","él/ella":"hablará",nosotros:"hablaremos",vosotros:"hablaréis","ellos/ellas":"hablarán"}},
+{i:"comer",m:"to eat",present:{yo:"como",tú:"comes","él/ella":"come",nosotros:"comemos",vosotros:"coméis","ellos/ellas":"comen"},preterite:{yo:"comí",tú:"comiste","él/ella":"comió",nosotros:"comimos",vosotros:"comisteis","ellos/ellas":"comieron"},imperfect:{yo:"comía",tú:"comías","él/ella":"comía",nosotros:"comíamos",vosotros:"comíais","ellos/ellas":"comían"},future:{yo:"comeré",tú:"comerás","él/ella":"comerá",nosotros:"comeremos",vosotros:"comeréis","ellos/ellas":"comerán"}},
+{i:"ser",m:"to be (permanent)",present:{yo:"soy",tú:"eres","él/ella":"es",nosotros:"somos",vosotros:"sois","ellos/ellas":"son"},preterite:{yo:"fui",tú:"fuiste","él/ella":"fue",nosotros:"fuimos",vosotros:"fuisteis","ellos/ellas":"fueron"},imperfect:{yo:"era",tú:"eras","él/ella":"era",nosotros:"éramos",vosotros:"erais","ellos/ellas":"eran"},future:{yo:"seré",tú:"serás","él/ella":"será",nosotros:"seremos",vosotros:"seréis","ellos/ellas":"serán"}},
+{i:"estar",m:"to be (state)",present:{yo:"estoy",tú:"estás","él/ella":"está",nosotros:"estamos",vosotros:"estáis","ellos/ellas":"están"},preterite:{yo:"estuve",tú:"estuviste","él/ella":"estuvo",nosotros:"estuvimos",vosotros:"estuvisteis","ellos/ellas":"estuvieron"},imperfect:{yo:"estaba",tú:"estabas","él/ella":"estaba",nosotros:"estábamos",vosotros:"estabais","ellos/ellas":"estaban"},future:{yo:"estaré",tú:"estarás","él/ella":"estará",nosotros:"estaremos",vosotros:"estaréis","ellos/ellas":"estarán"}},
+{i:"tener",m:"to have",present:{yo:"tengo",tú:"tienes","él/ella":"tiene",nosotros:"tenemos",vosotros:"tenéis","ellos/ellas":"tienen"},preterite:{yo:"tuve",tú:"tuviste","él/ella":"tuvo",nosotros:"tuvimos",vosotros:"tuvisteis","ellos/ellas":"tuvieron"},imperfect:{yo:"tenía",tú:"tenías","él/ella":"tenía",nosotros:"teníamos",vosotros:"teníais","ellos/ellas":"tenían"},future:{yo:"tendré",tú:"tendrás","él/ella":"tendrá",nosotros:"tendremos",vosotros:"tendréis","ellos/ellas":"tendrán"}},
+{i:"hacer",m:"to do/make",present:{yo:"hago",tú:"haces","él/ella":"hace",nosotros:"hacemos",vosotros:"hacéis","ellos/ellas":"hacen"},preterite:{yo:"hice",tú:"hiciste","él/ella":"hizo",nosotros:"hicimos",vosotros:"hicisteis","ellos/ellas":"hicieron"},imperfect:{yo:"hacía",tú:"hacías","él/ella":"hacía",nosotros:"hacíamos",vosotros:"hacíais","ellos/ellas":"hacían"},future:{yo:"haré",tú:"harás","él/ella":"hará",nosotros:"haremos",vosotros:"haréis","ellos/ellas":"harán"}},
+{i:"ir",m:"to go",present:{yo:"voy",tú:"vas","él/ella":"va",nosotros:"vamos",vosotros:"vais","ellos/ellas":"van"},preterite:{yo:"fui",tú:"fuiste","él/ella":"fue",nosotros:"fuimos",vosotros:"fuisteis","ellos/ellas":"fueron"},imperfect:{yo:"iba",tú:"ibas","él/ella":"iba",nosotros:"íbamos",vosotros:"ibais","ellos/ellas":"iban"},future:{yo:"iré",tú:"irás","él/ella":"irá",nosotros:"iremos",vosotros:"iréis","ellos/ellas":"irán"}},
+{i:"poder",m:"can/to be able",present:{yo:"puedo",tú:"puedes","él/ella":"puede",nosotros:"podemos",vosotros:"podéis","ellos/ellas":"pueden"},preterite:{yo:"pude",tú:"pudiste","él/ella":"pudo",nosotros:"pudimos",vosotros:"pudisteis","ellos/ellas":"pudieron"},imperfect:{yo:"podía",tú:"podías","él/ella":"podía",nosotros:"podíamos",vosotros:"podíais","ellos/ellas":"podían"},future:{yo:"podré",tú:"podrás","él/ella":"podrá",nosotros:"podremos",vosotros:"podréis","ellos/ellas":"podrán"}},
+{i:"querer",m:"to want/love",present:{yo:"quiero",tú:"quieres","él/ella":"quiere",nosotros:"queremos",vosotros:"queréis","ellos/ellas":"quieren"},preterite:{yo:"quise",tú:"quisiste","él/ella":"quiso",nosotros:"quisimos",vosotros:"quisisteis","ellos/ellas":"quisieron"},imperfect:{yo:"quería",tú:"querías","él/ella":"quería",nosotros:"queríamos",vosotros:"queríais","ellos/ellas":"querían"},future:{yo:"querré",tú:"querrás","él/ella":"querrá",nosotros:"querremos",vosotros:"querréis","ellos/ellas":"querrán"}},
+{i:"saber",m:"to know (facts)",present:{yo:"sé",tú:"sabes","él/ella":"sabe",nosotros:"sabemos",vosotros:"sabéis","ellos/ellas":"saben"},preterite:{yo:"supe",tú:"supiste","él/ella":"supo",nosotros:"supimos",vosotros:"supisteis","ellos/ellas":"supieron"},imperfect:{yo:"sabía",tú:"sabías","él/ella":"sabía",nosotros:"sabíamos",vosotros:"sabíais","ellos/ellas":"sabían"},future:{yo:"sabré",tú:"sabrás","él/ella":"sabrá",nosotros:"sabremos",vosotros:"sabréis","ellos/ellas":"sabrán"}},
+{i:"venir",m:"to come",present:{yo:"vengo",tú:"vienes","él/ella":"viene",nosotros:"venimos",vosotros:"venís","ellos/ellas":"vienen"},preterite:{yo:"vine",tú:"viniste","él/ella":"vino",nosotros:"vinimos",vosotros:"vinisteis","ellos/ellas":"vinieron"},imperfect:{yo:"venía",tú:"venías","él/ella":"venía",nosotros:"veníamos",vosotros:"veníais","ellos/ellas":"venían"},future:{yo:"vendré",tú:"vendrás","él/ella":"vendrá",nosotros:"vendremos",vosotros:"vendréis","ellos/ellas":"vendrán"}},
+{i:"ver",m:"to see",present:{yo:"veo",tú:"ves","él/ella":"ve",nosotros:"vemos",vosotros:"veis","ellos/ellas":"ven"},preterite:{yo:"vi",tú:"viste","él/ella":"vio",nosotros:"vimos",vosotros:"visteis","ellos/ellas":"vieron"},imperfect:{yo:"veía",tú:"veías","él/ella":"veía",nosotros:"veíamos",vosotros:"veíais","ellos/ellas":"veían"},future:{yo:"veré",tú:"verás","él/ella":"verá",nosotros:"veremos",vosotros:"veréis","ellos/ellas":"verán"}},
+{i:"dar",m:"to give",present:{yo:"doy",tú:"das","él/ella":"da",nosotros:"damos",vosotros:"dais","ellos/ellas":"dan"},preterite:{yo:"di",tú:"diste","él/ella":"dio",nosotros:"dimos",vosotros:"disteis","ellos/ellas":"dieron"},imperfect:{yo:"daba",tú:"dabas","él/ella":"daba",nosotros:"dábamos",vosotros:"dabais","ellos/ellas":"daban"},future:{yo:"daré",tú:"darás","él/ella":"dará",nosotros:"daremos",vosotros:"daréis","ellos/ellas":"darán"}},
+{i:"poner",m:"to put",present:{yo:"pongo",tú:"pones","él/ella":"pone",nosotros:"ponemos",vosotros:"ponéis","ellos/ellas":"ponen"},preterite:{yo:"puse",tú:"pusiste","él/ella":"puso",nosotros:"pusimos",vosotros:"pusisteis","ellos/ellas":"pusieron"},imperfect:{yo:"ponía",tú:"ponías","él/ella":"ponía",nosotros:"poníamos",vosotros:"poníais","ellos/ellas":"ponían"},future:{yo:"pondré",tú:"pondrás","él/ella":"pondrá",nosotros:"pondremos",vosotros:"pondréis","ellos/ellas":"pondrán"}},
+{i:"decir",m:"to say/tell",present:{yo:"digo",tú:"dices","él/ella":"dice",nosotros:"decimos",vosotros:"decís","ellos/ellas":"dicen"},preterite:{yo:"dije",tú:"dijiste","él/ella":"dijo",nosotros:"dijimos",vosotros:"dijisteis","ellos/ellas":"dijeron"},imperfect:{yo:"decía",tú:"decías","él/ella":"decía",nosotros:"decíamos",vosotros:"decíais","ellos/ellas":"decían"},future:{yo:"diré",tú:"dirás","él/ella":"dirá",nosotros:"diremos",vosotros:"diréis","ellos/ellas":"dirán"}},
+{i:"llevar",m:"to carry/wear",present:{yo:"llevo",tú:"llevas","él/ella":"lleva",nosotros:"llevamos",vosotros:"lleváis","ellos/ellas":"llevan"},preterite:{yo:"llevé",tú:"llevaste","él/ella":"llevó",nosotros:"llevamos",vosotros:"llevasteis","ellos/ellas":"llevaron"},imperfect:{yo:"llevaba",tú:"llevabas","él/ella":"llevaba",nosotros:"llevábamos",vosotros:"llevabais","ellos/ellas":"llevaban"},future:{yo:"llevaré",tú:"llevarás","él/ella":"llevará",nosotros:"llevaremos",vosotros:"llevaréis","ellos/ellas":"llevarán"}},
+{i:"conocer",m:"to know (people)",present:{yo:"conozco",tú:"conoces","él/ella":"conoce",nosotros:"conocemos",vosotros:"conocéis","ellos/ellas":"conocen"},preterite:{yo:"conocí",tú:"conociste","él/ella":"conoció",nosotros:"conocimos",vosotros:"conocisteis","ellos/ellas":"conocieron"},imperfect:{yo:"conocía",tú:"conocías","él/ella":"conocía",nosotros:"conocíamos",vosotros:"conocíais","ellos/ellas":"conocían"},future:{yo:"conoceré",tú:"conocerás","él/ella":"conocerá",nosotros:"conoceremos",vosotros:"conoceréis","ellos/ellas":"conocerán"}},
+{i:"salir",m:"to go out/leave",present:{yo:"salgo",tú:"sales","él/ella":"sale",nosotros:"salimos",vosotros:"salís","ellos/ellas":"salen"},preterite:{yo:"salí",tú:"saliste","él/ella":"salió",nosotros:"salimos",vosotros:"salisteis","ellos/ellas":"salieron"},imperfect:{yo:"salía",tú:"salías","él/ella":"salía",nosotros:"salíamos",vosotros:"salíais","ellos/ellas":"salían"},future:{yo:"saldré",tú:"saldrás","él/ella":"saldrá",nosotros:"saldremos",vosotros:"saldréis","ellos/ellas":"saldrán"}},
+{i:"llamar",m:"to call",present:{yo:"llamo",tú:"llamas","él/ella":"llama",nosotros:"llamamos",vosotros:"llamáis","ellos/ellas":"llaman"},preterite:{yo:"llamé",tú:"llamaste","él/ella":"llamó",nosotros:"llamamos",vosotros:"llamasteis","ellos/ellas":"llamaron"},imperfect:{yo:"llamaba",tú:"llamabas","él/ella":"llamaba",nosotros:"llamábamos",vosotros:"llamabais","ellos/ellas":"llamaban"},future:{yo:"llamaré",tú:"llamarás","él/ella":"llamará",nosotros:"llamaremos",vosotros:"llamaréis","ellos/ellas":"llamarán"}},
+{i:"creer",m:"to believe/think",present:{yo:"creo",tú:"crees","él/ella":"cree",nosotros:"creemos",vosotros:"creéis","ellos/ellas":"creen"},preterite:{yo:"creí",tú:"creíste","él/ella":"creyó",nosotros:"creímos",vosotros:"creísteis","ellos/ellas":"creyeron"},imperfect:{yo:"creía",tú:"creías","él/ella":"creía",nosotros:"creíamos",vosotros:"creíais","ellos/ellas":"creían"},future:{yo:"creeré",tú:"creerás","él/ella":"creerá",nosotros:"creeremos",vosotros:"creeréis","ellos/ellas":"creerán"}}
+];
+let prog={},stats={correct:0,incorrect:0,sessions:0,streak:0,lastSessionDate:null};
+let selLevels=["A1"],selTenses=["present","preterite","imperfect","future"];
+let cards=[],cardIdx=0,curCard=null,sessionMode="words",sessionSz=20;
+let score={c:0,w:0,p:0},submitted=false,hintShown=false;
+let curAns="",curAlts=[],lastCfg=null,cardShownAt=0;
+let micActive=false,recognition=null,micRestarting=false,cardToken=0,autoSubmitTimer=null;
+function loadData(){
+  try{const p=localStorage.getItem("esp_prog");if(p)prog=JSON.parse(p);}catch(e){}
+  try{const s=localStorage.getItem("esp_stats");if(s)stats=JSON.parse(s);}catch(e){}
+  try{const sz=localStorage.getItem("esp_sessz");if(sz)sessionSz=parseInt(sz);}catch(e){}
+  try{const th=localStorage.getItem("esp_theme");if(th)document.body.setAttribute("data-theme",th);}catch(e){}
 }
-function saveProgress() { localStorage.setItem("esp_prog", JSON.stringify(progress)); }
-function saveExtras() { localStorage.setItem("esp_extras", JSON.stringify(extras)); }
-function saveStats() { localStorage.setItem("esp_stats", JSON.stringify(stats)); }
-function getApiKey() { return localStorage.getItem("esp_api_key") || ""; }
-function saveApiKey() {
-  const k = document.getElementById("api-key-input").value.trim();
-  if (!k) { showToast("Please enter an API key"); return; }
-  localStorage.setItem("esp_api_key", k);
-  showToast("API key saved ✓");
+function saveProg(){localStorage.setItem("esp_prog",JSON.stringify(prog));}
+function saveStats(){localStorage.setItem("esp_stats",JSON.stringify(stats));}
+function updateStreak(){
+  const today=new Date().toDateString();
+  const yesterday=new Date(Date.now()-86400000).toDateString();
+  if(stats.lastSessionDate===today)return;
+  stats.streak=stats.lastSessionDate===yesterday?(stats.streak||0)+1:1;
+  stats.lastSessionDate=today;
 }
-
-// ─── VOCAB HELPERS ────────────────────────────────────────────────────────────
-function allVocab(lv) { return [...(VOCAB[lv] || []), ...(extras[lv] || [])]; }
-function normalize(s) { return s.toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g,"").trim(); }
-function isCorrectAnswer(input, correct) {
-  return normalize(input) === normalize(correct) || input.trim() === correct.trim();
+function classifyWord(id){
+  const p=prog[id];
+  if(!p||!p.seen||p.seen<1)return"learning";
+  const rate=p.correct/p.seen;
+  const avgSpeed=p.totalTime&&p.seen?(p.totalTime/p.seen/1000):99;
+  if((p.box||1)>=4&&rate>=0.75&&p.seen>=4&&avgSpeed<=9)return"fluent";
+  if((p.box||1)>=2||(p.seen>=2&&rate>=0.4))return"practicing";
+  return"learning";
 }
-function weightedPick(items, weightFn) {
-  const total = items.reduce((s,i) => s + weightFn(i), 0);
-  if (!total) return items[Math.floor(Math.random() * items.length)];
-  let r = Math.random() * total;
-  for (const i of items) { r -= weightFn(i); if (r <= 0) return i; }
-  return items[items.length - 1];
+function getLevelStats(lv){
+  let fluent=0,practicing=0,learning=0;
+  VOCAB[lv].forEach(w=>{const c=classifyWord(w.id);if(c==="fluent")fluent++;else if(c==="practicing")practicing++;else learning++;});
+  return{fluent,practicing,learning,total:VOCAB[lv].length};
 }
-function pickWordCard(levels) {
-  const pool = levels.flatMap(lv =>
-    allVocab(lv).map(w => ({ ...w, level: lv, ...(progress[w.id] || { box:1, passed:0 }) }))
-  );
-  const card = weightedPick(pool, w => BOX_WEIGHT[Math.min(5, w.box || 1)]);
-  return { type: "word", ...card };
+function norm(s){return s.toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g,"").trim();}
+function isOk(inp,card){return[card.es,...(card.alts||[])].some(a=>norm(inp)===norm(a)||inp.trim()===a.trim());}
+function levenshtein(a,b){
+  const dp=Array.from({length:a.length+1},(_,i)=>Array.from({length:b.length+1},(_,j)=>i===0?j:j===0?i:0));
+  for(let i=1;i<=a.length;i++)for(let j=1;j<=b.length;j++)
+    dp[i][j]=a[i-1]===b[j-1]?dp[i-1][j-1]:1+Math.min(dp[i-1][j],dp[i][j-1],dp[i-1][j-1]);
+  return dp[a.length][b.length];
 }
-function pickTenseCard(tenses) {
-  const verb = VERBS[Math.floor(Math.random() * VERBS.length)];
-  const tense = tenses[Math.floor(Math.random() * tenses.length)];
-  const pronoun = PRONOUNS[Math.floor(Math.random() * PRONOUNS.length)];
-  return { type: "tense", verb, tense, pronoun, answer: verb[tense][pronoun] };
+function similarity(a,b){const na=norm(a),nb=norm(b),l=Math.max(na.length,nb.length);if(!l)return 1;return(l-levenshtein(na,nb))/l;}
+function wPick(items,fn){
+  const tot=items.reduce((s,i)=>s+fn(i),0);
+  if(!tot)return items[Math.floor(Math.random()*items.length)];
+  let r=Math.random()*tot;
+  for(const i of items){r-=fn(i);if(r<=0)return i;}
+  return items[items.length-1];
 }
-
-// ─── AUTO EXPAND ──────────────────────────────────────────────────────────────
-async function maybeAutoExpand(level) {
-  if (autoExpandInProgress[level]) return;
-  const key = getApiKey();
-  if (!key) return;
-  const all = allVocab(level);
-  const seen = all.filter(w => (progress[w.id]?.box || 1) >= 2).length;
-  if (all.length > 0 && seen / all.length < 0.7) return;
-  autoExpandInProgress[level] = true;
-  try {
-    const existing = all.map(w => w.es).slice(0, 80).join(", ");
-    const resp = await fetch("https://api.anthropic.com/v1/messages", {
-      method: "POST",
-      headers: { "Content-Type": "application/json", "x-api-key": key, "anthropic-version": "2023-06-01" },
-      body: JSON.stringify({
-        model: MODEL, max_tokens: 2000,
-        system: "Return only a valid JSON array, no explanation, no markdown.",
-        messages: [{ role: "user", content: `Generate 50 Spanish vocabulary words for CEFR ${level} level. Return ONLY a JSON array: [{"en":"english","es":"spanish"},...]. Do NOT include: ${existing}. Focus on high-frequency everyday words.` }]
-      })
-    });
-    const data = await resp.json();
-    const raw = data.content[0].text.replace(/```json|```/g,"").trim();
-    const words = JSON.parse(raw);
-    const ts = Date.now();
-    const tagged = words.map((w, i) => ({ ...w, id: `${level.toLowerCase()}_x_${ts}_${i}` }));
-    extras[level] = [...(extras[level] || []), ...tagged];
-    saveExtras();
-    showToast(`+${tagged.length} new ${level} words added!`);
-  } catch(e) { console.warn("Auto-expand failed", e); }
-  autoExpandInProgress[level] = false;
+function pickWord(lvs){
+  const pool=lvs.flatMap(lv=>VOCAB[lv].map(w=>({...w,level:lv,...(prog[w.id]||{box:1,passed:0})})));
+  return{type:"word",...wPick(pool,w=>BW[Math.min(5,w.box||1)])};
 }
-
-// ─── SESSION ──────────────────────────────────────────────────────────────────
-function buildSession(levels, tenses, mode) {
-  const result = [];
-  for (let i = 0; i < sessionSize; i++) {
-    result.push(mode === "words" ? pickWordCard(levels) : pickTenseCard(tenses));
-  }
-  return result;
+function pickTense(ts){
+  const v=VERBS[Math.floor(Math.random()*VERBS.length)];
+  const t=ts[Math.floor(Math.random()*ts.length)];
+  const p=PRONS[Math.floor(Math.random()*PRONS.length)];
+  return{type:"tense",verb:v,tense:t,pronoun:p,answer:v[t][p]};
 }
-function startWordSession() {
-  if (!selectedLevels.length) return;
-  lastSessionConfig = { mode: "words", levels: [...selectedLevels], tenses: [...selectedTenses] };
-  sessionMode = "words";
-  beginSession();
-  selectedLevels.forEach(lv => maybeAutoExpand(lv));
+function pickSentence(lvs){
+  const pool=SENTENCES.filter(s=>lvs.includes(s.level));
+  if(!pool.length)return pickWord(lvs);
+  const s=pool.map(s=>({...s,...(prog[s.id]||{box:1,passed:0})}));
+  return{type:"sentence",...wPick(s,w=>BW[Math.min(5,w.box||1)])};
 }
-function startTenseSession() {
-  if (!selectedTenses.length) return;
-  lastSessionConfig = { mode: "tenses", levels: [...selectedLevels], tenses: [...selectedTenses] };
-  sessionMode = "tenses";
-  beginSession();
+function updateProg(id,action,responseTime){
+  const c=prog[id]||{box:1,correct:0,incorrect:0,passed:0,seen:0,totalTime:0};
+  prog[id]={box:action==="correct"?Math.min(5,(c.box||1)+1):Math.max(1,(c.box||1)-1),lastSeen:Date.now(),
+    correct:(c.correct||0)+(action==="correct"?1:0),incorrect:(c.incorrect||0)+(action==="wrong"?1:0),
+    passed:(c.passed||0)+(action==="pass"?1:0),seen:(c.seen||0)+(action!=="pass"?1:0),
+    totalTime:(c.totalTime||0)+(responseTime&&action!=="pass"?responseTime:0)};
+  saveProg();
 }
-function repeatSession() {
-  if (!lastSessionConfig) { showScreen("home"); return; }
-  sessionMode = lastSessionConfig.mode;
-  selectedLevels = lastSessionConfig.levels;
-  selectedTenses = lastSessionConfig.tenses;
-  beginSession();
+function showToast(msg){const t=document.getElementById("toast");t.textContent=msg;t.classList.add("show");setTimeout(()=>t.classList.remove("show"),2500);}
+function set(id,v){const el=document.getElementById(id);if(el)el.textContent=v;}
+function clearInput(){const inp=document.getElementById("ans");if(inp)inp.value="";}
+function moonIcon(){return`<svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M21 12.79A9 9 0 1 1 11.21 3a7 7 0 0 0 9.79 9.79z"/></svg>`;}
+function sunIcon(){return`<svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/><line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/></svg>`;}
+function toggleTheme(){
+  const isDark=document.body.getAttribute("data-theme")==="dark"||(!document.body.getAttribute("data-theme")&&window.matchMedia("(prefers-color-scheme:dark)").matches);
+  const next=isDark?"light":"dark";
+  document.body.setAttribute("data-theme",next);localStorage.setItem("esp_theme",next);
+  const btn=document.getElementById("themebtn");if(btn)btn.innerHTML=next==="dark"?sunIcon():moonIcon();
 }
-function beginSession() {
-  cards = buildSession(selectedLevels, selectedTenses, sessionMode);
-  cardIdx = 0; score = { c:0, w:0, p:0 };
-  showScreen("practice");
-  showCard();
-}
-function showCard() {
-  currentCard = cards[cardIdx];
-  submitted = false; hintShown = false;
-  document.getElementById("answer-input").value = "";
-  resetMicForNextCard();
-  document.getElementById("hint-text").style.display = "none";
-  document.getElementById("feedback-box").style.display = "none";
-  document.getElementById("input-area").style.display = "block";
-  document.getElementById("action-row").style.display = "grid";
-  document.getElementById("next-btn").style.display = "none";
-  document.getElementById("hint-btn").style.opacity = "1";
-  document.getElementById("check-btn").style.opacity = "1";
-  document.getElementById("score-c").textContent = score.c;
-  document.getElementById("score-w").textContent = score.w;
-  document.getElementById("score-p").textContent = score.p;
-  const pct = Math.round((cardIdx + 1) / sessionSize * 100);
-  document.getElementById("progress-fill").style.width = pct + "%";
-  document.getElementById("progress-label").textContent = `${cardIdx+1}/${sessionSize}`;
-  const skipNote = document.getElementById("skip-note");
-  if (currentCard.type === "word") {
-    const passed = progress[currentCard.id]?.passed || 0;
-    document.getElementById("card-pill").textContent = currentCard.level || "—";
-    document.getElementById("card-instruction").textContent = "Translate to Spanish";
-    document.getElementById("card-word").textContent = currentCard.en;
-    currentAnswer = currentCard.es;
-    if (passed > 0) { skipNote.textContent = `Skipped ${passed}× — keep going!`; skipNote.style.display = "inline"; }
-    else skipNote.style.display = "none";
-  } else {
-    document.getElementById("card-pill").textContent = TENSE_NAMES[currentCard.tense];
-    document.getElementById("card-instruction").textContent = `Conjugate in ${TENSE_NAMES[currentCard.tense]}`;
-    document.getElementById("card-word").innerHTML = `<span style="font-size:20px;color:var(--text2);display:block;margin-bottom:4px">${currentCard.pronoun}</span>${currentCard.verb.infinitive}<br><span style="font-size:14px;color:var(--text3)">(${currentCard.verb.meaning})</span>`;
-    currentAnswer = currentCard.answer;
-    skipNote.style.display = "none";
-  }
-  setTimeout(() => document.getElementById("answer-input").focus(), 100);
-}
-function checkAnswer() {
-  const inp = document.getElementById("answer-input").value;
-  if (!inp.trim() || submitted) return;
-  submitted = true;
-  const correct = isCorrectAnswer(inp, currentAnswer);
-  if (correct) score.c++; else score.w++;
-  if (currentCard.type === "word") updateProg(currentCard.id, correct ? "correct" : "wrong");
-  showFeedback(correct, inp);
-}
-function skipCard() {
-  if (submitted) return;
-  submitted = true;
-  score.p++;
-  if (currentCard.type === "word") updateProg(currentCard.id, "pass");
-  showFeedback(null, "");
-}
-function showFeedback(correct, inp) {
-  const fb = document.getElementById("feedback-box");
-  const lbl = document.getElementById("feedback-label");
-  const ans = document.getElementById("feedback-answer");
-  const typed = document.getElementById("feedback-typed");
-  fb.style.display = "block";
-  if (correct === true) {
-    fb.style.background = "var(--success-bg)"; fb.style.border = "0.5px solid var(--success-text)";
-    lbl.style.color = "var(--success-text)"; lbl.textContent = "Correct!";
-    ans.textContent = currentAnswer; typed.style.display = "none";
-  } else if (correct === false) {
-    fb.style.background = "var(--danger-bg)"; fb.style.border = "0.5px solid var(--danger-text)";
-    lbl.style.color = "var(--danger-text)"; lbl.textContent = "Not quite — the correct answer:";
-    ans.textContent = currentAnswer;
-    typed.textContent = `You typed: ${inp}`; typed.style.display = "block";
-  } else {
-    fb.style.background = "var(--bg2)"; fb.style.border = "0.5px solid var(--border2)";
-    lbl.style.color = "var(--text2)"; lbl.textContent = "Skipped — the answer:";
-    ans.textContent = currentAnswer; typed.style.display = "none";
-  }
-  document.getElementById("input-area").style.display = "none";
-  document.getElementById("action-row").style.display = "none";
-  document.getElementById("next-btn").style.display = "block";
-  document.getElementById("score-c").textContent = score.c;
-  document.getElementById("score-w").textContent = score.w;
-  document.getElementById("score-p").textContent = score.p;
-  if (window.speechSynthesis && correct !== true) speakAnswer();
-}
-function nextCard() {
-  cardIdx++;
-  if (cardIdx >= sessionSize) { endSession(); return; }
-  showCard();
-}
-function endSession() {
-  stats.correct += score.c; stats.incorrect += score.w; stats.sessions += 1;
-  saveStats(); updateHomeStats();
-  endMicOnExit();
-  const total = score.c + score.w + score.p;
-  const pct = total ? Math.round(score.c / total * 100) : 0;
-  document.getElementById("end-c").textContent = score.c;
-  document.getElementById("end-w").textContent = score.w;
-  document.getElementById("end-p").textContent = score.p;
-  const msgs = pct >= 80 ? ["Excellent work!", `${pct}% correct — brilliant session`, "🏆", "#534AB7", "#EEEDFE"]
-              : pct >= 60 ? ["Good progress!", `${pct}% correct — keep it up`, "⭐", "var(--coral)", "var(--coral-light)"]
-              : ["Keep going!", `${pct}% correct — practice makes perfect`, "💪", "var(--text2)", "var(--bg2)"];
-  document.getElementById("end-title").textContent = msgs[0];
-  document.getElementById("end-sub").textContent = msgs[1];
-  document.getElementById("end-icon").innerHTML = `<span style="font-size:28px">${msgs[2]}</span>`;
-  document.getElementById("end-icon").style.background = msgs[4];
-  showScreen("end");
-}
-function updateProg(id, action) {
-  const cur = progress[id] || { box:1, correct:0, incorrect:0, passed:0 };
-  progress[id] = {
-    box: action === "correct" ? Math.min(5, (cur.box||1)+1) : 1,
-    lastSeen: Date.now(),
-    correct: (cur.correct||0) + (action==="correct"?1:0),
-    incorrect: (cur.incorrect||0) + (action==="wrong"?1:0),
-    passed: (cur.passed||0) + (action==="pass"?1:0),
-  };
-  saveProgress();
-}
-
-// ─── HINT ──────────────────────────────────────────────────────────────────────
-function showHint() {
-  if (hintShown || submitted) return;
-  hintShown = true;
-  const hint = document.getElementById("hint-text");
-  hint.textContent = currentAnswer.slice(0,2).padEnd(currentAnswer.length,"·");
-  hint.style.display = "block";
-  document.getElementById("hint-btn").style.opacity = "0.4";
-}
-
-// ─── VOICE ─────────────────────────────────────────────────────────────────────
-function speakAnswer() {
-  if (!window.speechSynthesis) return;
+function speak(txt){
+  if(!window.speechSynthesis)return;
   window.speechSynthesis.cancel();
-  const u = new SpeechSynthesisUtterance(currentAnswer);
-  u.lang = "es-ES"; u.rate = 0.85;
-  window.speechSynthesis.speak(u);
+  const u=new SpeechSynthesisUtterance(txt);u.lang="es-ES";u.rate=0.85;window.speechSynthesis.speak(u);
 }
-
-// Mic session stays open for the whole practice session — one permission prompt only.
-let micSessionActive = false;
-let micRestarting = false;
-
-function toggleMicSession() {
-  if (micSessionActive) {
-    endMicSession();
-  } else {
-    startMicSession();
+function toggleMic(){micActive?stopMic():startMic();}
+function startMic(){
+  const SR=window.SpeechRecognition||window.webkitSpeechRecognition;
+  if(!SR){showToast("Speech not supported here");return;}
+  micActive=true;setMicUI(true,"Listening…",false);doListen(cardToken);
+}
+function doListen(token){
+  if(!micActive||token!==cardToken)return;
+  const SR=window.SpeechRecognition||window.webkitSpeechRecognition;
+  recognition=new SR();recognition.lang="es-ES";recognition.continuous=false;recognition.interimResults=true;
+  recognition.onresult=e=>{
+    if(token!==cardToken)return;
+    let interim="",final="";
+    for(let i=e.resultIndex;i<e.results.length;i++){if(e.results[i].isFinal)final+=e.results[i][0].transcript;else interim+=e.results[i][0].transcript;}
+    const inp=document.getElementById("ans");if(!inp||submitted)return;
+    if(final){inp.value=final;setMicUI(true,"Checking… tap Try Again to redo",true);clearTimeout(autoSubmitTimer);autoSubmitTimer=setTimeout(()=>{if(!submitted)checkAns();},900);}
+    else if(interim){inp.value=interim;}
+  };
+  recognition.onerror=e=>{
+    if(e.error==="not-allowed"||e.error==="denied"){showToast("Mic blocked — check Safari settings");stopMic();return;}
+    if(micActive&&!micRestarting&&token===cardToken)scheduleRestart(token);
+  };
+  recognition.onend=()=>{if(micActive&&!micRestarting&&token===cardToken)scheduleRestart(token);};
+  try{recognition.start();}catch(e){}
+}
+function scheduleRestart(token){micRestarting=true;setTimeout(()=>{micRestarting=false;doListen(token);},150);}
+function stopMic(){
+  micActive=false;micRestarting=false;clearTimeout(autoSubmitTimer);
+  if(recognition){try{recognition.abort();}catch(e){}recognition=null;}
+  setMicUI(false,"",false);
+}
+function tryAgain(){
+  clearTimeout(autoSubmitTimer);clearInput();setMicUI(true,"Listening…",false);
+  if(recognition){try{recognition.abort();}catch(e){}recognition=null;}
+  micRestarting=false;setTimeout(()=>doListen(cardToken),150);
+}
+function setMicUI(active,statusTxt,showTryAgain){
+  const btn=document.getElementById("micbtn"),st=document.getElementById("micst"),ta=document.getElementById("tryagain"),stxt=document.getElementById("mictxt");
+  if(btn){btn.style.background=active?"var(--coral)":"var(--bg2)";btn.style.color=active?"white":"var(--tx2)";}
+  if(st)st.style.display=active?"flex":"none";if(stxt)stxt.textContent=statusTxt;if(ta)ta.style.display=showTryAgain?"inline":"none";
+}
+function buildSession(lvs,ts,md){return Array.from({length:sessionSz},()=>md==="words"?pickWord(lvs):md==="tenses"?pickTense(ts):pickSentence(lvs));}
+function goSession(){cards=buildSession(selLevels,selTenses,sessionMode);cardIdx=0;score={c:0,w:0,p:0};showScreen("practice");showCard();}
+function showCard(){
+  curCard=cards[cardIdx];submitted=false;hintShown=false;
+  cardToken++;const myToken=cardToken;cardShownAt=Date.now();
+  clearInput();clearTimeout(autoSubmitTimer);
+  if(micActive){setMicUI(true,"Listening…",false);if(recognition){try{recognition.abort();}catch(e){}recognition=null;}micRestarting=false;setTimeout(()=>doListen(myToken),200);}
+  if(curCard.type==="word"){
+    curAns=curCard.es;curAlts=curCard.alts||[];
+    set("cpill",curCard.level||"—");set("cinst","Translate to Spanish");
+    const p=prog[curCard.id]?.passed||0;
+    const altsHint=curAlts.length?`<div style="font-size:11px;color:var(--tx3);margin-top:4px">(also: ${curAlts.join(", ")})</div>`:"";
+    document.getElementById("cword").innerHTML=`<span style="font-size:36px;font-weight:500;line-height:1.2">${curCard.en}</span>${altsHint}`;
+    const sn=document.getElementById("skipnote");if(sn){sn.style.display=p>0?"inline":"none";sn.textContent=`Skipped ${p}× — keep going!`;}
+  }else if(curCard.type==="sentence"){
+    curAns=curCard.es;curAlts=curCard.alts||[];
+    set("cpill","Sentence · "+curCard.level);set("cinst","Translate to Spanish");
+    document.getElementById("cword").innerHTML=`<span style="font-size:22px;font-weight:500;line-height:1.3">${curCard.en}</span>`;
+    const sn=document.getElementById("skipnote");if(sn)sn.style.display="none";
+  }else{
+    curAns=curCard.answer;curAlts=[];
+    set("cpill",TN[curCard.tense]);set("cinst","Conjugate — "+TN[curCard.tense]);
+    document.getElementById("cword").innerHTML=`<span style="font-size:22px;color:var(--tx2);display:block">${curCard.pronoun}</span><span style="font-size:30px;font-weight:500">${curCard.verb.i}</span><br><span style="font-size:13px;color:var(--tx3)">(${curCard.verb.m})</span>`;
+    const sn=document.getElementById("skipnote");if(sn)sn.style.display="none";
   }
+  document.getElementById("hintrow").style.display="none";
+  document.getElementById("fbbox").style.display="none";
+  document.getElementById("inputarea").style.display="block";
+  document.getElementById("actrow").style.display="grid";
+  document.getElementById("nextbtn").style.display="none";
+  document.getElementById("hintbtn").style.opacity="1";
+  const pct=Math.round((cardIdx+1)/sessionSz*100);
+  document.getElementById("pfill").style.width=pct+"%";
+  set("plbl",`${cardIdx+1}/${sessionSz}`);set("sc",score.c);set("sw",score.w);set("sp",score.p);
+  setTimeout(()=>{const i=document.getElementById("ans");if(i&&!micActive)i.focus();},100);
 }
-
-function startMicSession() {
-  const SR = window.SpeechRecognition || window.webkitSpeechRecognition;
-  if (!SR) { showToast("Speech not supported in this browser"); return; }
-  micSessionActive = true;
-  setMicUI(true);
-  beginListening();
+function checkAns(){
+  const inp=document.getElementById("ans");if(!inp||!inp.value.trim()||submitted)return;
+  submitted=true;clearTimeout(autoSubmitTimer);
+  const responseTime=Date.now()-cardShownAt;
+  const ok=isOk(inp.value,curCard);
+  if(ok)score.c++;else score.w++;
+  if(curCard.type!=="tense")updateProg(curCard.id,ok?"correct":"wrong",responseTime);
+  showFeedback(ok,inp.value,responseTime);
 }
-
-function beginListening() {
-  if (!micSessionActive) return;
-  const SR = window.SpeechRecognition || window.webkitSpeechRecognition;
-  recognition = new SR();
-  recognition.lang = "es-ES";
-  recognition.continuous = false;   // iOS Safari only supports false reliably
-  recognition.interimResults = true;
-  recognition.maxAlternatives = 1;
-
-  recognition.onresult = e => {
-    let interim = "", final = "";
-    for (let i = e.resultIndex; i < e.results.length; i++) {
-      if (e.results[i].isFinal) final += e.results[i][0].transcript;
-      else interim += e.results[i][0].transcript;
-    }
-    const inp = document.getElementById("answer-input");
-    if (final) {
-      inp.value = final;
-      setMicStatusGotResult();
-    } else if (interim) {
-      inp.value = interim;
-      setMicStatusListening();
-    }
-  };
-
-  recognition.onerror = e => {
-    if (e.error === "no-speech" || e.error === "aborted") {
-      // silently restart — no permission re-prompt needed
-      if (micSessionActive && !micRestarting) restartListening();
-    } else {
-      showToast("Mic error: " + e.error);
-      endMicSession();
-    }
-  };
-
-  recognition.onend = () => {
-    // iOS stops recognition after silence — restart to keep session alive
-    if (micSessionActive && !micRestarting) restartListening();
-  };
-
-  try { recognition.start(); } catch(e) {}
+function skipCard(){
+  if(submitted)return;submitted=true;clearTimeout(autoSubmitTimer);score.p++;
+  if(curCard.type!=="tense")updateProg(curCard.id,"pass",0);
+  showFeedback(null,"",0);
 }
-
-function restartListening() {
-  micRestarting = true;
-  setTimeout(() => { micRestarting = false; if (micSessionActive) beginListening(); }, 120);
+function showFeedback(ok,inp,responseTime){
+  const fb=document.getElementById("fbbox"),lbl=document.getElementById("fblbl"),ans=document.getElementById("fbans"),typed=document.getElementById("fbtyped"),pronote=document.getElementById("pronote");
+  const allAnswers=[curAns,...curAlts].join(" / ");
+  fb.style.display="block";
+  if(ok===true){
+    fb.style.background="var(--ok-bg)";fb.style.border=".5px solid var(--ok-tx)";lbl.style.color="var(--ok-tx)";
+    lbl.textContent=responseTime/1000<4?"Correct! ⚡ Fast!":"Correct! ✓";typed.style.display="none";if(pronote)pronote.style.display="none";
+  }else if(ok===false){
+    fb.style.background="var(--err-bg)";fb.style.border=".5px solid var(--err-tx)";lbl.style.color="var(--err-tx)";
+    const sim=similarity(inp,curAns);
+    lbl.textContent="Not quite"+(sim>=0.8?" — Very close! 🎯":sim>=0.6?" — Almost there!":"");
+    typed.textContent="You wrote: "+inp;typed.style.display="block";if(pronote)pronote.style.display="none";
+  }else{
+    fb.style.background="var(--bg2)";fb.style.border=".5px solid var(--bdr)";lbl.style.color="var(--tx2)";lbl.textContent="Skipped — the answer:";typed.style.display="none";if(pronote)pronote.style.display="none";
+  }
+  ans.textContent=allAnswers;
+  document.getElementById("inputarea").style.display="none";
+  document.getElementById("actrow").style.display="none";
+  document.getElementById("nextbtn").style.display="block";
+  set("sc",score.c);set("sw",score.w);set("sp",score.p);
+  if(ok!==true)speak(curAns);
 }
-
-function endMicSession() {
-  micSessionActive = false;
-  micRestarting = false;
-  if (recognition) { try { recognition.abort(); } catch(e){} recognition = null; }
-  setMicUI(false);
+function nextCard(){cardIdx++;if(cardIdx>=sessionSz){endSession();return;}showCard();}
+function endSession(){
+  updateStreak();stats.correct+=score.c;stats.incorrect+=score.w;stats.sessions+=1;saveStats();stopMic();
+  const tot=score.c+score.w+score.p,pct=tot?Math.round(score.c/tot*100):0;
+  set("endc",score.c);set("endw",score.w);set("endp",score.p);
+  set("endtitle",pct>=80?"Excellent! 🏆":pct>=60?"Good progress ⭐":"Keep going! 💪");
+  set("endsub",pct+"% correct · "+(stats.streak||0)+" day streak 🔥");
+  showScreen("end");updateHomeStats();
 }
-
-function tryAgain() {
-  // Clear input and restart a fresh listen cycle without stopping the session
-  document.getElementById("answer-input").value = "";
-  document.getElementById("answer-input").focus();
-  setMicStatusListening();
-  if (recognition) { try { recognition.abort(); } catch(e){} recognition = null; }
-  setTimeout(() => { if (micSessionActive) beginListening(); }, 120);
+function showHint(){
+  if(hintShown||submitted)return;hintShown=true;
+  const h=document.getElementById("hintrow");h.textContent=curAns.slice(0,2).padEnd(curAns.length,"·");h.style.display="block";document.getElementById("hintbtn").style.opacity="0.4";
 }
-
-function setMicUI(active) {
-  const btn = document.getElementById("mic-btn");
-  const status = document.getElementById("mic-status");
-  btn.style.background = active ? "var(--coral)" : "var(--bg2)";
-  btn.style.color = active ? "white" : "var(--text2)";
-  status.style.display = active ? "flex" : "none";
-  if (active) setMicStatusListening();
+function showScreen(id){
+  document.querySelectorAll(".sc").forEach(s=>s.style.display="none");
+  const el=document.getElementById("sc-"+id);if(el)el.style.display="block";
+  window.scrollTo(0,0);
+  if(id==="home")updateHomeStats();if(id==="level-select")buildLevelCards();if(id==="tense-select")buildTenseCards();
 }
-
-function setMicStatusListening() {
-  document.getElementById("mic-status-text").textContent = "Listening…";
-  document.getElementById("try-again-btn").style.display = "none";
+function updateHomeStats(){
+  const isDark=document.body.getAttribute("data-theme")==="dark"||(!document.body.getAttribute("data-theme")&&window.matchMedia("(prefers-color-scheme:dark)").matches);
+  const btn=document.getElementById("themebtn");if(btn)btn.innerHTML=isDark?sunIcon():moonIcon();
+  set("statStreak",(stats.streak||0)+"");set("statSessions",stats.sessions+"");
+  const grid=document.getElementById("levelgrid");if(!grid)return;grid.innerHTML="";
+  LEVELS.forEach(lv=>{
+    const s=getLevelStats(lv);
+    const div=document.createElement("div");div.style.cssText="background:var(--bg2);border-radius:var(--rs);padding:.875rem 1rem";
+    div.innerHTML=`<div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:6px"><div style="display:flex;align-items:center;gap:6px"><span style="font-size:13px;font-weight:600;color:var(--coral-m)">${lv}</span><span style="font-size:11px;color:var(--tx3)">${LN[lv]}</span></div><span style="font-size:10px;color:var(--tx3)">${s.total} words</span></div><div style="display:flex;gap:8px;font-size:11px;margin-bottom:5px;flex-wrap:wrap"><span><span class="stat-dot" style="background:var(--green)"></span>${s.fluent} fluent</span><span><span class="stat-dot" style="background:var(--amber)"></span>${s.practicing} learning</span><span><span class="stat-dot" style="background:var(--bg3)"></span>${s.learning} new</span></div><div class="seg-bar"><div class="seg-green" style="width:${s.total?Math.round(s.fluent/s.total*100):0}%"></div><div class="seg-amber" style="width:${s.total?Math.round(s.practicing/s.total*100):0}%"></div><div class="seg-gray"></div></div>`;
+    grid.appendChild(div);
+  });
 }
-
-function setMicStatusGotResult() {
-  document.getElementById("mic-status-text").textContent = "Got it — check or";
-  document.getElementById("try-again-btn").style.display = "inline";
+function buildLevelCards(){
+  const el=document.getElementById("levelcards");el.innerHTML="";
+  LEVELS.forEach(lv=>{
+    const s=getLevelStats(lv),on=selLevels.includes(lv);
+    const d=document.createElement("button");
+    d.style.cssText=`display:flex;align-items:center;gap:12px;padding:.875rem 1rem;width:100%;background:${on?"var(--coral-l)":"var(--bg)"};border:${on?".5px solid var(--coral)":".5px solid var(--bdr)"};border-radius:var(--r);margin-bottom:10px;cursor:pointer;text-align:left;font-family:inherit`;
+    d.innerHTML=`<div class="lbadge" style="color:${on?"var(--coral)":"var(--coral-m)"}">${lv}</div><div style="flex:1;min-width:0"><div style="display:flex;justify-content:space-between;align-items:baseline"><span style="font-weight:500;font-size:14px">${LN[lv]}</span><span style="font-size:11px;color:var(--tx2)">${s.fluent}/${s.total} fluent</span></div><div class="seg-bar" style="height:4px;margin-top:6px"><div class="seg-green" style="width:${s.total?Math.round(s.fluent/s.total*100):0}%"></div><div class="seg-amber" style="width:${s.total?Math.round(s.practicing/s.total*100):0}%"></div><div class="seg-gray"></div></div></div><div class="ichk${on?" on":""}"><svg viewBox="0 0 24 24" width="12" height="12" fill="none" stroke="${on?"white":"transparent"}" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg></div>`;
+    d.onclick=()=>{if(selLevels.includes(lv)){if(selLevels.length>1)selLevels=selLevels.filter(x=>x!==lv);}else selLevels.push(lv);buildLevelCards();};
+    el.appendChild(d);
+  });
 }
-
-// Called between cards to keep mic alive but ready for the next word
-function resetMicForNextCard() {
-  if (!micSessionActive) return;
-  document.getElementById("answer-input").value = "";
-  setMicStatusListening();
+function buildTenseCards(){
+  const el=document.getElementById("tensecards");el.innerHTML="";
+  TENSES.forEach(t=>{
+    const on=selTenses.includes(t);
+    const d=document.createElement("button");
+    d.style.cssText=`display:flex;align-items:center;justify-content:space-between;padding:.875rem 1.25rem;width:100%;background:${on?"var(--purple-l)":"var(--bg)"};border:${on?".5px solid var(--purple)":".5px solid var(--bdr)"};border-radius:var(--r);margin-bottom:10px;cursor:pointer;font-family:inherit`;
+    d.innerHTML=`<span style="font-size:14px;font-weight:${on?500:400};color:${on?"var(--purple)":"var(--tx)"}">${TN[t]}</span>${on?`<svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="var(--purple)" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>`:""}`;
+    d.onclick=()=>{if(selTenses.includes(t)){if(selTenses.length>1)selTenses=selTenses.filter(x=>x!==t);}else selTenses.push(t);buildTenseCards();};
+    el.appendChild(d);
+  });
 }
-
-// Stop mic when leaving practice screen
-function endMicOnExit() {
-  if (micSessionActive) endMicSession();
-}
-
-function stopListen() {
-  endMicSession();
-  const btn = document.getElementById("mic-btn");
-  btn.style.background = "var(--bg2)"; btn.style.color = "var(--text2)";
-}
-
-// ─── ACCENT BAR ───────────────────────────────────────────────────────────────
-function buildAccentBar() {
-  const row = document.getElementById("accent-row");
-  ACCENT_CHARS.forEach(ch => {
-    const b = document.createElement("button");
-    b.className = "accent-btn"; b.textContent = ch;
-    b.onclick = () => {
-      const inp = document.getElementById("answer-input");
-      const pos = inp.selectionStart != null ? inp.selectionStart : inp.value.length;
-      inp.value = inp.value.slice(0, pos) + ch + inp.value.slice(pos);
-      inp.focus();
-      setTimeout(() => inp.setSelectionRange(pos+1, pos+1), 0);
-    };
+function buildAccentBar(){
+  const row=document.getElementById("accrow");if(!row)return;
+  ACCS.forEach(ch=>{
+    const b=document.createElement("button");b.className="acc";b.textContent=ch;
+    b.onclick=()=>{const inp=document.getElementById("ans");if(!inp)return;const pos=inp.selectionStart??inp.value.length;inp.value=inp.value.slice(0,pos)+ch+inp.value.slice(pos);inp.focus();setTimeout(()=>inp.setSelectionRange(pos+1,pos+1),0);};
     row.appendChild(b);
   });
 }
-
-// ─── LEVEL SELECT UI ─────────────────────────────────────────────────────────
-function buildLevelCards() {
-  const el = document.getElementById("level-cards");
-  el.innerHTML = "";
-  LEVELS.forEach(lv => {
-    const all = allVocab(lv);
-    const learned = all.filter(w => (progress[w.id]?.box||1) >= 3).length;
-    const pct = all.length ? Math.round(learned/all.length*100) : 0;
-    const checked = selectedLevels.includes(lv);
-    const div = document.createElement("button");
-    div.style.cssText = `display:flex;align-items:center;gap:12px;padding:0.875rem 1rem;width:100%;background:${checked?"var(--coral-light)":"var(--bg)"};border:${checked?"0.5px solid var(--coral)":"0.5px solid var(--border2)"};border-radius:var(--radius);margin-bottom:10px;cursor:pointer;text-align:left;font-family:inherit`;
-    div.innerHTML = `
-      <div class="level-badge" style="color:${checked?"var(--coral)":"var(--coral-mid)"}">${lv}</div>
-      <div style="flex:1;min-width:0">
-        <div style="display:flex;justify-content:space-between;align-items:baseline">
-          <span style="font-weight:500;font-size:14px">${LEVEL_NAMES[lv]}</span>
-          <span style="font-size:11px;color:var(--text2)">${learned}/${all.length} learned</span>
-        </div>
-        <div class="progress-bar" style="margin-top:6px"><div class="progress-fill" style="width:${pct}%"></div></div>
-      </div>
-      <div class="level-check ${checked?"checked":""}">
-        ${checked?`<svg viewBox="0 0 24 24" width="12" height="12" fill="none" stroke="white" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg>`:""}
-      </div>`;
-    div.onclick = () => {
-      if (selectedLevels.includes(lv)) {
-        if (selectedLevels.length > 1) selectedLevels = selectedLevels.filter(x => x !== lv);
-      } else {
-        selectedLevels.push(lv);
-      }
-      buildLevelCards();
-      document.getElementById("start-words-btn").disabled = selectedLevels.length === 0;
-    };
-    el.appendChild(div);
-  });
-}
-
-// ─── TENSE SELECT UI ──────────────────────────────────────────────────────────
-function buildTenseCards() {
-  const el = document.getElementById("tense-cards");
-  el.innerHTML = "";
-  TENSES.forEach(t => {
-    const on = selectedTenses.includes(t);
-    const div = document.createElement("button");
-    div.style.cssText = `display:flex;align-items:center;justify-content:space-between;padding:0.875rem 1.25rem;width:100%;background:${on?"var(--purple-light)":"var(--bg)"};border:${on?"0.5px solid var(--purple)":"0.5px solid var(--border2)"};border-radius:var(--radius);margin-bottom:10px;cursor:pointer;font-family:inherit`;
-    div.innerHTML = `<span style="font-size:14px;font-weight:${on?500:400};color:${on?"var(--purple)":"var(--text)"}">${TENSE_NAMES[t]}</span>${on?`<svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="var(--purple)" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>`:""}`;
-    div.onclick = () => {
-      if (selectedTenses.includes(t)) {
-        if (selectedTenses.length > 1) selectedTenses = selectedTenses.filter(x => x !== t);
-      } else {
-        selectedTenses.push(t);
-      }
-      buildTenseCards();
-      document.getElementById("start-tense-btn").disabled = selectedTenses.length === 0;
-    };
-    el.appendChild(div);
-  });
-}
-
-// ─── SETTINGS UI ──────────────────────────────────────────────────────────────
-function initSettings() {
-  const k = getApiKey();
-  if (k) document.getElementById("api-key-input").value = k;
-  const sz = document.getElementById("session-size");
-  sz.value = sessionSize;
-  document.getElementById("session-label").textContent = sessionSize + " cards";
-  sz.oninput = () => {
-    sessionSize = parseInt(sz.value);
-    document.getElementById("session-label").textContent = sessionSize + " cards";
-    localStorage.setItem("esp_session_size", sessionSize);
-  };
-}
-function resetProgress() {
-  if (!confirm("Reset all learning progress? This cannot be undone.")) return;
-  progress = {}; extras = {}; stats = { correct:0, incorrect:0, sessions:0 };
-  saveProgress(); saveExtras(); saveStats();
-  updateHomeStats(); showToast("Progress reset");
-  showScreen("home");
-}
-
-// ─── HOME STATS ───────────────────────────────────────────────────────────────
-function updateHomeStats() {
-  const learned = Object.values(progress).filter(p => (p.box||1) >= 3).length;
-  document.getElementById("stat-learned").textContent = learned;
-  document.getElementById("stat-sessions").textContent = stats.sessions;
-}
-
-// ─── SCREEN NAV ───────────────────────────────────────────────────────────────
-function showScreen(id) {
-  document.querySelectorAll(".screen").forEach(s => s.classList.remove("active"));
-  document.getElementById("screen-" + id).classList.add("active");
-  window.scrollTo(0, 0);
-  if (id === "level-select") buildLevelCards();
-  if (id === "tense-select") buildTenseCards();
-  if (id === "home") updateHomeStats();
-  if (id === "settings") initSettings();
-}
-function confirmExit() {
-  if (confirm("Exit this session?")) { endMicOnExit(); showScreen("home"); }
-}
-
-// ─── TOAST ────────────────────────────────────────────────────────────────────
-function showToast(msg) {
-  const t = document.getElementById("toast");
-  t.textContent = msg; t.classList.add("show");
-  setTimeout(() => t.classList.remove("show"), 2500);
-}
-
-// ─── KEYBOARD ─────────────────────────────────────────────────────────────────
-document.getElementById("answer-input").addEventListener("keydown", e => {
-  if (e.key === "Enter") { submitted ? nextCard() : checkAnswer(); }
-});
-
-// ─── INIT ─────────────────────────────────────────────────────────────────────
-load();
-buildAccentBar();
-updateHomeStats();
+document.getElementById("app").innerHTML=`
+<div id="sc-home" class="sc">
+  <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:1.5rem">
+    <div style="display:flex;align-items:center;gap:10px">
+      <div style="width:34px;height:34px;border-radius:9px;background:var(--coral);display:flex;align-items:center;justify-content:center"><span style="color:white;font-size:14px;font-weight:600">Es</span></div>
+      <div><h1 style="font-size:20px;font-weight:600;line-height:1">Español</h1><p style="font-size:11px;color:var(--tx2)">Spanish practice</p></div>
+    </div>
+    <div style="display:flex;align-items:center;gap:8px">
+      <div style="text-align:center;background:var(--coral-l);border-radius:8px;padding:4px 10px"><span id="statStreak" style="font-size:18px;font-weight:600;color:var(--coral)">0</span><span style="font-size:11px;color:var(--coral-m);display:block;line-height:1">🔥 streak</span></div>
+      <button id="themebtn" onclick="toggleTheme()" style="background:var(--bg2);border:.5px solid var(--bdr);border-radius:8px;padding:8px;color:var(--tx2)"></button>
+    </div>
+  </div>
+  <p class="sec">Progress by level</p>
+  <div id="levelgrid" style="display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:1.5rem"></div>
+  <p class="sec">Practice mode</p>
+  <button class="btn-s" onclick="sessionMode='words';showScreen('level-select')" style="display:flex;align-items:center;gap:12px;padding:1rem 1.25rem;text-align:left;margin-bottom:10px;width:100%">
+    <div style="width:40px;height:40px;border-radius:10px;background:var(--coral-l);display:flex;align-items:center;justify-content:center;flex-shrink:0"><svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="var(--coral)" stroke-width="1.8"><path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/></svg></div>
+    <div style="flex:1"><div style="font-weight:500;font-size:15px">Vocabulary</div><div style="font-size:12px;color:var(--tx2);margin-top:2px">A1→B2 · CEFR · synonyms · spaced rep</div></div>
+    <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="var(--tx3)" stroke-width="2"><path d="M9 18l6-6-6-6"/></svg>
+  </button>
+  <button class="btn-s" onclick="showScreen('tense-select')" style="display:flex;align-items:center;gap:12px;padding:1rem 1.25rem;text-align:left;margin-bottom:10px;width:100%">
+    <div style="width:40px;height:40px;border-radius:10px;background:var(--purple-l);display:flex;align-items:center;justify-content:center;flex-shrink:0"><svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="var(--purple)" stroke-width="1.8"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg></div>
+    <div style="flex:1"><div style="font-weight:500;font-size:15px">Verb tenses</div><div style="font-size:12px;color:var(--tx2);margin-top:2px">20 verbs · present, past &amp; future</div></div>
+    <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="var(--tx3)" stroke-width="2"><path d="M9 18l6-6-6-6"/></svg>
+  </button>
+  <button class="btn-s" onclick="sessionMode='sentences';showScreen('level-select')" style="display:flex;align-items:center;gap:12px;padding:1rem 1.25rem;text-align:left;width:100%">
+    <div style="width:40px;height:40px;border-radius:10px;background:var(--green-l);display:flex;align-items:center;justify-content:center;flex-shrink:0"><svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="var(--green)" stroke-width="1.8"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg></div>
+    <div style="flex:1"><div style="font-weight:500;font-size:15px">Sentences</div><div style="font-size:12px;color:var(--tx2);margin-top:2px">Translate full phrases · A1→B2</div></div>
+    <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="var(--tx3)" stroke-width="2"><path d="M9 18l6-6-6-6"/></svg>
+  </button>
+</div>
+<div id="sc-level-select" class="sc" style="display:none">
+  <button onclick="showScreen('home')" style="background:none;border:none;display:flex;align-items:center;gap:6px;color:var(--tx2);font-size:14px;padding:0;margin-bottom:1.5rem;cursor:pointer"><svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2"><path d="M19 12H5M12 5l-7 7 7 7"/></svg>Back</button>
+  <h2 style="font-size:20px;font-weight:600;margin-bottom:4px">Choose levels</h2>
+  <p style="font-size:13px;color:var(--tx2);margin-bottom:1.5rem">Mix beginner to advanced!</p>
+  <div id="levelcards"></div>
+  <button class="btn-p" style="margin-top:8px" onclick="lastCfg={mode:sessionMode,lvs:[...selLevels],ts:[...selTenses]};goSession()">Start practice</button>
+</div>
+<div id="sc-tense-select" class="sc" style="display:none">
+  <button onclick="showScreen('home')" style="background:none;border:none;display:flex;align-items:center;gap:6px;color:var(--tx2);font-size:14px;padding:0;margin-bottom:1.5rem;cursor:pointer"><svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2"><path d="M19 12H5M12 5l-7 7 7 7"/></svg>Back</button>
+  <h2 style="font-size:20px;font-weight:600;margin-bottom:4px">Choose tenses</h2>
+  <p style="font-size:13px;color:var(--tx2);margin-bottom:1.5rem">Pick one or more to practise</p>
+  <div id="tensecards"></div>
+  <button class="btn-p" style="margin-top:8px" onclick="sessionMode='tenses';lastCfg={mode:'tenses',lvs:[...selLevels],ts:[...selTenses]};goSession()">Start practice</button>
+</div>
+<div id="sc-practice" class="sc" style="display:none">
+  <div style="display:flex;align-items:center;gap:12px;margin-bottom:1.25rem">
+    <button onclick="if(confirm('Exit session?')){stopMic();showScreen('home');}" style="background:none;border:none;padding:4px;color:var(--tx2)"><svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 6L6 18M6 6l12 12"/></svg></button>
+    <div class="pbar" style="flex:1"><div class="pfill" id="pfill" style="width:10%"></div></div>
+    <span id="plbl" style="font-size:12px;color:var(--tx2);min-width:36px;text-align:right">1/20</span>
+  </div>
+  <div style="display:flex;align-items:center;gap:8px;flex-wrap:wrap;margin-bottom:.875rem">
+    <span id="cpill" class="pill" style="background:var(--coral-l);color:var(--coral-m)">A1</span>
+    <span id="skipnote" style="font-size:11px;color:var(--tx3);display:none"></span>
+  </div>
+  <div class="card" style="min-height:148px;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;margin-bottom:1rem">
+    <p id="cinst" style="font-size:12px;color:var(--tx2);margin-bottom:8px"></p>
+    <div id="cword"></div>
+    <p id="hintrow" style="font-size:14px;color:var(--tx2);margin-top:10px;letter-spacing:3px;display:none"></p>
+  </div>
+  <div id="fbbox" style="display:none;padding:.875rem 1rem;margin-bottom:1rem;border-radius:var(--rs)">
+    <p id="fblbl" style="font-size:12px;font-weight:500;margin-bottom:6px"></p>
+    <div style="display:flex;align-items:center;gap:8px">
+      <span id="fbans" style="font-size:18px;font-weight:500;flex:1"></span>
+      <button onclick="speak(curAns)" style="background:none;border:none;padding:4px;color:var(--tx2);flex-shrink:0"><svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="1.8"><polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"/><path d="M19.07 4.93a10 10 0 0 1 0 14.14M15.54 8.46a5 5 0 0 1 0 7.07"/></svg></button>
+    </div>
+    <p id="fbtyped" style="font-size:12px;color:var(--tx2);margin-top:6px;display:none"></p>
+    <p id="pronote" style="font-size:12px;color:var(--tx2);margin-top:4px;display:none"></p>
+  </div>
+  <div id="inputarea">
+    <div style="display:flex;gap:8px;margin-bottom:6px">
+      <input class="inp" type="text" id="ans" placeholder="Type or speak in Spanish…" autocomplete="off" autocorrect="off" spellcheck="false" autocapitalize="none" style="flex:1">
+      <button id="micbtn" onclick="toggleMic()" style="padding:0 14px;border:.5px solid var(--bdr);border-radius:var(--rs);background:var(--bg2);color:var(--tx2);flex-shrink:0;transition:background .2s,color .2s"><svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M12 1a3 3 0 0 0-3 3v8a3 3 0 0 0 6 0V4a3 3 0 0 0-3-3z"/><path d="M19 10v2a7 7 0 0 1-14 0v-2M12 19v4M8 23h8"/></svg></button>
+    </div>
+    <div id="micst" style="display:none;font-size:12px;color:var(--coral);margin-bottom:6px;align-items:center;gap:6px">
+      <span class="dot"></span><span id="mictxt">Listening…</span>
+      <button id="tryagain" onclick="tryAgain()" style="display:none;background:none;border:none;color:var(--coral);font-size:12px;font-weight:500;text-decoration:underline;cursor:pointer;font-family:inherit;margin-left:4px">Try again</button>
+    </div>
+    <div id="accrow" style="display:flex;gap:4px;flex-wrap:wrap;margin-bottom:.875rem"></div>
+  </div>
+  <div id="actrow" style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:8px">
+    <button id="hintbtn" class="btn-s" onclick="showHint()" style="font-size:13px">Hint</button>
+    <button class="btn-s" onclick="skipCard()" style="font-size:13px">Skip</button>
+    <button class="btn-p" onclick="checkAns()" style="font-size:13px">Check</button>
+  </div>
+  <button id="nextbtn" class="btn-p" onclick="nextCard()" style="display:none">Next →</button>
+  <div class="sr">
+    <div class="si" style="color:var(--ok-tx)">✓ <span id="sc">0</span></div>
+    <div class="si" style="color:var(--err-tx)">✗ <span id="sw">0</span></div>
+    <div class="si" style="color:var(--tx3)">› <span id="sp">0</span></div>
+  </div>
+</div>
+<div id="sc-end" class="sc" style="display:none;text-align:center;padding-top:2rem">
+  <div style="font-size:48px;margin-bottom:1rem">🏆</div>
+  <h2 id="endtitle" style="font-size:22px;font-weight:600;margin-bottom:4px"></h2>
+  <p id="endsub" style="font-size:14px;color:var(--tx2);margin-bottom:2rem"></p>
+  <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-bottom:2rem">
+    <div class="mcard"><div id="endc" style="font-size:22px;font-weight:500;color:var(--ok-tx)">0</div><div style="font-size:11px;color:var(--tx2)">Correct</div></div>
+    <div class="mcard"><div id="endw" style="font-size:22px;font-weight:500;color:var(--err-tx)">0</div><div style="font-size:11px;color:var(--tx2)">Incorrect</div></div>
+    <div class="mcard"><div id="endp" style="font-size:22px;font-weight:500">0</div><div style="font-size:11px;color:var(--tx2)">Skipped</div></div>
+  </div>
+  <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px">
+    <button class="btn-s" onclick="showScreen('home')">Home</button>
+    <button class="btn-p" onclick="if(lastCfg){sessionMode=lastCfg.mode;selLevels=lastCfg.lvs;selTenses=lastCfg.ts;}goSession()">Again</button>
+  </div>
+</div>
+`;
+document.addEventListener("keydown",e=>{if(document.activeElement===document.getElementById("ans")&&e.key==="Enter"){submitted?nextCard():checkAns();}});
+loadData();buildAccentBar();updateHomeStats();showScreen("home");
 </script>
 </body>
 </html>
