@@ -37,8 +37,7 @@ html{background:var(--bg)}
 body{background:var(--bg);color:var(--tx);font-family:'Inter',-apple-system,system-ui,sans-serif;font-size:16px;line-height:1.5;min-height:100vh;transition:background .3s,color .3s}
 body::before{content:'';position:fixed;inset:0;background:radial-gradient(ellipse at 20% 10%,rgba(255,95,61,0.07) 0%,transparent 55%),radial-gradient(ellipse at 80% 90%,rgba(124,111,255,0.07) 0%,transparent 55%);pointer-events:none;z-index:0}
 #app{max-width:420px;margin:0 auto;padding:1.25rem 1rem 2rem;position:relative;z-index:1}
-button{font-family:inherit;cursor:pointer}
-input{font-family:inherit}
+button{font-family:inherit;cursor:pointer}input{font-family:inherit}
 .glass{background:var(--glass);backdrop-filter:blur(20px);-webkit-backdrop-filter:blur(20px);border:.5px solid var(--bdr2);border-radius:var(--r)}
 .glass2{background:var(--bg2);border:.5px solid var(--bdr2);border-radius:var(--r)}
 .btn-p{background:linear-gradient(135deg,var(--coral),#FF3D6B);color:#fff;border:none;border-radius:var(--r);padding:.9rem 1rem;font-size:14px;font-weight:600;width:100%;letter-spacing:.02em;box-shadow:0 4px 20px rgba(255,95,61,0.3);transition:opacity .15s,transform .15s}
@@ -69,10 +68,7 @@ input{font-family:inherit}
 @keyframes float{0%,100%{transform:translateY(0)}50%{transform:translateY(-6px)}}
 @keyframes sparkle{0%{opacity:0;transform:scale(0) rotate(0deg)}50%{opacity:1;transform:scale(1.2) rotate(180deg)}100%{opacity:0;transform:scale(0) rotate(360deg)}}
 @keyframes slideIn{from{opacity:0;transform:translateX(30px)}to{opacity:1;transform:translateX(0)}}
-.shake{animation:shake .4s ease}
-.pop{animation:pop .35s ease}
-.fade-up{animation:fadeUp .3s ease}
-.float{animation:float 3s ease-in-out infinite}
+.shake{animation:shake .4s ease}.pop{animation:pop .35s ease}.fade-up{animation:fadeUp .3s ease}.float{animation:float 3s ease-in-out infinite}
 .dot{width:7px;height:7px;border-radius:50%;background:var(--coral);display:inline-block;animation:pulse 1s infinite}
 .paz-bubble{background:var(--bg3);border:.5px solid var(--bdr2);border-radius:16px 16px 16px 4px;padding:10px 14px;font-size:13px;font-weight:500;color:var(--tx);max-width:200px;line-height:1.4}
 .lbadge{width:44px;height:44px;border-radius:12px;background:var(--coral-l);display:flex;align-items:center;justify-content:center;font-size:13px;font-weight:700;color:var(--coral-m);flex-shrink:0;border:.5px solid rgba(255,95,61,0.2)}
@@ -85,8 +81,7 @@ input{font-family:inherit}
 .toast.show{opacity:1}
 .sparkle-wrap{position:absolute;top:0;left:0;right:0;bottom:0;pointer-events:none;overflow:hidden;border-radius:var(--r)}
 .sparkle{position:absolute;width:6px;height:6px;border-radius:50%;animation:sparkle .6s ease forwards}
-.sc{display:none;animation:fadeUp .25s ease}
-.sc.active{display:block}
+.sc{display:none;animation:fadeUp .25s ease}.sc.active{display:block}
 </style>
 </head>
 <body data-theme="dark">
@@ -101,147 +96,43 @@ const PRONS=["yo","tú","él/ella","nosotros","vosotros","ellos/ellas"];
 const BW=[0,8,5,3,2,1];
 const ACCS=["á","é","í","ó","ú","ü","ñ","¿","¡"];
 const VOCAB={
-A1:[
-{id:"a1_01",en:"hello",es:"hola"},{id:"a1_02",en:"goodbye",es:"adiós"},{id:"a1_03",en:"thank you",es:"gracias"},
-{id:"a1_04",en:"please",es:"por favor"},{id:"a1_05",en:"yes",es:"sí"},{id:"a1_06",en:"no",es:"no"},
-{id:"a1_07",en:"good morning",es:"buenos días"},{id:"a1_08",en:"good night",es:"buenas noches"},
-{id:"a1_09",en:"name",es:"nombre"},{id:"a1_10",en:"house",es:"casa"},{id:"a1_11",en:"water",es:"agua"},
-{id:"a1_12",en:"food",es:"comida"},{id:"a1_13",en:"bread",es:"pan"},{id:"a1_14",en:"milk",es:"leche"},
-{id:"a1_15",en:"coffee",es:"café"},{id:"a1_16",en:"one",es:"uno"},{id:"a1_17",en:"two",es:"dos"},
-{id:"a1_18",en:"three",es:"tres"},{id:"a1_19",en:"red",es:"rojo"},{id:"a1_20",en:"blue",es:"azul"},
-{id:"a1_21",en:"green",es:"verde"},{id:"a1_22",en:"mother",es:"madre"},{id:"a1_23",en:"father",es:"padre"},
-{id:"a1_24",en:"brother",es:"hermano"},{id:"a1_25",en:"sister",es:"hermana"},{id:"a1_26",en:"book",es:"libro"},
-{id:"a1_27",en:"table",es:"mesa"},{id:"a1_28",en:"chair",es:"silla"},{id:"a1_29",en:"door",es:"puerta"},
-{id:"a1_30",en:"window",es:"ventana"},{id:"a1_31",en:"dog",es:"perro"},{id:"a1_32",en:"cat",es:"gato"},
-{id:"a1_33",en:"city",es:"ciudad"},{id:"a1_34",en:"street",es:"calle"},{id:"a1_35",en:"year",es:"año"},
-{id:"a1_36",en:"day",es:"día"},{id:"a1_37",en:"night",es:"noche"},{id:"a1_38",en:"man",es:"hombre"},
-{id:"a1_39",en:"woman",es:"mujer"},{id:"a1_40",en:"child",es:"niño"},{id:"a1_41",en:"big",es:"grande"},
-{id:"a1_42",en:"small",es:"pequeño"},{id:"a1_43",en:"good",es:"bueno"},{id:"a1_44",en:"bad",es:"malo"},
-{id:"a1_45",en:"friend",es:"amigo"},{id:"a1_46",en:"sun",es:"sol"},{id:"a1_47",en:"moon",es:"luna"},
-{id:"a1_48",en:"tree",es:"árbol"},{id:"a1_49",en:"bird",es:"pájaro"},{id:"a1_50",en:"fish",es:"pez"},
-{id:"a1_51",en:"white",es:"blanco"},{id:"a1_52",en:"black",es:"negro"},{id:"a1_53",en:"yellow",es:"amarillo"},
-{id:"a1_54",en:"four",es:"cuatro"},{id:"a1_55",en:"five",es:"cinco"},{id:"a1_56",en:"ten",es:"diez"},
-{id:"a1_57",en:"today",es:"hoy"},{id:"a1_58",en:"here",es:"aquí"},{id:"a1_59",en:"there",es:"allí"},
-{id:"a1_60",en:"and",es:"y"},{id:"a1_61",en:"or",es:"o"},{id:"a1_62",en:"but",es:"pero"},
-{id:"a1_63",en:"with",es:"con"},{id:"a1_64",en:"without",es:"sin"},{id:"a1_65",en:"very",es:"muy"},
-{id:"a1_66",en:"much",es:"mucho"},{id:"a1_67",en:"little",es:"poco"},{id:"a1_68",en:"more",es:"más"},
-{id:"a1_69",en:"less",es:"menos"},{id:"a1_70",en:"how",es:"cómo"}
-],
-A2:[
-{id:"a2_01",en:"work",es:"trabajo"},{id:"a2_02",en:"shop",es:"tienda"},{id:"a2_03",en:"money",es:"dinero"},
-{id:"a2_04",en:"weather",es:"tiempo"},{id:"a2_05",en:"week",es:"semana"},{id:"a2_06",en:"month",es:"mes"},
-{id:"a2_07",en:"tomorrow",es:"mañana"},{id:"a2_08",en:"afternoon",es:"tarde"},{id:"a2_09",en:"family",es:"familia"},
-{id:"a2_10",en:"car",es:"coche",alts:["auto","carro"]},{id:"a2_11",en:"bus",es:"autobús",alts:["bus"]},
-{id:"a2_12",en:"train",es:"tren"},{id:"a2_13",en:"airport",es:"aeropuerto"},{id:"a2_14",en:"hotel",es:"hotel"},
-{id:"a2_15",en:"restaurant",es:"restaurante"},{id:"a2_16",en:"market",es:"mercado"},{id:"a2_17",en:"bank",es:"banco"},
-{id:"a2_18",en:"hospital",es:"hospital"},{id:"a2_19",en:"doctor",es:"médico"},{id:"a2_20",en:"teacher",es:"profesor"},
-{id:"a2_21",en:"kitchen",es:"cocina"},{id:"a2_22",en:"bathroom",es:"baño"},{id:"a2_23",en:"bedroom",es:"dormitorio",alts:["habitación","cuarto"]},
-{id:"a2_24",en:"garden",es:"jardín"},{id:"a2_25",en:"beach",es:"playa"},{id:"a2_26",en:"mountain",es:"montaña"},
-{id:"a2_27",en:"rain",es:"lluvia"},{id:"a2_28",en:"wind",es:"viento"},{id:"a2_29",en:"hot",es:"calor"},
-{id:"a2_30",en:"cold",es:"frío"},{id:"a2_31",en:"tall",es:"alto"},{id:"a2_32",en:"young",es:"joven"},
-{id:"a2_33",en:"old",es:"viejo"},{id:"a2_34",en:"beautiful",es:"bonito",alts:["hermoso","bello"]},
-{id:"a2_35",en:"ticket",es:"billete",alts:["boleto","entrada"]},{id:"a2_36",en:"passport",es:"pasaporte"},
-{id:"a2_37",en:"phone",es:"teléfono",alts:["móvil","celular"]},{id:"a2_38",en:"letter",es:"carta"},
-{id:"a2_39",en:"key",es:"llave"},{id:"a2_40",en:"bag",es:"bolsa",alts:["bolso","mochila"]},
-{id:"a2_41",en:"shirt",es:"camisa"},{id:"a2_42",en:"shoes",es:"zapatos"},{id:"a2_43",en:"breakfast",es:"desayuno"},
-{id:"a2_44",en:"lunch",es:"almuerzo",alts:["comida"]},{id:"a2_45",en:"dinner",es:"cena"},
-{id:"a2_46",en:"fruit",es:"fruta"},{id:"a2_47",en:"to buy",es:"comprar"},{id:"a2_48",en:"to study",es:"estudiar"},
-{id:"a2_49",en:"to wait",es:"esperar"},{id:"a2_50",en:"to need",es:"necesitar"},
-{id:"a2_51",en:"computer",es:"ordenador",alts:["computadora","computador"]},{id:"a2_52",en:"internet",es:"internet"},
-{id:"a2_53",en:"map",es:"mapa"},{id:"a2_54",en:"road",es:"carretera",alts:["camino"]},{id:"a2_55",en:"square",es:"plaza"},
-{id:"a2_56",en:"park",es:"parque"},{id:"a2_57",en:"glass",es:"vaso"},{id:"a2_58",en:"bottle",es:"botella"},
-{id:"a2_59",en:"early",es:"temprano"},{id:"a2_60",en:"late",es:"tarde"},
-{id:"a2_61",en:"fast",es:"rápido"},{id:"a2_62",en:"slow",es:"lento"},
-{id:"a2_63",en:"easy",es:"fácil"},{id:"a2_64",en:"difficult",es:"difícil"},{id:"a2_65",en:"clean",es:"limpio"},
-{id:"a2_66",en:"dirty",es:"sucio"},{id:"a2_67",en:"open",es:"abierto"},{id:"a2_68",en:"closed",es:"cerrado"},
-{id:"a2_69",en:"new",es:"nuevo"},{id:"a2_70",en:"old (thing)",es:"viejo"}
-],
-B1:[
-{id:"b1_01",en:"society",es:"sociedad"},{id:"b1_02",en:"government",es:"gobierno"},{id:"b1_03",en:"economy",es:"economía"},
-{id:"b1_04",en:"culture",es:"cultura"},{id:"b1_05",en:"history",es:"historia"},{id:"b1_06",en:"science",es:"ciencia"},
-{id:"b1_07",en:"technology",es:"tecnología"},{id:"b1_08",en:"environment",es:"medio ambiente"},
-{id:"b1_09",en:"problem",es:"problema"},{id:"b1_10",en:"solution",es:"solución"},{id:"b1_11",en:"opportunity",es:"oportunidad"},
-{id:"b1_12",en:"experience",es:"experiencia"},{id:"b1_13",en:"opinion",es:"opinión"},{id:"b1_14",en:"decision",es:"decisión"},
-{id:"b1_15",en:"result",es:"resultado"},{id:"b1_16",en:"change",es:"cambio"},{id:"b1_17",en:"development",es:"desarrollo"},
-{id:"b1_18",en:"company",es:"empresa"},{id:"b1_19",en:"project",es:"proyecto"},{id:"b1_20",en:"meeting",es:"reunión"},
-{id:"b1_21",en:"freedom",es:"libertad"},{id:"b1_22",en:"justice",es:"justicia"},{id:"b1_23",en:"education",es:"educación"},
-{id:"b1_24",en:"health",es:"salud"},{id:"b1_25",en:"safety",es:"seguridad"},{id:"b1_26",en:"peace",es:"paz"},
-{id:"b1_27",en:"rights",es:"derechos"},{id:"b1_28",en:"relationship",es:"relación"},{id:"b1_29",en:"communication",es:"comunicación"},
-{id:"b1_30",en:"information",es:"información"},{id:"b1_31",en:"important",es:"importante"},{id:"b1_32",en:"necessary",es:"necesario"},
-{id:"b1_33",en:"possible",es:"posible"},{id:"b1_34",en:"different",es:"diferente"},{id:"b1_35",en:"national",es:"nacional"},
-{id:"b1_36",en:"international",es:"internacional"},{id:"b1_37",en:"tradition",es:"tradición"},{id:"b1_38",en:"language",es:"idioma",alts:["lengua"]},
-{id:"b1_39",en:"literature",es:"literatura"},{id:"b1_40",en:"art",es:"arte"},{id:"b1_41",en:"newspaper",es:"periódico",alts:["diario"]},
-{id:"b1_42",en:"journey",es:"viaje"},{id:"b1_43",en:"population",es:"población"},{id:"b1_44",en:"century",es:"siglo"},
-{id:"b1_45",en:"religion",es:"religión"},{id:"b1_46",en:"to improve",es:"mejorar"},{id:"b1_47",en:"to explain",es:"explicar"},
-{id:"b1_48",en:"to describe",es:"describir"},{id:"b1_49",en:"to choose",es:"elegir"},{id:"b1_50",en:"to achieve",es:"conseguir",alts:["lograr"]},
-{id:"b1_51",en:"attitude",es:"actitud"},{id:"b1_52",en:"behaviour",es:"comportamiento"},{id:"b1_53",en:"benefit",es:"beneficio"},
-{id:"b1_54",en:"cause",es:"causa"},{id:"b1_55",en:"effect",es:"efecto"},{id:"b1_56",en:"growth",es:"crecimiento"},
-{id:"b1_57",en:"impact",es:"impacto"},{id:"b1_58",en:"issue",es:"asunto",alts:["problema","cuestión"]},{id:"b1_59",en:"purpose",es:"propósito",alts:["objetivo"]},
-{id:"b1_60",en:"quality",es:"calidad"},{id:"b1_61",en:"recently",es:"recientemente"},{id:"b1_62",en:"however",es:"sin embargo"},
-{id:"b1_63",en:"although",es:"aunque"},{id:"b1_64",en:"therefore",es:"por lo tanto"},{id:"b1_65",en:"moreover",es:"además"},
-{id:"b1_66",en:"despite",es:"a pesar de"},{id:"b1_67",en:"according to",es:"según"},{id:"b1_68",en:"in order to",es:"para"},
-{id:"b1_69",en:"due to",es:"debido a"},{id:"b1_70",en:"as a result",es:"como resultado"}
-],
-B2:[
-{id:"b2_01",en:"democracy",es:"democracia"},{id:"b2_02",en:"legislation",es:"legislación"},{id:"b2_03",en:"constitution",es:"constitución"},
-{id:"b2_04",en:"infrastructure",es:"infraestructura"},{id:"b2_05",en:"sustainability",es:"sostenibilidad"},{id:"b2_06",en:"innovation",es:"innovación"},
-{id:"b2_07",en:"globalisation",es:"globalización"},{id:"b2_08",en:"diversity",es:"diversidad"},{id:"b2_09",en:"perspective",es:"perspectiva"},
-{id:"b2_10",en:"consequence",es:"consecuencia"},{id:"b2_11",en:"trend",es:"tendencia"},{id:"b2_12",en:"strategy",es:"estrategia"},
-{id:"b2_13",en:"investment",es:"inversión"},{id:"b2_14",en:"leadership",es:"liderazgo"},{id:"b2_15",en:"collaboration",es:"colaboración"},
-{id:"b2_16",en:"commitment",es:"compromiso"},{id:"b2_17",en:"challenge",es:"desafío"},{id:"b2_18",en:"ethics",es:"ética"},
-{id:"b2_19",en:"identity",es:"identidad"},{id:"b2_20",en:"awareness",es:"conciencia"},{id:"b2_21",en:"responsibility",es:"responsabilidad"},
-{id:"b2_22",en:"ambiguity",es:"ambigüedad"},{id:"b2_23",en:"paradox",es:"paradoja"},{id:"b2_24",en:"hypothesis",es:"hipótesis"},
-{id:"b2_25",en:"evidence",es:"evidencia",alts:["prueba"]},{id:"b2_26",en:"bureaucracy",es:"burocracia"},{id:"b2_27",en:"prejudice",es:"prejuicio"},
-{id:"b2_28",en:"empathy",es:"empatía"},{id:"b2_29",en:"solidarity",es:"solidaridad"},{id:"b2_30",en:"resilience",es:"resiliencia"},
-{id:"b2_31",en:"ambition",es:"ambición"},{id:"b2_32",en:"integrity",es:"integridad"},{id:"b2_33",en:"abstract",es:"abstracto"},
-{id:"b2_34",en:"complex",es:"complejo"},{id:"b2_35",en:"efficient",es:"eficiente"},{id:"b2_36",en:"sustainable",es:"sostenible"},
-{id:"b2_37",en:"critical",es:"crítico"},{id:"b2_38",en:"significant",es:"significativo"},{id:"b2_39",en:"transparent",es:"transparente"},
-{id:"b2_40",en:"sovereignty",es:"soberanía"},{id:"b2_41",en:"to overcome",es:"superar"},{id:"b2_42",en:"to implement",es:"implementar"},
-{id:"b2_43",en:"to analyse",es:"analizar"},{id:"b2_44",en:"to evaluate",es:"evaluar"},{id:"b2_45",en:"to establish",es:"establecer"},
-{id:"b2_46",en:"to promote",es:"promover"},{id:"b2_47",en:"to guarantee",es:"garantizar"},{id:"b2_48",en:"to contribute",es:"contribuir"},
-{id:"b2_49",en:"to coordinate",es:"coordinar"},{id:"b2_50",en:"to interpret",es:"interpretar"},
-{id:"b2_51",en:"assertion",es:"afirmación"},{id:"b2_52",en:"implication",es:"implicación"},{id:"b2_53",en:"nuance",es:"matiz"},
-{id:"b2_54",en:"rhetoric",es:"retórica"},{id:"b2_55",en:"autonomy",es:"autonomía"},{id:"b2_56",en:"ideology",es:"ideología"},
-{id:"b2_57",en:"legitimacy",es:"legitimidad"},{id:"b2_58",en:"precedent",es:"precedente"},{id:"b2_59",en:"consensus",es:"consenso"},
-{id:"b2_60",en:"contradiction",es:"contradicción"},{id:"b2_61",en:"nevertheless",es:"no obstante",alts:["sin embargo"]},
-{id:"b2_62",en:"furthermore",es:"además"},{id:"b2_63",en:"consequently",es:"por consiguiente"},{id:"b2_64",en:"whereas",es:"mientras que"},
-{id:"b2_65",en:"allegedly",es:"supuestamente"},{id:"b2_66",en:"presumably",es:"presumiblemente"},
-{id:"b2_67",en:"to alleviate",es:"aliviar"},{id:"b2_68",en:"to undermine",es:"socavar"},{id:"b2_69",en:"to advocate",es:"abogar"},
-{id:"b2_70",en:"to acknowledge",es:"reconocer"}
-]};
+A1:[{id:"a1_01",en:"hello",es:"hola"},{id:"a1_02",en:"goodbye",es:"adiós"},{id:"a1_03",en:"thank you",es:"gracias"},{id:"a1_04",en:"please",es:"por favor"},{id:"a1_05",en:"yes",es:"sí"},{id:"a1_06",en:"no",es:"no"},{id:"a1_07",en:"good morning",es:"buenos días"},{id:"a1_08",en:"good night",es:"buenas noches"},{id:"a1_09",en:"name",es:"nombre"},{id:"a1_10",en:"house",es:"casa"},{id:"a1_11",en:"water",es:"agua"},{id:"a1_12",en:"food",es:"comida"},{id:"a1_13",en:"bread",es:"pan"},{id:"a1_14",en:"milk",es:"leche"},{id:"a1_15",en:"coffee",es:"café"},{id:"a1_16",en:"one",es:"uno"},{id:"a1_17",en:"two",es:"dos"},{id:"a1_18",en:"three",es:"tres"},{id:"a1_19",en:"red",es:"rojo"},{id:"a1_20",en:"blue",es:"azul"},{id:"a1_21",en:"green",es:"verde"},{id:"a1_22",en:"mother",es:"madre"},{id:"a1_23",en:"father",es:"padre"},{id:"a1_24",en:"brother",es:"hermano"},{id:"a1_25",en:"sister",es:"hermana"},{id:"a1_26",en:"book",es:"libro"},{id:"a1_27",en:"table",es:"mesa"},{id:"a1_28",en:"chair",es:"silla"},{id:"a1_29",en:"door",es:"puerta"},{id:"a1_30",en:"window",es:"ventana"},{id:"a1_31",en:"dog",es:"perro"},{id:"a1_32",en:"cat",es:"gato"},{id:"a1_33",en:"city",es:"ciudad"},{id:"a1_34",en:"street",es:"calle"},{id:"a1_35",en:"year",es:"año"},{id:"a1_36",en:"day",es:"día"},{id:"a1_37",en:"night",es:"noche"},{id:"a1_38",en:"man",es:"hombre"},{id:"a1_39",en:"woman",es:"mujer"},{id:"a1_40",en:"child",es:"niño"},{id:"a1_41",en:"big",es:"grande"},{id:"a1_42",en:"small",es:"pequeño"},{id:"a1_43",en:"good",es:"bueno"},{id:"a1_44",en:"bad",es:"malo"},{id:"a1_45",en:"friend",es:"amigo"},{id:"a1_46",en:"sun",es:"sol"},{id:"a1_47",en:"moon",es:"luna"},{id:"a1_48",en:"tree",es:"árbol"},{id:"a1_49",en:"bird",es:"pájaro"},{id:"a1_50",en:"fish",es:"pez"},{id:"a1_51",en:"white",es:"blanco"},{id:"a1_52",en:"black",es:"negro"},{id:"a1_53",en:"yellow",es:"amarillo"},{id:"a1_54",en:"four",es:"cuatro"},{id:"a1_55",en:"five",es:"cinco"},{id:"a1_56",en:"ten",es:"diez"},{id:"a1_57",en:"today",es:"hoy"},{id:"a1_58",en:"here",es:"aquí"},{id:"a1_59",en:"there",es:"allí"},{id:"a1_60",en:"and",es:"y"},{id:"a1_61",en:"or",es:"o"},{id:"a1_62",en:"but",es:"pero"},{id:"a1_63",en:"with",es:"con"},{id:"a1_64",en:"without",es:"sin"},{id:"a1_65",en:"very",es:"muy"},{id:"a1_66",en:"much",es:"mucho"},{id:"a1_67",en:"little",es:"poco"},{id:"a1_68",en:"more",es:"más"},{id:"a1_69",en:"less",es:"menos"},{id:"a1_70",en:"how",es:"cómo"}],
+A2:[{id:"a2_01",en:"work",es:"trabajo"},{id:"a2_02",en:"shop",es:"tienda"},{id:"a2_03",en:"money",es:"dinero"},{id:"a2_04",en:"weather",es:"tiempo"},{id:"a2_05",en:"week",es:"semana"},{id:"a2_06",en:"month",es:"mes"},{id:"a2_07",en:"tomorrow",es:"mañana"},{id:"a2_08",en:"afternoon",es:"tarde"},{id:"a2_09",en:"family",es:"familia"},{id:"a2_10",en:"car",es:"coche",alts:["auto","carro"]},{id:"a2_11",en:"bus",es:"autobús",alts:["bus"]},{id:"a2_12",en:"train",es:"tren"},{id:"a2_13",en:"airport",es:"aeropuerto"},{id:"a2_14",en:"hotel",es:"hotel"},{id:"a2_15",en:"restaurant",es:"restaurante"},{id:"a2_16",en:"market",es:"mercado"},{id:"a2_17",en:"bank",es:"banco"},{id:"a2_18",en:"hospital",es:"hospital"},{id:"a2_19",en:"doctor",es:"médico"},{id:"a2_20",en:"teacher",es:"profesor"},{id:"a2_21",en:"kitchen",es:"cocina"},{id:"a2_22",en:"bathroom",es:"baño"},{id:"a2_23",en:"bedroom",es:"dormitorio",alts:["habitación","cuarto"]},{id:"a2_24",en:"garden",es:"jardín"},{id:"a2_25",en:"beach",es:"playa"},{id:"a2_26",en:"mountain",es:"montaña"},{id:"a2_27",en:"rain",es:"lluvia"},{id:"a2_28",en:"wind",es:"viento"},{id:"a2_29",en:"hot",es:"calor"},{id:"a2_30",en:"cold",es:"frío"},{id:"a2_31",en:"tall",es:"alto"},{id:"a2_32",en:"young",es:"joven"},{id:"a2_33",en:"old",es:"viejo"},{id:"a2_34",en:"beautiful",es:"bonito",alts:["hermoso","bello"]},{id:"a2_35",en:"ticket",es:"billete",alts:["boleto","entrada"]},{id:"a2_36",en:"passport",es:"pasaporte"},{id:"a2_37",en:"phone",es:"teléfono",alts:["móvil","celular"]},{id:"a2_38",en:"letter",es:"carta"},{id:"a2_39",en:"key",es:"llave"},{id:"a2_40",en:"bag",es:"bolsa",alts:["bolso","mochila"]},{id:"a2_41",en:"shirt",es:"camisa"},{id:"a2_42",en:"shoes",es:"zapatos"},{id:"a2_43",en:"breakfast",es:"desayuno"},{id:"a2_44",en:"lunch",es:"almuerzo",alts:["comida"]},{id:"a2_45",en:"dinner",es:"cena"},{id:"a2_46",en:"fruit",es:"fruta"},{id:"a2_47",en:"to buy",es:"comprar"},{id:"a2_48",en:"to study",es:"estudiar"},{id:"a2_49",en:"to wait",es:"esperar"},{id:"a2_50",en:"to need",es:"necesitar"},{id:"a2_51",en:"computer",es:"ordenador",alts:["computadora","computador"]},{id:"a2_52",en:"internet",es:"internet"},{id:"a2_53",en:"map",es:"mapa"},{id:"a2_54",en:"road",es:"carretera",alts:["camino"]},{id:"a2_55",en:"square",es:"plaza"},{id:"a2_56",en:"park",es:"parque"},{id:"a2_57",en:"glass",es:"vaso"},{id:"a2_58",en:"bottle",es:"botella"},{id:"a2_59",en:"early",es:"temprano"},{id:"a2_60",en:"late",es:"tarde"},{id:"a2_61",en:"fast",es:"rápido"},{id:"a2_62",en:"slow",es:"lento"},{id:"a2_63",en:"easy",es:"fácil"},{id:"a2_64",en:"difficult",es:"difícil"},{id:"a2_65",en:"clean",es:"limpio"},{id:"a2_66",en:"dirty",es:"sucio"},{id:"a2_67",en:"open",es:"abierto"},{id:"a2_68",en:"closed",es:"cerrado"},{id:"a2_69",en:"new",es:"nuevo"},{id:"a2_70",en:"old (thing)",es:"viejo"}],
+B1:[{id:"b1_01",en:"society",es:"sociedad"},{id:"b1_02",en:"government",es:"gobierno"},{id:"b1_03",en:"economy",es:"economía"},{id:"b1_04",en:"culture",es:"cultura"},{id:"b1_05",en:"history",es:"historia"},{id:"b1_06",en:"science",es:"ciencia"},{id:"b1_07",en:"technology",es:"tecnología"},{id:"b1_08",en:"environment",es:"medio ambiente"},{id:"b1_09",en:"problem",es:"problema"},{id:"b1_10",en:"solution",es:"solución"},{id:"b1_11",en:"opportunity",es:"oportunidad"},{id:"b1_12",en:"experience",es:"experiencia"},{id:"b1_13",en:"opinion",es:"opinión"},{id:"b1_14",en:"decision",es:"decisión"},{id:"b1_15",en:"result",es:"resultado"},{id:"b1_16",en:"change",es:"cambio"},{id:"b1_17",en:"development",es:"desarrollo"},{id:"b1_18",en:"company",es:"empresa"},{id:"b1_19",en:"project",es:"proyecto"},{id:"b1_20",en:"meeting",es:"reunión"},{id:"b1_21",en:"freedom",es:"libertad"},{id:"b1_22",en:"justice",es:"justicia"},{id:"b1_23",en:"education",es:"educación"},{id:"b1_24",en:"health",es:"salud"},{id:"b1_25",en:"safety",es:"seguridad"},{id:"b1_26",en:"peace",es:"paz"},{id:"b1_27",en:"rights",es:"derechos"},{id:"b1_28",en:"relationship",es:"relación"},{id:"b1_29",en:"communication",es:"comunicación"},{id:"b1_30",en:"information",es:"información"},{id:"b1_31",en:"important",es:"importante"},{id:"b1_32",en:"necessary",es:"necesario"},{id:"b1_33",en:"possible",es:"posible"},{id:"b1_34",en:"different",es:"diferente"},{id:"b1_35",en:"national",es:"nacional"},{id:"b1_36",en:"international",es:"internacional"},{id:"b1_37",en:"tradition",es:"tradición"},{id:"b1_38",en:"language",es:"idioma",alts:["lengua"]},{id:"b1_39",en:"literature",es:"literatura"},{id:"b1_40",en:"art",es:"arte"},{id:"b1_41",en:"newspaper",es:"periódico",alts:["diario"]},{id:"b1_42",en:"journey",es:"viaje"},{id:"b1_43",en:"population",es:"población"},{id:"b1_44",en:"century",es:"siglo"},{id:"b1_45",en:"religion",es:"religión"},{id:"b1_46",en:"to improve",es:"mejorar"},{id:"b1_47",en:"to explain",es:"explicar"},{id:"b1_48",en:"to describe",es:"describir"},{id:"b1_49",en:"to choose",es:"elegir"},{id:"b1_50",en:"to achieve",es:"conseguir",alts:["lograr"]},{id:"b1_51",en:"attitude",es:"actitud"},{id:"b1_52",en:"behaviour",es:"comportamiento"},{id:"b1_53",en:"benefit",es:"beneficio"},{id:"b1_54",en:"cause",es:"causa"},{id:"b1_55",en:"effect",es:"efecto"},{id:"b1_56",en:"growth",es:"crecimiento"},{id:"b1_57",en:"impact",es:"impacto"},{id:"b1_58",en:"issue",es:"asunto",alts:["problema","cuestión"]},{id:"b1_59",en:"purpose",es:"propósito",alts:["objetivo"]},{id:"b1_60",en:"quality",es:"calidad"},{id:"b1_61",en:"recently",es:"recientemente"},{id:"b1_62",en:"however",es:"sin embargo"},{id:"b1_63",en:"although",es:"aunque"},{id:"b1_64",en:"therefore",es:"por lo tanto"},{id:"b1_65",en:"moreover",es:"además"},{id:"b1_66",en:"despite",es:"a pesar de"},{id:"b1_67",en:"according to",es:"según"},{id:"b1_68",en:"in order to",es:"para"},{id:"b1_69",en:"due to",es:"debido a"},{id:"b1_70",en:"as a result",es:"como resultado"}],
+B2:[{id:"b2_01",en:"democracy",es:"democracia"},{id:"b2_02",en:"legislation",es:"legislación"},{id:"b2_03",en:"constitution",es:"constitución"},{id:"b2_04",en:"infrastructure",es:"infraestructura"},{id:"b2_05",en:"sustainability",es:"sostenibilidad"},{id:"b2_06",en:"innovation",es:"innovación"},{id:"b2_07",en:"globalisation",es:"globalización"},{id:"b2_08",en:"diversity",es:"diversidad"},{id:"b2_09",en:"perspective",es:"perspectiva"},{id:"b2_10",en:"consequence",es:"consecuencia"},{id:"b2_11",en:"trend",es:"tendencia"},{id:"b2_12",en:"strategy",es:"estrategia"},{id:"b2_13",en:"investment",es:"inversión"},{id:"b2_14",en:"leadership",es:"liderazgo"},{id:"b2_15",en:"collaboration",es:"colaboración"},{id:"b2_16",en:"commitment",es:"compromiso"},{id:"b2_17",en:"challenge",es:"desafío"},{id:"b2_18",en:"ethics",es:"ética"},{id:"b2_19",en:"identity",es:"identidad"},{id:"b2_20",en:"awareness",es:"conciencia"},{id:"b2_21",en:"responsibility",es:"responsabilidad"},{id:"b2_22",en:"ambiguity",es:"ambigüedad"},{id:"b2_23",en:"paradox",es:"paradoja"},{id:"b2_24",en:"hypothesis",es:"hipótesis"},{id:"b2_25",en:"evidence",es:"evidencia",alts:["prueba"]},{id:"b2_26",en:"bureaucracy",es:"burocracia"},{id:"b2_27",en:"prejudice",es:"prejuicio"},{id:"b2_28",en:"empathy",es:"empatía"},{id:"b2_29",en:"solidarity",es:"solidaridad"},{id:"b2_30",en:"resilience",es:"resiliencia"},{id:"b2_31",en:"ambition",es:"ambición"},{id:"b2_32",en:"integrity",es:"integridad"},{id:"b2_33",en:"abstract",es:"abstracto"},{id:"b2_34",en:"complex",es:"complejo"},{id:"b2_35",en:"efficient",es:"eficiente"},{id:"b2_36",en:"sustainable",es:"sostenible"},{id:"b2_37",en:"critical",es:"crítico"},{id:"b2_38",en:"significant",es:"significativo"},{id:"b2_39",en:"transparent",es:"transparente"},{id:"b2_40",en:"sovereignty",es:"soberanía"},{id:"b2_41",en:"to overcome",es:"superar"},{id:"b2_42",en:"to implement",es:"implementar"},{id:"b2_43",en:"to analyse",es:"analizar"},{id:"b2_44",en:"to evaluate",es:"evaluar"},{id:"b2_45",en:"to establish",es:"establecer"},{id:"b2_46",en:"to promote",es:"promover"},{id:"b2_47",en:"to guarantee",es:"garantizar"},{id:"b2_48",en:"to contribute",es:"contribuir"},{id:"b2_49",en:"to coordinate",es:"coordinar"},{id:"b2_50",en:"to interpret",es:"interpretar"},{id:"b2_51",en:"assertion",es:"afirmación"},{id:"b2_52",en:"implication",es:"implicación"},{id:"b2_53",en:"nuance",es:"matiz"},{id:"b2_54",en:"rhetoric",es:"retórica"},{id:"b2_55",en:"autonomy",es:"autonomía"},{id:"b2_56",en:"ideology",es:"ideología"},{id:"b2_57",en:"legitimacy",es:"legitimidad"},{id:"b2_58",en:"precedent",es:"precedente"},{id:"b2_59",en:"consensus",es:"consenso"},{id:"b2_60",en:"contradiction",es:"contradicción"},{id:"b2_61",en:"nevertheless",es:"no obstante",alts:["sin embargo"]},{id:"b2_62",en:"furthermore",es:"además"},{id:"b2_63",en:"consequently",es:"por consiguiente"},{id:"b2_64",en:"whereas",es:"mientras que"},{id:"b2_65",en:"allegedly",es:"supuestamente"},{id:"b2_66",en:"presumably",es:"presumiblemente"},{id:"b2_67",en:"to alleviate",es:"aliviar"},{id:"b2_68",en:"to undermine",es:"socavar"},{id:"b2_69",en:"to advocate",es:"abogar"},{id:"b2_70",en:"to acknowledge",es:"reconocer"}]};
 const SENTENCES=[
-{id:"s_a1_01",level:"A1",en:"Good morning, how are you?",es:"Buenos días, ¿cómo estás?"},
-{id:"s_a1_02",level:"A1",en:"Thank you very much",es:"Muchas gracias"},
-{id:"s_a1_03",level:"A1",en:"Where is the bathroom?",es:"¿Dónde está el baño?"},
-{id:"s_a1_04",level:"A1",en:"How much does this cost?",es:"¿Cuánto cuesta esto?"},
-{id:"s_a1_05",level:"A1",en:"I don't understand",es:"No entiendo"},
-{id:"s_a1_06",level:"A1",en:"I speak a little Spanish",es:"Hablo un poco de español"},
-{id:"s_a1_07",level:"A1",en:"See you later",es:"Hasta luego"},
-{id:"s_a1_08",level:"A1",en:"What time is it?",es:"¿Qué hora es?"},
-{id:"s_a1_09",level:"A1",en:"I am very tired",es:"Estoy muy cansado"},
-{id:"s_a1_10",level:"A1",en:"Can you help me?",es:"¿Puedes ayudarme?",alts:["¿Me puedes ayudar?"]},
-{id:"s_a2_01",level:"A2",en:"I would like a table for two, please",es:"Quisiera una mesa para dos, por favor"},
-{id:"s_a2_02",level:"A2",en:"Where is the nearest train station?",es:"¿Dónde está la estación de tren más cercana?"},
-{id:"s_a2_03",level:"A2",en:"What time does the museum open?",es:"¿A qué hora abre el museo?"},
-{id:"s_a2_04",level:"A2",en:"Do you have a room available?",es:"¿Tiene una habitación disponible?"},
-{id:"s_a2_05",level:"A2",en:"The weather is very hot today",es:"Hace mucho calor hoy"},
-{id:"s_a2_06",level:"A2",en:"I would like the bill, please",es:"La cuenta, por favor"},
-{id:"s_a2_07",level:"A2",en:"This is my first time in Spain",es:"Es mi primera vez en España"},
-{id:"s_a2_08",level:"A2",en:"I need to go to the doctor",es:"Necesito ir al médico"},
-{id:"s_a2_09",level:"A2",en:"Can you speak more slowly please?",es:"¿Puede hablar más despacio, por favor?"},
-{id:"s_a2_10",level:"A2",en:"I am looking for a hotel",es:"Estoy buscando un hotel"},
-{id:"s_b1_01",level:"B1",en:"In my opinion, technology has improved our lives",es:"En mi opinión, la tecnología ha mejorado nuestras vidas"},
-{id:"s_b1_02",level:"B1",en:"I have been studying Spanish for two years",es:"Llevo dos años estudiando español"},
-{id:"s_b1_03",level:"B1",en:"Could you recommend a good restaurant?",es:"¿Podría recomendar un buen restaurante?"},
-{id:"s_b1_04",level:"B1",en:"It is important to protect the environment",es:"Es importante proteger el medio ambiente"},
-{id:"s_b1_05",level:"B1",en:"She has just arrived from the airport",es:"Ella acaba de llegar del aeropuerto"},
-{id:"s_b1_06",level:"B1",en:"Despite the rain, we enjoyed the trip",es:"A pesar de la lluvia, disfrutamos el viaje"},
-{id:"s_b1_07",level:"B1",en:"I would rather stay at home tonight",es:"Prefiero quedarme en casa esta noche"},
-{id:"s_b2_01",level:"B2",en:"The government should invest more in education",es:"El gobierno debería invertir más en educación"},
-{id:"s_b2_02",level:"B2",en:"It is essential that citizens participate in democracy",es:"Es esencial que los ciudadanos participen en la democracia"},
-{id:"s_b2_03",level:"B2",en:"Despite the challenges, we reached an agreement",es:"A pesar de los desafíos, llegamos a un acuerdo"},
-{id:"s_b2_04",level:"B2",en:"The evidence suggests that climate change is accelerating",es:"La evidencia sugiere que el cambio climático se está acelerando"},
-{id:"s_b2_05",level:"B2",en:"It remains to be seen whether the policy will succeed",es:"Queda por ver si la política tendrá éxito"}
+{id:"s_a1_01",level:"A1",en:"Good morning, how are you?",es:"Buenos días, ¿cómo estás?",alts:["Buenos días, ¿cómo está usted?","Buenos días, ¿cómo estás vos?"]},
+{id:"s_a1_02",level:"A1",en:"Thank you very much",es:"Muchas gracias",alts:["Muchas gracias a usted","Muchísimas gracias"]},
+{id:"s_a1_03",level:"A1",en:"Where is the bathroom?",es:"¿Dónde está el baño?",alts:["¿Dónde queda el baño?","¿Dónde hay un baño?"]},
+{id:"s_a1_04",level:"A1",en:"How much does this cost?",es:"¿Cuánto cuesta esto?",alts:["¿Cuánto vale esto?","¿A cuánto está esto?"]},
+{id:"s_a1_05",level:"A1",en:"I don't understand",es:"No entiendo",alts:["No comprendo","No lo entiendo"]},
+{id:"s_a1_06",level:"A1",en:"I speak a little Spanish",es:"Hablo un poco de español",alts:["Sé un poco de español","Hablo poco español"]},
+{id:"s_a1_07",level:"A1",en:"See you later",es:"Hasta luego",alts:["Nos vemos","Chau","Hasta la vista"]},
+{id:"s_a1_08",level:"A1",en:"What time is it?",es:"¿Qué hora es?",alts:["¿Qué horas son?"]},
+{id:"s_a1_09",level:"A1",en:"I am very tired",es:"Estoy muy cansado",alts:["Estoy muy cansada","Estoy agotado","Estoy agotada"]},
+{id:"s_a1_10",level:"A1",en:"Can you help me?",es:"¿Puedes ayudarme?",alts:["¿Me puedes ayudar?","¿Podés ayudarme?","¿Me podés ayudar?","¿Puede ayudarme?","¿Me puede ayudar?"]},
+{id:"s_a2_01",level:"A2",en:"I would like a table for two, please",es:"Quisiera una mesa para dos, por favor",alts:["Me gustaría una mesa para dos, por favor","Quiero una mesa para dos, por favor"]},
+{id:"s_a2_02",level:"A2",en:"Where is the nearest train station?",es:"¿Dónde está la estación de tren más cercana?",alts:["¿Dónde queda la estación de tren más cercana?","¿Dónde hay una estación de tren cerca?"]},
+{id:"s_a2_03",level:"A2",en:"What time does the museum open?",es:"¿A qué hora abre el museo?",alts:["¿A qué hora se abre el museo?","¿Cuándo abre el museo?"]},
+{id:"s_a2_04",level:"A2",en:"Do you have a room available?",es:"¿Tiene una habitación disponible?",alts:["¿Tienes una habitación disponible?","¿Tenés una habitación disponible?","¿Hay una habitación disponible?"]},
+{id:"s_a2_05",level:"A2",en:"The weather is very hot today",es:"Hace mucho calor hoy",alts:["Hoy hace mucho calor","Está muy caluroso hoy"]},
+{id:"s_a2_06",level:"A2",en:"I would like the bill, please",es:"La cuenta, por favor",alts:["¿Me trae la cuenta, por favor?","¿Nos trae la cuenta, por favor?"]},
+{id:"s_a2_07",level:"A2",en:"This is my first time in Spain",es:"Es mi primera vez en España",alts:["Es la primera vez que vengo a España","Nunca había estado en España"]},
+{id:"s_a2_08",level:"A2",en:"I need to go to the doctor",es:"Necesito ir al médico",alts:["Tengo que ir al médico","Debo ir al médico"]},
+{id:"s_a2_09",level:"A2",en:"Can you speak more slowly please?",es:"¿Puede hablar más despacio, por favor?",alts:["¿Puedes hablar más despacio, por favor?","¿Podés hablar más despacio, por favor?","¿Puede hablar más lento, por favor?"]},
+{id:"s_a2_10",level:"A2",en:"I am looking for a hotel",es:"Estoy buscando un hotel",alts:["Busco un hotel","Necesito un hotel"]},
+{id:"s_b1_01",level:"B1",en:"In my opinion, technology has improved our lives",es:"En mi opinión, la tecnología ha mejorado nuestras vidas",alts:["Creo que la tecnología ha mejorado nuestras vidas","Pienso que la tecnología ha mejorado nuestras vidas"]},
+{id:"s_b1_02",level:"B1",en:"I have been studying Spanish for two years",es:"Llevo dos años estudiando español",alts:["Estudio español desde hace dos años","Hace dos años que estudio español"]},
+{id:"s_b1_03",level:"B1",en:"Could you recommend a good restaurant?",es:"¿Podría recomendar un buen restaurante?",alts:["¿Puedes recomendar un buen restaurante?","¿Me podés recomendar un buen restaurante?","¿Me recomendás un buen restaurante?"]},
+{id:"s_b1_04",level:"B1",en:"It is important to protect the environment",es:"Es importante proteger el medio ambiente",alts:["Hay que proteger el medio ambiente","Debemos proteger el medio ambiente"]},
+{id:"s_b1_05",level:"B1",en:"She has just arrived from the airport",es:"Ella acaba de llegar del aeropuerto",alts:["Acaba de llegar del aeropuerto","Recién llegó del aeropuerto"]},
+{id:"s_b1_06",level:"B1",en:"Despite the rain, we enjoyed the trip",es:"A pesar de la lluvia, disfrutamos el viaje",alts:["A pesar de la lluvia, disfrutamos del viaje","Aunque llovió, disfrutamos el viaje"]},
+{id:"s_b1_07",level:"B1",en:"I would rather stay at home tonight",es:"Prefiero quedarme en casa esta noche",alts:["Preferiría quedarme en casa esta noche","Me quedo en casa esta noche"]},
+{id:"s_b2_01",level:"B2",en:"The government should invest more in education",es:"El gobierno debería invertir más en educación",alts:["El gobierno tendría que invertir más en educación","Hace falta que el gobierno invierta más en educación"]},
+{id:"s_b2_02",level:"B2",en:"It is essential that citizens participate in democracy",es:"Es esencial que los ciudadanos participen en la democracia",alts:["Es fundamental que los ciudadanos participen en la democracia","Es necesario que los ciudadanos participen en la democracia"]},
+{id:"s_b2_03",level:"B2",en:"Despite the challenges, we reached an agreement",es:"A pesar de los desafíos, llegamos a un acuerdo",alts:["A pesar de los retos, llegamos a un acuerdo","Pese a los desafíos, alcanzamos un acuerdo"]},
+{id:"s_b2_04",level:"B2",en:"The evidence suggests that climate change is accelerating",es:"La evidencia sugiere que el cambio climático se está acelerando",alts:["Los datos sugieren que el cambio climático se está acelerando","Las pruebas indican que el cambio climático se acelera"]},
+{id:"s_b2_05",level:"B2",en:"It remains to be seen whether the policy will succeed",es:"Queda por ver si la política tendrá éxito",alts:["Está por verse si la política tendrá éxito","Habrá que ver si la política funciona"]}
 ];
 const VERBS=[
 {i:"hablar",m:"to speak",present:{yo:"hablo",tú:"hablas","él/ella":"habla",nosotros:"hablamos",vosotros:"habláis","ellos/ellas":"hablan"},preterite:{yo:"hablé",tú:"hablaste","él/ella":"habló",nosotros:"hablamos",vosotros:"hablasteis","ellos/ellas":"hablaron"},imperfect:{yo:"hablaba",tú:"hablabas","él/ella":"hablaba",nosotros:"hablábamos",vosotros:"hablabais","ellos/ellas":"hablaban"},future:{yo:"hablaré",tú:"hablarás","él/ella":"hablará",nosotros:"hablaremos",vosotros:"hablaréis","ellos/ellas":"hablarán"}},
@@ -265,52 +156,36 @@ const VERBS=[
 {i:"llamar",m:"to call",present:{yo:"llamo",tú:"llamas","él/ella":"llama",nosotros:"llamamos",vosotros:"llamáis","ellos/ellas":"llaman"},preterite:{yo:"llamé",tú:"llamaste","él/ella":"llamó",nosotros:"llamamos",vosotros:"llamasteis","ellos/ellas":"llamaron"},imperfect:{yo:"llamaba",tú:"llamabas","él/ella":"llamaba",nosotros:"llamábamos",vosotros:"llamabais","ellos/ellas":"llamaban"},future:{yo:"llamaré",tú:"llamarás","él/ella":"llamará",nosotros:"llamaremos",vosotros:"llamaréis","ellos/ellas":"llamarán"}},
 {i:"creer",m:"to believe/think",present:{yo:"creo",tú:"crees","él/ella":"cree",nosotros:"creemos",vosotros:"creéis","ellos/ellas":"creen"},preterite:{yo:"creí",tú:"creíste","él/ella":"creyó",nosotros:"creímos",vosotros:"creísteis","ellos/ellas":"creyeron"},imperfect:{yo:"creía",tú:"creías","él/ella":"creía",nosotros:"creíamos",vosotros:"creíais","ellos/ellas":"creían"},future:{yo:"creeré",tú:"creerás","él/ella":"creerá",nosotros:"creeremos",vosotros:"creeréis","ellos/ellas":"creerán"}}
 ];
-function getPaz(mood,size){
-  size=size||110;
-  const happy=mood==='happy'||mood==='celebrate';
-  const enc=mood==='encourage';
-  const mouth=happy?`<path d="M52 96 Q60 106 68 96" stroke="#E05555" stroke-width="2.5" fill="none" stroke-linecap="round"/><path d="M52 96 Q60 104 68 96 Q60 101 52 96Z" fill="#E06060"/>`:enc?`<path d="M53 94 Q60 98 67 94" stroke="#C86060" stroke-width="2" fill="none" stroke-linecap="round"/>`:
-  `<path d="M52 93 Q60 99 68 93" stroke="#C86060" stroke-width="2.5" fill="none" stroke-linecap="round"/><path d="M52 93 Q60 97 68 93 Q60 95 52 93Z" fill="#D47070" opacity="0.7"/>`;
-  const eyes=happy?`<path d="M46 70 Q51 65 56 70" stroke="#180800" stroke-width="2.5" fill="none" stroke-linecap="round"/><path d="M64 70 Q69 65 74 70" stroke="#180800" stroke-width="2.5" fill="none" stroke-linecap="round"/>`:
-  `<ellipse cx="51" cy="70" rx="8" ry="6.5" fill="white"/><ellipse cx="51" cy="71" rx="5.5" ry="5.5" fill="#2C0E00"/><ellipse cx="51" cy="71" rx="3.5" ry="3.5" fill="#0A0400"/><ellipse cx="53" cy="69" rx="1.4" ry="1.4" fill="white"/><ellipse cx="69" cy="70" rx="8" ry="6.5" fill="white"/><ellipse cx="69" cy="71" rx="5.5" ry="5.5" fill="#2C0E00"/><ellipse cx="69" cy="71" rx="3.5" ry="3.5" fill="#0A0400"/><ellipse cx="71" cy="69" rx="1.4" ry="1.4" fill="white"/><path d="M43 66 L41 63 M47 65 L46 62 M51 65 L51 62 M55 65 L56 62 M59 66 L61 63" stroke="#0A0400" stroke-width="1.1" stroke-linecap="round"/><path d="M61 66 L59 63 M65 65 L64 62 M69 65 L69 62 M73 65 L74 62 M77 66 L79 63" stroke="#0A0400" stroke-width="1.1" stroke-linecap="round"/>`;
-  const extras=mood==='celebrate'?`<text x="82" y="30" font-size="14">✨</text><text x="10" y="45" font-size="12">⭐</text><text x="75" y="58" font-size="10">✦</text>`:'';
-  const h=Math.round(size*165/120);
-  return`<svg viewBox="0 0 120 165" width="${size}" height="${h}" xmlns="http://www.w3.org/2000/svg">
-<defs><radialGradient id="pg${mood}" cx="45%" cy="40%" r="60%"><stop offset="0%" stop-color="#D4956A"/><stop offset="100%" stop-color="#B87248"/></radialGradient></defs>
+function getPaz(mood,size){size=size||110;const happy=mood==='happy'||mood==='celebrate';const enc=mood==='encourage';const mouth=happy?`<path d="M52 96 Q60 106 68 96" stroke="#B07060" stroke-width="2.5" fill="none" stroke-linecap="round"/><path d="M52 96 Q60 104 68 96 Q60 101 52 96Z" fill="#C08070"/>`:enc?`<path d="M53 94 Q60 98 67 94" stroke="#A06858" stroke-width="2" fill="none" stroke-linecap="round"/>`:
+`<path d="M52 93 Q60 99 68 93" stroke="#A06858" stroke-width="2.5" fill="none" stroke-linecap="round"/><path d="M52 93 Q60 97 68 93 Q60 95 52 93Z" fill="#B87868" opacity="0.6"/>`;
+const eyes=happy?`<path d="M46 70 Q51 65 56 70" stroke="#180800" stroke-width="2.5" fill="none" stroke-linecap="round"/><path d="M64 70 Q69 65 74 70" stroke="#180800" stroke-width="2.5" fill="none" stroke-linecap="round"/>`:
+`<ellipse cx="51" cy="70" rx="8" ry="6.5" fill="white"/><ellipse cx="51" cy="71" rx="5.5" ry="5.5" fill="#2C0E00"/><ellipse cx="51" cy="71" rx="3.5" ry="3.5" fill="#0A0400"/><ellipse cx="53" cy="69" rx="1.4" ry="1.4" fill="white"/><ellipse cx="69" cy="70" rx="8" ry="6.5" fill="white"/><ellipse cx="69" cy="71" rx="5.5" ry="5.5" fill="#2C0E00"/><ellipse cx="69" cy="71" rx="3.5" ry="3.5" fill="#0A0400"/><ellipse cx="71" cy="69" rx="1.4" ry="1.4" fill="white"/><path d="M43 66 L41 63 M47 65 L46 62 M51 65 L51 62 M55 65 L56 62 M59 66 L61 63" stroke="#0A0400" stroke-width="1.1" stroke-linecap="round"/><path d="M61 66 L59 63 M65 65 L64 62 M69 65 L69 62 M73 65 L74 62 M77 66 L79 63" stroke="#0A0400" stroke-width="1.1" stroke-linecap="round"/>`;
+const extras=mood==='celebrate'?`<text x="82" y="30" font-size="14">✨</text><text x="10" y="45" font-size="12">⭐</text><text x="75" y="58" font-size="10">✦</text>`:'';
+const h=Math.round(size*165/120);
+return`<svg viewBox="0 0 120 165" width="${size}" height="${h}" xmlns="http://www.w3.org/2000/svg">
+<defs><radialGradient id="pg${mood}" cx="45%" cy="40%" r="60%"><stop offset="0%" stop-color="#F2CEAD"/><stop offset="100%" stop-color="#DBA882"/></radialGradient></defs>
 <path d="M22 88 Q12 58 18 32 Q28 4 60 3 Q92 4 102 32 Q108 58 98 88 Q93 112 88 132 Q74 158 60 162 Q46 158 32 132 Q27 112 22 88Z" fill="#150800"/>
 <path d="M50 112 Q60 118 70 112 L68 138 Q60 142 52 138Z" fill="url(#pg${mood})"/>
 <ellipse cx="60" cy="73" rx="34" ry="40" fill="url(#pg${mood})"/>
 <path d="M26 52 Q16 28 28 13 Q40 2 60 2 Q80 2 92 13 Q104 28 94 52 Q88 30 74 24 Q60 18 46 24 Q32 30 26 52Z" fill="#150800"/>
 <path d="M26 52 Q12 68 14 92 Q18 72 26 62Z" fill="#150800"/>
 <path d="M94 52 Q108 68 106 92 Q102 72 94 62Z" fill="#150800"/>
-<ellipse cx="26" cy="76" rx="5" ry="7" fill="#B87248"/>
-<ellipse cx="94" cy="76" rx="5" ry="7" fill="#B87248"/>
-<circle cx="26" cy="82" r="3.5" fill="#FFB347" opacity="0.9"/><circle cx="26" cy="82" r="2" fill="#FFD080"/>
-<circle cx="94" cy="82" r="3.5" fill="#FFB347" opacity="0.9"/><circle cx="94" cy="82" r="2" fill="#FFD080"/>
+<ellipse cx="26" cy="76" rx="5" ry="7" fill="#DBA882"/>
+<ellipse cx="94" cy="76" rx="5" ry="7" fill="#DBA882"/>
 <path d="M43 62 Q51 57 59 61" stroke="#150800" stroke-width="2.8" fill="none" stroke-linecap="round"/>
 <path d="M61 61 Q69 57 77 62" stroke="#150800" stroke-width="2.8" fill="none" stroke-linecap="round"/>
 ${eyes}
 <path d="M43 67 Q51 63 59 67" stroke="#150800" stroke-width="1.5" fill="none" stroke-linecap="round" opacity="${happy?0:1}"/>
 <path d="M61 67 Q69 63 77 67" stroke="#150800" stroke-width="1.5" fill="none" stroke-linecap="round" opacity="${happy?0:1}"/>
 <path d="M57 80 Q55 88 58 90 Q60 92 62 90 Q65 88 63 80" stroke="#A06040" stroke-width="1.5" fill="none" stroke-linecap="round"/>
-<ellipse cx="36" cy="82" rx="7" ry="5" fill="#E8907A" opacity="${happy?'0.45':'0.25'}"/>
-<ellipse cx="84" cy="82" rx="7" ry="5" fill="#E8907A" opacity="${happy?'0.45':'0.25'}"/>
+<ellipse cx="36" cy="82" rx="7" ry="5" fill="#E8907A" opacity="${happy?'0.18':'0.08'}"/>
+<ellipse cx="84" cy="82" rx="7" ry="5" fill="#E8907A" opacity="${happy?'0.18':'0.08'}"/>
 ${mouth}
 <path d="M10 165 Q18 143 40 138 Q52 135 60 137 Q68 135 80 138 Q102 143 110 165Z" fill="#2D1B69"/>
 <path d="M52 137 Q56 143 60 145 Q64 143 68 137" stroke="#4D3B89" stroke-width="2" fill="none"/>
 ${extras}
-</svg>`;
-}
-const PAZ_MSGS={
-  greet:["¡Hola! Ready to practise?","¡Buenas! Let's do this 🔥","Welcome back! ¡Vamos!","Let's learn some Spanish!"],
-  correct:["¡Perfecto! 🔥","¡Excelente! ✨","Brillante! Keep it up!","¡Muy bien! 🎯","¡Correcto! Estupendo!"],
-  fast:["¡Increíble! So fast! ⚡","Lightning fast! ⚡","¡Rápido y perfecto! ⚡"],
-  wrong:["Almost! You've got this 💪","Close — try again next time!","Don't worry, practice makes perfect","¡Ánimo! Nearly there!"],
-  skip:["No worries, it'll come back!","You'll get it next time 😊","I'll show you this one again!"],
-  end_great:["¡Fantástico! Amazing session! 🏆","You're on fire! ¡Excelente! 🔥","¡Bravo! Outstanding work! 🌟"],
-  end_good:["Good progress! Keep it up ⭐","¡Bien hecho! More tomorrow? 😊","Getting better every day! ⭐"],
-  end_ok:["Keep going — you'll get there! 💪","¡Sigue adelante! Don't give up!","Every session makes you stronger!"]
-};
+</svg>`;}
+const PAZ_MSGS={greet:["¡Hola, che! ¿Arrancamos?","¡Buenas! ¡Dale, vamos! 🔥","¡Bienvenido de vuelta! ¡Vamos!","¡Hola! ¿Empezamos con el español?","¡Dale, che! A practicar 💪"],correct:["¡La rompiste! 🔥","¡Sos un crack! ✨","¡Bárbaro! ¡Seguí así!","¡Re bien! 🎯","¡Qué capo! ¡Dale!","¡Copado! ¡Perfecto!"],fast:["¡Qué groso, re rápido! ⚡","¡La rompiste! ¡Rapidísimo! ⚡","¡Sos un fenómeno! ⚡"],wrong:["¡Casi, casi! ¡Vos podés! 💪","Tranqui, vas a poder la próxima","No pasa nada, ¡seguí intentando!","¡Ánimo, che! Casi lo tenés"],skip:["¡Dale, no te preocupes!","La próxima te va a salir 😊","Te la vuelvo a mostrar, ¡tranqui!"],end_great:["¡La rompiste! ¡Sos un crack! 🏆","¡Qué fenómeno! ¡Bárbaro! 🔥","¡Copado! ¡Laburo increíble! 🌟"],end_good:["¡Bárbaro! ¡Seguí así! ⭐","¡Bien hecho, che! ¿Mañana más? 😊","¡Re bien! Cada día mejor ⭐"],end_ok:["¡Dale, vos podés! No te rajes 💪","¡Seguí adelante, che! ¡No te rindas!","Cada sesión te hace más groso/a!"]};
 function pazMsg(t){const a=PAZ_MSGS[t]||PAZ_MSGS.greet;return a[Math.floor(Math.random()*a.length)];}
 let prog={},stats={correct:0,incorrect:0,sessions:0,streak:0,lastSessionDate:null};
 let selLevels=["A1"],selTenses=["present","preterite","imperfect","future"];
@@ -318,12 +193,7 @@ let cards=[],cardIdx=0,curCard=null,sessionMode="words",sessionSz=20;
 let score={c:0,w:0,p:0},submitted=false,hintShown=false;
 let curAns="",curAlts=[],lastCfg=null,cardShownAt=0;
 let micActive=false,recognition=null,micRestarting=false,cardToken=0,autoSubmitTimer=null;
-function loadData(){
-  try{const p=localStorage.getItem("esp_prog");if(p)prog=JSON.parse(p);}catch(e){}
-  try{const s=localStorage.getItem("esp_stats");if(s)stats=JSON.parse(s);}catch(e){}
-  try{const sz=localStorage.getItem("esp_sessz");if(sz)sessionSz=parseInt(sz);}catch(e){}
-  document.body.setAttribute("data-theme",localStorage.getItem("esp_theme")||"dark");
-}
+function loadData(){try{const p=localStorage.getItem("esp_prog");if(p)prog=JSON.parse(p);}catch(e){}try{const s=localStorage.getItem("esp_stats");if(s)stats=JSON.parse(s);}catch(e){}try{const sz=localStorage.getItem("esp_sessz");if(sz)sessionSz=parseInt(sz);}catch(e){}document.body.setAttribute("data-theme",localStorage.getItem("esp_theme")||"dark");}
 function saveProg(){localStorage.setItem("esp_prog",JSON.stringify(prog));}
 function saveStats(){localStorage.setItem("esp_stats",JSON.stringify(stats));}
 function updateStreak(){const today=new Date().toDateString(),yesterday=new Date(Date.now()-86400000).toDateString();if(stats.lastSessionDate===today)return;stats.streak=stats.lastSessionDate===yesterday?(stats.streak||0)+1:1;stats.lastSessionDate=today;}
@@ -343,7 +213,7 @@ function set(id,v){const el=document.getElementById(id);if(el)el.textContent=v;}
 function clearInput(){const inp=document.getElementById("ans");if(inp)inp.value="";}
 function toggleTheme(){const cur=document.body.getAttribute("data-theme")||"dark",next=cur==="dark"?"light":"dark";document.body.setAttribute("data-theme",next);localStorage.setItem("esp_theme",next);renderThemeBtn();}
 function renderThemeBtn(){const btn=document.getElementById("themebtn");if(!btn)return;const dark=document.body.getAttribute("data-theme")==="dark";btn.innerHTML=dark?`<svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/><line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/></svg>`:`<svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 12.79A9 9 0 1 1 11.21 3a7 7 0 0 0 9.79 9.79z"/></svg>`;}
-function speak(txt){if(!window.speechSynthesis)return;window.speechSynthesis.cancel();const u=new SpeechSynthesisUtterance(txt);u.lang="es-ES";u.rate=0.85;window.speechSynthesis.speak(u);}
+function speak(txt){if(!window.speechSynthesis)return;window.speechSynthesis.cancel();const u=new SpeechSynthesisUtterance(txt);u.lang="es-AR";u.rate=0.85;window.speechSynthesis.speak(u);}
 function toggleMic(){micActive?stopMic():startMic();}
 function startMic(){const SR=window.SpeechRecognition||window.webkitSpeechRecognition;if(!SR){showToast("Speech not supported here");return;}micActive=true;setMicUI(true,"Listening…",false);doListen(cardToken);}
 function doListen(token){if(!micActive||token!==cardToken)return;const SR=window.SpeechRecognition||window.webkitSpeechRecognition;recognition=new SR();recognition.lang="es-ES";recognition.continuous=false;recognition.interimResults=true;recognition.onresult=e=>{if(token!==cardToken)return;let interim="",final="";for(let i=e.resultIndex;i<e.results.length;i++){if(e.results[i].isFinal)final+=e.results[i][0].transcript;else interim+=e.results[i][0].transcript;}const inp=document.getElementById("ans");if(!inp||submitted)return;if(final){inp.value=final;setMicUI(true,"Checking…  tap Try Again to redo",true);clearTimeout(autoSubmitTimer);autoSubmitTimer=setTimeout(()=>{if(!submitted)checkAns();},900);}else if(interim)inp.value=interim;};recognition.onerror=e=>{if(e.error==="not-allowed"||e.error==="denied"){showToast("Mic blocked — check Safari settings");stopMic();return;}if(micActive&&!micRestarting&&token===cardToken)scheduleRestart(token);};recognition.onend=()=>{if(micActive&&!micRestarting&&token===cardToken)scheduleRestart(token);};try{recognition.start();}catch(e){}}
@@ -364,28 +234,10 @@ function showCard(){
   const hb=document.getElementById("hintbtn");if(hb)hb.style.opacity="1";
   const pr=document.getElementById("paz-react");if(pr)pr.style.display="none";
   if(micActive){setMicUI(true,"Listening…",false);if(recognition){try{recognition.abort();}catch(e){}recognition=null;}micRestarting=false;setTimeout(()=>doListen(myToken),200);}
-  if(curCard.type==="word"){
-    curAns=curCard.es;curAlts=curCard.alts||[];
-    set("cpill",curCard.level||"—");set("cinst","Translate to Spanish");
-    const p=prog[curCard.id]?.passed||0;
-    const altsNote=curAlts.length?`<div style="font-size:11px;color:var(--tx3);margin-top:6px">(also: ${curAlts.join(", ")})</div>`:"";
-    document.getElementById("cword").innerHTML=`<div style="font-size:38px;font-weight:700;letter-spacing:-.02em;line-height:1.1">${curCard.en}</div>${altsNote}`;
-    const sn=document.getElementById("skipnote");if(sn){sn.style.display=p>0?"inline":"none";sn.textContent=`Skipped ${p}× before`;}
-  }else if(curCard.type==="sentence"){
-    curAns=curCard.es;curAlts=curCard.alts||[];
-    set("cpill","Phrase · "+curCard.level);set("cinst","Translate this phrase");
-    document.getElementById("cword").innerHTML=`<div style="font-size:21px;font-weight:600;line-height:1.35">${curCard.en}</div>`;
-    const sn=document.getElementById("skipnote");if(sn)sn.style.display="none";
-  }else{
-    curAns=curCard.answer;curAlts=[];
-    set("cpill",TN[curCard.tense]);set("cinst","Conjugate this verb");
-    document.getElementById("cword").innerHTML=`<div style="font-size:16px;color:var(--tx2);margin-bottom:4px;font-weight:500">${curCard.pronoun}</div><div style="font-size:34px;font-weight:700;letter-spacing:-.02em">${curCard.verb.i}</div><div style="font-size:12px;color:var(--tx3);margin-top:4px">${curCard.verb.m}</div>`;
-    const sn=document.getElementById("skipnote");if(sn)sn.style.display="none";
-  }
-  const pct=Math.round((cardIdx+1)/sessionSz*100);
-  document.getElementById("pfill").style.width=pct+"%";
-  set("plbl",`${cardIdx+1} / ${sessionSz}`);
-  set("sc",score.c);set("sw",score.w);set("sp",score.p);
+  if(curCard.type==="word"){curAns=curCard.es;curAlts=curCard.alts||[];set("cpill",curCard.level||"—");set("cinst","Translate to Spanish");const p=prog[curCard.id]?.passed||0;const altsNote=curAlts.length?`<div style="font-size:11px;color:var(--tx3);margin-top:6px">(also: ${curAlts.join(", ")})</div>`:"";document.getElementById("cword").innerHTML=`<div style="font-size:38px;font-weight:700;letter-spacing:-.02em;line-height:1.1">${curCard.en}</div>${altsNote}`;const sn=document.getElementById("skipnote");if(sn){sn.style.display=p>0?"inline":"none";sn.textContent=`Skipped ${p}× before`;}}
+  else if(curCard.type==="sentence"){curAns=curCard.es;curAlts=curCard.alts||[];set("cpill","Phrase · "+curCard.level);set("cinst","Translate this phrase");document.getElementById("cword").innerHTML=`<div style="font-size:21px;font-weight:600;line-height:1.35">${curCard.en}</div>`;const sn=document.getElementById("skipnote");if(sn)sn.style.display="none";}
+  else{curAns=curCard.answer;curAlts=[];set("cpill",TN[curCard.tense]);set("cinst","Conjugate this verb");document.getElementById("cword").innerHTML=`<div style="font-size:16px;color:var(--tx2);margin-bottom:4px;font-weight:500">${curCard.pronoun}</div><div style="font-size:34px;font-weight:700;letter-spacing:-.02em">${curCard.verb.i}</div><div style="font-size:12px;color:var(--tx3);margin-top:4px">${curCard.verb.m}</div>`;const sn=document.getElementById("skipnote");if(sn)sn.style.display="none";}
+  const pct=Math.round((cardIdx+1)/sessionSz*100);document.getElementById("pfill").style.width=pct+"%";set("plbl",`${cardIdx+1} / ${sessionSz}`);set("sc",score.c);set("sw",score.w);set("sp",score.p);
   const card=document.getElementById("flip-inner");if(card){card.style.animation="none";void card.offsetWidth;card.style.animation="slideIn .25s ease";}
   setTimeout(()=>{const i=document.getElementById("ans");if(i&&!micActive)i.focus();},150);
 }
@@ -395,8 +247,7 @@ function showFeedback(ok,inp,rt){
   setTimeout(()=>{const fi=document.getElementById("flip-inner");if(fi)fi.classList.add("flipped");},50);
   const allAnswers=[curAns,...curAlts].join(" / ");
   const back=document.getElementById("card-back");
-  if(back){
-    let bgCol,borderCol,icon,msg,msgCol;
+  if(back){let bgCol,borderCol,icon,msg,msgCol;
     if(ok===true){const fast=rt/1000<4;bgCol="var(--ok-bg)";borderCol="rgba(74,222,128,0.3)";icon=fast?"⚡":"✓";msg=fast?pazMsg("fast"):pazMsg("correct");msgCol="var(--ok-tx)";}
     else if(ok===false){bgCol="var(--err-bg)";borderCol="rgba(255,82,82,0.3)";icon="✗";const sim=similarity(inp,curAns);msg=sim>=0.8?"Very close! "+pazMsg("wrong"):pazMsg("wrong");msgCol="var(--err-tx)";}
     else{bgCol="var(--bg3)";borderCol="var(--bdr2)";icon="→";msg=pazMsg("skip");msgCol="var(--tx2)";}
@@ -407,24 +258,11 @@ function showFeedback(ok,inp,rt){
   const pr=document.getElementById("paz-react");
   if(pr){const mood=ok===true?"happy":ok===false?"encourage":"neutral";pr.innerHTML=`<div style="display:flex;align-items:flex-end;gap:10px">${getPaz(mood,60)}<div class="paz-bubble" style="font-size:12px">${ok===true?(rt/1000<4?pazMsg("fast"):pazMsg("correct")):ok===false?pazMsg("wrong"):pazMsg("skip")}</div></div>`;pr.style.display="block";pr.classList.remove("fade-up");void pr.offsetWidth;pr.classList.add("fade-up");}
   const fw=document.getElementById("flip-wrap");if(fw){if(ok===true){fw.classList.remove("pop");void fw.offsetWidth;fw.classList.add("pop");}else if(ok===false){fw.classList.remove("shake");void fw.offsetWidth;fw.classList.add("shake");}}
-  document.getElementById("inputarea").style.display="none";
-  document.getElementById("actrow").style.display="none";
-  document.getElementById("nextbtn").style.display="block";
-  set("sc",score.c);set("sw",score.w);set("sp",score.p);
-  if(ok!==true)speak(curAns);
+  document.getElementById("inputarea").style.display="none";document.getElementById("actrow").style.display="none";document.getElementById("nextbtn").style.display="block";
+  set("sc",score.c);set("sw",score.w);set("sp",score.p);if(ok!==true)speak(curAns);
 }
 function nextCard(){cardIdx++;if(cardIdx>=sessionSz){endSession();return;}showCard();}
-function endSession(){
-  updateStreak();stats.correct+=score.c;stats.incorrect+=score.w;stats.sessions+=1;saveStats();stopMic();
-  const tot=score.c+score.w+score.p,pct=tot?Math.round(score.c/tot*100):0;
-  set("endc",score.c);set("endw",score.w);set("endp",score.p);
-  const great=pct>=80,good=pct>=60;
-  set("endtitle",great?"¡Fantástico! 🏆":good?"Good progress ⭐":"Keep going! 💪");
-  set("endsub",pct+"% correct · "+(stats.streak||0)+" day streak 🔥");
-  const ep=document.getElementById("end-paz");if(ep)ep.innerHTML=getPaz(great?"celebrate":good?"happy":"encourage",90);
-  const em=document.getElementById("end-paz-msg");if(em)em.textContent=pazMsg(great?"end_great":good?"end_good":"end_ok");
-  showScreen("end");updateHomeStats();
-}
+function endSession(){updateStreak();stats.correct+=score.c;stats.incorrect+=score.w;stats.sessions+=1;saveStats();stopMic();const tot=score.c+score.w+score.p,pct=tot?Math.round(score.c/tot*100):0;set("endc",score.c);set("endw",score.w);set("endp",score.p);const great=pct>=80,good=pct>=60;set("endtitle",great?"¡Fantástico! 🏆":good?"Good progress ⭐":"Keep going! 💪");set("endsub",pct+"% correct · "+(stats.streak||0)+" day streak 🔥");const ep=document.getElementById("end-paz");if(ep)ep.innerHTML=getPaz(great?"celebrate":good?"happy":"encourage",90);const em=document.getElementById("end-paz-msg");if(em)em.textContent=pazMsg(great?"end_great":good?"end_good":"end_ok");showScreen("end");updateHomeStats();}
 function showHint(){if(hintShown||submitted)return;hintShown=true;const h=document.getElementById("hintrow");h.textContent=curAns.slice(0,2).padEnd(curAns.length,"·");h.style.display="block";document.getElementById("hintbtn").style.opacity="0.4";}
 function showScreen(id){document.querySelectorAll(".sc").forEach(s=>{s.style.display="none";s.classList.remove("active");});const el=document.getElementById("sc-"+id);if(el){el.style.display="block";el.classList.add("active");}window.scrollTo(0,0);if(id==="home")updateHomeStats();if(id==="level-select")buildLevelCards();if(id==="tense-select")buildTenseCards();}
 function updateHomeStats(){set("statStreak",(stats.streak||0)+"");renderThemeBtn();const grid=document.getElementById("levelgrid");if(!grid)return;grid.innerHTML="";LEVELS.forEach(lv=>{const s=getLevelStats(lv),fp=s.total?Math.round(s.fluent/s.total*100):0,pp=s.total?Math.round(s.practicing/s.total*100):0;const d=document.createElement("div");d.style.cssText="background:var(--bg2);border:.5px solid var(--bdr2);border-radius:var(--r);padding:.875rem 1rem";d.innerHTML=`<div style="display:flex;justify-content:space-between;margin-bottom:5px"><span style="font-size:13px;font-weight:700;color:var(--coral-m)">${lv}</span><span style="font-size:10px;color:var(--tx3)">${s.total}w</span></div><div style="display:flex;gap:8px;font-size:10px;color:var(--tx2);margin-bottom:5px;flex-wrap:wrap"><span><span class="sdot" style="background:var(--green)"></span>${s.fluent}</span><span><span class="sdot" style="background:var(--amber)"></span>${s.practicing}</span><span><span class="sdot" style="background:var(--bg4)"></span>${s.learning}</span></div><div class="seg-bar"><div class="seg-g" style="width:${fp}%"></div><div class="seg-a" style="width:${pp}%"></div><div class="seg-e"></div></div>`;grid.appendChild(d);});}
