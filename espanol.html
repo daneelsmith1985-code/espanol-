@@ -22,7 +22,6 @@
   --ok-bg:rgba(74,222,128,0.12);--ok-tx:#4ADE80;
   --err-bg:rgba(255,82,82,0.12);--err-tx:#FF7070;
   --r:16px;--rs:10px;
-  font-family:'Inter',-apple-system,system-ui,sans-serif;
 }
 body[data-theme="light"]{
   --bg:#F5F4F2;--bg2:#ECEAE6;--bg3:#E2E0DA;--bg4:#D8D5CE;
@@ -38,7 +37,6 @@ body{background:var(--bg);color:var(--tx);font-family:'Inter',-apple-system,syst
 body::before{content:'';position:fixed;inset:0;background:radial-gradient(ellipse at 20% 10%,rgba(255,95,61,0.07) 0%,transparent 55%),radial-gradient(ellipse at 80% 90%,rgba(124,111,255,0.07) 0%,transparent 55%);pointer-events:none;z-index:0}
 #app{max-width:420px;margin:0 auto;padding:1.25rem 1rem 2rem;position:relative;z-index:1}
 button{font-family:inherit;cursor:pointer}input{font-family:inherit}
-.glass{background:var(--glass);backdrop-filter:blur(20px);-webkit-backdrop-filter:blur(20px);border:.5px solid var(--bdr2);border-radius:var(--r)}
 .glass2{background:var(--bg2);border:.5px solid var(--bdr2);border-radius:var(--r)}
 .btn-p{background:linear-gradient(135deg,var(--coral),#FF3D6B);color:#fff;border:none;border-radius:var(--r);padding:.9rem 1rem;font-size:14px;font-weight:600;width:100%;letter-spacing:.02em;box-shadow:0 4px 20px rgba(255,95,61,0.3);transition:opacity .15s,transform .15s}
 .btn-p:active{opacity:.85;transform:scale(.98)}
@@ -156,33 +154,53 @@ const VERBS=[
 {i:"llamar",m:"to call",present:{yo:"llamo",tú:"llamas","él/ella":"llama",nosotros:"llamamos",vosotros:"llamáis","ellos/ellas":"llaman"},preterite:{yo:"llamé",tú:"llamaste","él/ella":"llamó",nosotros:"llamamos",vosotros:"llamasteis","ellos/ellas":"llamaron"},imperfect:{yo:"llamaba",tú:"llamabas","él/ella":"llamaba",nosotros:"llamábamos",vosotros:"llamabais","ellos/ellas":"llamaban"},future:{yo:"llamaré",tú:"llamarás","él/ella":"llamará",nosotros:"llamaremos",vosotros:"llamaréis","ellos/ellas":"llamarán"}},
 {i:"creer",m:"to believe/think",present:{yo:"creo",tú:"crees","él/ella":"cree",nosotros:"creemos",vosotros:"creéis","ellos/ellas":"creen"},preterite:{yo:"creí",tú:"creíste","él/ella":"creyó",nosotros:"creímos",vosotros:"creísteis","ellos/ellas":"creyeron"},imperfect:{yo:"creía",tú:"creías","él/ella":"creía",nosotros:"creíamos",vosotros:"creíais","ellos/ellas":"creían"},future:{yo:"creeré",tú:"creerás","él/ella":"creerá",nosotros:"creeremos",vosotros:"creeréis","ellos/ellas":"creerán"}}
 ];
-function getPaz(mood,size){size=size||110;const happy=mood==='happy'||mood==='celebrate';const enc=mood==='encourage';const mouth=happy?`<path d="M52 96 Q60 106 68 96" stroke="#B07060" stroke-width="2.5" fill="none" stroke-linecap="round"/><path d="M52 96 Q60 104 68 96 Q60 101 52 96Z" fill="#C08070"/>`:enc?`<path d="M53 94 Q60 98 67 94" stroke="#A06858" stroke-width="2" fill="none" stroke-linecap="round"/>`:
-`<path d="M52 93 Q60 99 68 93" stroke="#A06858" stroke-width="2.5" fill="none" stroke-linecap="round"/><path d="M52 93 Q60 97 68 93 Q60 95 52 93Z" fill="#B87868" opacity="0.6"/>`;
-const eyes=happy?`<path d="M46 70 Q51 65 56 70" stroke="#180800" stroke-width="2.5" fill="none" stroke-linecap="round"/><path d="M64 70 Q69 65 74 70" stroke="#180800" stroke-width="2.5" fill="none" stroke-linecap="round"/>`:
-`<ellipse cx="51" cy="70" rx="8" ry="6.5" fill="white"/><ellipse cx="51" cy="71" rx="5.5" ry="5.5" fill="#2C0E00"/><ellipse cx="51" cy="71" rx="3.5" ry="3.5" fill="#0A0400"/><ellipse cx="53" cy="69" rx="1.4" ry="1.4" fill="white"/><ellipse cx="69" cy="70" rx="8" ry="6.5" fill="white"/><ellipse cx="69" cy="71" rx="5.5" ry="5.5" fill="#2C0E00"/><ellipse cx="69" cy="71" rx="3.5" ry="3.5" fill="#0A0400"/><ellipse cx="71" cy="69" rx="1.4" ry="1.4" fill="white"/><path d="M43 66 L41 63 M47 65 L46 62 M51 65 L51 62 M55 65 L56 62 M59 66 L61 63" stroke="#0A0400" stroke-width="1.1" stroke-linecap="round"/><path d="M61 66 L59 63 M65 65 L64 62 M69 65 L69 62 M73 65 L74 62 M77 66 L79 63" stroke="#0A0400" stroke-width="1.1" stroke-linecap="round"/>`;
-const extras=mood==='celebrate'?`<text x="82" y="30" font-size="14">✨</text><text x="10" y="45" font-size="12">⭐</text><text x="75" y="58" font-size="10">✦</text>`:'';
-const h=Math.round(size*165/120);
-return`<svg viewBox="0 0 120 165" width="${size}" height="${h}" xmlns="http://www.w3.org/2000/svg">
-<defs><radialGradient id="pg${mood}" cx="45%" cy="40%" r="60%"><stop offset="0%" stop-color="#F2CEAD"/><stop offset="100%" stop-color="#DBA882"/></radialGradient></defs>
-<path d="M22 88 Q12 58 18 32 Q28 4 60 3 Q92 4 102 32 Q108 58 98 88 Q93 112 88 132 Q74 158 60 162 Q46 158 32 132 Q27 112 22 88Z" fill="#150800"/>
-<path d="M50 112 Q60 118 70 112 L68 138 Q60 142 52 138Z" fill="url(#pg${mood})"/>
-<ellipse cx="60" cy="73" rx="34" ry="40" fill="url(#pg${mood})"/>
-<path d="M26 52 Q16 28 28 13 Q40 2 60 2 Q80 2 92 13 Q104 28 94 52 Q88 30 74 24 Q60 18 46 24 Q32 30 26 52Z" fill="#150800"/>
-<path d="M26 52 Q12 68 14 92 Q18 72 26 62Z" fill="#150800"/>
-<path d="M94 52 Q108 68 106 92 Q102 72 94 62Z" fill="#150800"/>
-<ellipse cx="26" cy="76" rx="5" ry="7" fill="#DBA882"/>
-<ellipse cx="94" cy="76" rx="5" ry="7" fill="#DBA882"/>
-<path d="M43 62 Q51 57 59 61" stroke="#150800" stroke-width="2.8" fill="none" stroke-linecap="round"/>
-<path d="M61 61 Q69 57 77 62" stroke="#150800" stroke-width="2.8" fill="none" stroke-linecap="round"/>
+function getPaz(mood,size){size=size||110;const happy=mood==='happy'||mood==='celebrate';const enc=mood==='encourage';
+const mouth=happy
+  ?`<path d="M50 97 Q60 110 70 97" stroke="#C07060" stroke-width="2.5" fill="none" stroke-linecap="round"/><path d="M50 97 Q60 108 70 97 Q60 104 50 97Z" fill="#D08070"/><path d="M53 97 Q60 103 67 97" stroke="rgba(255,200,190,0.6)" stroke-width="1" fill="none"/>`
+  :enc
+  ?`<path d="M52 95 Q60 100 68 95" stroke="#B06858" stroke-width="2.2" fill="none" stroke-linecap="round"/><path d="M52 95 Q60 99 68 95 Q60 97 52 95Z" fill="#C07868" opacity="0.5"/>`
+  :`<path d="M51 94 Q60 101 69 94" stroke="#B06858" stroke-width="2.5" fill="none" stroke-linecap="round"/><path d="M51 94 Q60 99 69 94 Q60 97 51 94Z" fill="#C07868" opacity="0.65"/>`;
+const lashes=happy?'':`<path d="M43 66 L40 62 M46 65 L44 61 M50 64 L49 60 M54 64 L54 60 M58 65 L59 61" stroke="#0A0300" stroke-width="1.3" stroke-linecap="round"/><path d="M62 65 L61 61 M66 64 L66 60 M70 64 L71 60 M74 65 L76 61 M77 66 L80 63" stroke="#0A0300" stroke-width="1.3" stroke-linecap="round"/>`;
+const eyes=happy
+  ?`<path d="M44 70 Q51 63 58 70" stroke="#0A0300" stroke-width="2.8" fill="none" stroke-linecap="round"/><path d="M62 70 Q69 63 76 70" stroke="#0A0300" stroke-width="2.8" fill="none" stroke-linecap="round"/><ellipse cx="36" cy="80" rx="8" ry="5" fill="#F0A090" opacity="0.3"/><ellipse cx="84" cy="80" rx="8" ry="5" fill="#F0A090" opacity="0.3"/>`
+  :`<ellipse cx="51" cy="70" rx="9" ry="7" fill="white"/><ellipse cx="51" cy="71" rx="6.5" ry="6.5" fill="#2A1A0A"/><ellipse cx="51" cy="71" rx="4" ry="4" fill="#0A0400"/><ellipse cx="53.5" cy="68.5" rx="1.6" ry="1.6" fill="white"/><ellipse cx="49.5" cy="72" rx=".7" ry=".7" fill="rgba(255,255,255,0.4)"/><path d="M42 68 Q51 64 60 68" stroke="#0A0300" stroke-width="1.8" fill="none" stroke-linecap="round"/><ellipse cx="69" cy="70" rx="9" ry="7" fill="white"/><ellipse cx="69" cy="71" rx="6.5" ry="6.5" fill="#2A1A0A"/><ellipse cx="69" cy="71" rx="4" ry="4" fill="#0A0400"/><ellipse cx="71.5" cy="68.5" rx="1.6" ry="1.6" fill="white"/><ellipse cx="67.5" cy="72" rx=".7" ry=".7" fill="rgba(255,255,255,0.4)"/><path d="M60 68 Q69 64 78 68" stroke="#0A0300" stroke-width="1.8" fill="none" stroke-linecap="round"/>`;
+const extras=mood==='celebrate'?`<text x="84" y="28" font-size="15">✨</text><text x="8" y="42" font-size="13">⭐</text><text x="76" y="55" font-size="11">✦</text>`:'';
+const h=Math.round(size*170/120);
+return`<svg viewBox="0 0 120 170" width="${size}" height="${h}" xmlns="http://www.w3.org/2000/svg">
+<defs>
+<radialGradient id="sk${mood}" cx="42%" cy="38%" r="62%"><stop offset="0%" stop-color="#F5D5B5"/><stop offset="60%" stop-color="#EEC09A"/><stop offset="100%" stop-color="#DBA882"/></radialGradient>
+<radialGradient id="gl${mood}" cx="50%" cy="50%" r="50%"><stop offset="0%" stop-color="#FFB347" stop-opacity="0.2"/><stop offset="100%" stop-color="#FFB347" stop-opacity="0"/></radialGradient>
+</defs>
+<ellipse cx="60" cy="98" rx="52" ry="58" fill="url(#gl${mood})"/>
+<path d="M10 85 Q2 55 10 30 Q20 4 60 2 Q100 4 110 30 Q118 55 110 85 Q105 100 100 120 Q88 158 60 165 Q32 158 20 120 Q15 100 10 85Z" fill="#180900"/>
+<path d="M48 115 Q60 122 72 115 L70 144 Q60 150 50 144Z" fill="url(#sk${mood})"/>
+<ellipse cx="60" cy="74" rx="36" ry="42" fill="url(#sk${mood})"/>
+<path d="M24 50 Q14 24 26 10 Q38 0 60 0 Q82 0 94 10 Q106 24 96 50 Q90 28 76 20 Q68 16 60 16 Q52 16 44 20 Q30 28 24 50Z" fill="#180900"/>
+<path d="M24 50 Q8 72 10 100 Q14 76 22 64Z" fill="#180900"/>
+<path d="M96 50 Q112 72 110 100 Q106 76 98 64Z" fill="#180900"/>
+<path d="M42 4 Q52 0 60 0" stroke="#2C1008" stroke-width="2.5" fill="none" opacity="0.6" stroke-linecap="round"/>
+<path d="M32 14 Q24 30 22 52" stroke="#2C1008" stroke-width="1.8" fill="none" opacity="0.35" stroke-linecap="round"/>
+<path d="M78 4 Q88 8 94 20" stroke="#2C1008" stroke-width="1.8" fill="none" opacity="0.35" stroke-linecap="round"/>
+<path d="M22 80 Q14 100 16 118 Q18 105 24 92Z" fill="#180900"/>
+<path d="M98 80 Q106 100 104 118 Q102 105 96 92Z" fill="#180900"/>
+<ellipse cx="24" cy="77" rx="5.5" ry="7.5" fill="#DBA882"/>
+<ellipse cx="96" cy="77" rx="5.5" ry="7.5" fill="#DBA882"/>
+<path d="M41 61 Q51 55 61 59" stroke="#1A0800" stroke-width="3" fill="none" stroke-linecap="round"/>
+<path d="M59 59 Q69 55 79 61" stroke="#1A0800" stroke-width="3" fill="none" stroke-linecap="round"/>
+${lashes}
 ${eyes}
-<path d="M43 67 Q51 63 59 67" stroke="#150800" stroke-width="1.5" fill="none" stroke-linecap="round" opacity="${happy?0:1}"/>
-<path d="M61 67 Q69 63 77 67" stroke="#150800" stroke-width="1.5" fill="none" stroke-linecap="round" opacity="${happy?0:1}"/>
-<path d="M57 80 Q55 88 58 90 Q60 92 62 90 Q65 88 63 80" stroke="#A06040" stroke-width="1.5" fill="none" stroke-linecap="round"/>
-<ellipse cx="36" cy="82" rx="7" ry="5" fill="#E8907A" opacity="${happy?'0.18':'0.08'}"/>
-<ellipse cx="84" cy="82" rx="7" ry="5" fill="#E8907A" opacity="${happy?'0.18':'0.08'}"/>
+<path d="M57 80 Q54 90 57 93 Q60 95 63 93 Q66 90 63 80" stroke="#C09070" stroke-width="1.3" fill="none" stroke-linecap="round" opacity="0.7"/>
+<ellipse cx="57.5" cy="92" rx="2.2" ry="1.2" fill="#C09070" opacity="0.25"/>
+<ellipse cx="62.5" cy="92" rx="2.2" ry="1.2" fill="#C09070" opacity="0.25"/>
+<ellipse cx="34" cy="83" rx="9" ry="6" fill="#F0A090" opacity="${happy?'0.28':'0.12'}"/>
+<ellipse cx="86" cy="83" rx="9" ry="6" fill="#F0A090" opacity="${happy?'0.28':'0.12'}"/>
+<path d="M49 93 Q55 90 60 91 Q65 90 71 93 Q65 91 60 92 Q55 91 49 93Z" fill="#C07060" opacity="0.7"/>
 ${mouth}
-<path d="M10 165 Q18 143 40 138 Q52 135 60 137 Q68 135 80 138 Q102 143 110 165Z" fill="#2D1B69"/>
-<path d="M52 137 Q56 143 60 145 Q64 143 68 137" stroke="#4D3B89" stroke-width="2" fill="none"/>
+<ellipse cx="60" cy="108" rx="8" ry="3" fill="white" opacity="0.06"/>
+<path d="M8 170 Q16 146 38 140 Q50 136 60 138 Q70 136 82 140 Q104 146 112 170Z" fill="#1A0E3A"/>
+<path d="M50 138 Q56 146 60 150 Q64 146 70 138" stroke="#2D1B5A" stroke-width="2.5" fill="none"/>
+<path d="M38 140 Q28 142 20 148" stroke="#2D1B5A" stroke-width="1.5" fill="none" opacity="0.6"/>
+<path d="M82 140 Q92 142 100 148" stroke="#2D1B5A" stroke-width="1.5" fill="none" opacity="0.6"/>
 ${extras}
 </svg>`;}
 const PAZ_MSGS={greet:["¡Hola, che! ¿Arrancamos?","¡Buenas! ¡Dale, vamos! 🔥","¡Bienvenido de vuelta! ¡Vamos!","¡Hola! ¿Empezamos con el español?","¡Dale, che! A practicar 💪"],correct:["¡La rompiste! 🔥","¡Sos un crack! ✨","¡Bárbaro! ¡Seguí así!","¡Re bien! 🎯","¡Qué capo! ¡Dale!","¡Copado! ¡Perfecto!"],fast:["¡Qué groso, re rápido! ⚡","¡La rompiste! ¡Rapidísimo! ⚡","¡Sos un fenómeno! ⚡"],wrong:["¡Casi, casi! ¡Vos podés! 💪","Tranqui, vas a poder la próxima","No pasa nada, ¡seguí intentando!","¡Ánimo, che! Casi lo tenés"],skip:["¡Dale, no te preocupes!","La próxima te va a salir 😊","Te la vuelvo a mostrar, ¡tranqui!"],end_great:["¡La rompiste! ¡Sos un crack! 🏆","¡Qué fenómeno! ¡Bárbaro! 🔥","¡Copado! ¡Laburo increíble! 🌟"],end_good:["¡Bárbaro! ¡Seguí así! ⭐","¡Bien hecho, che! ¿Mañana más? 😊","¡Re bien! Cada día mejor ⭐"],end_ok:["¡Dale, vos podés! No te rajes 💪","¡Seguí adelante, che! ¡No te rindas!","Cada sesión te hace más groso/a!"]};
